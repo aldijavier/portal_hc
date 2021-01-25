@@ -7,23 +7,19 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{{ route('beranda-hc') }}" class="nav-link">Home</a>
       </li>
+      <li class="nav-item dropdown d-none d-sm-inline-block">
+        <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Data Karyawan</a>
+          <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+            <li><a href="{{ route('data-karyawan') }}" class="dropdown-item">Manajemen Data Karyawan</a></li>
+            <li><a href="{{ route('filter-data-karyawan') }}" class="dropdown-item">Filter Data Karyawan</a></li>
+            <li><a href="{{ route('filter-data-karyawan2') }}" class="dropdown-item">Filter Data Karyawan2</a></li>
+          </ul>
+      </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{{ route('data-pelamar') }}" class="nav-link">Data Pelamar</a>
       </li>
     </ul>
-
-    <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-      </div>
-    </form>
-
+    
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">

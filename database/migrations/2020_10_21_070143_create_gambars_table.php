@@ -31,6 +31,12 @@ class CreateGambarsTable extends Migration
             $table->string('districts');
             $table->string('villages');
             $table->string('kode_pos');
+            $table->string('alamat2');
+            $table->string('provinces2');
+            $table->string('regencies2');
+            $table->string('districts2');
+            $table->string('villages2');
+            $table->string('kode_pos2');
             $table->string('pendidikan_terakhir');
             $table->string('universitas');
             $table->string('jurusan');
