@@ -93,7 +93,7 @@ class ControllerKaryawan extends Controller
                 'indonesia_provinces.name as province',
                 'indonesia_cities.name as city',
                 'indonesia_districts.name as district',
-                'indonesia_villages.name as village',
+                'indonesia_villages.name as village'
                 )
                 ->leftjoin('indonesia_villages','indonesia_villages.id','karyawan.int_emp_villages1')
                 ->leftjoin('indonesia_districts','indonesia_districts.id','karyawan.int_emp_districts1')
@@ -106,7 +106,7 @@ class ControllerKaryawan extends Controller
                 'indonesia_provinces.name as province',
                 'indonesia_cities.name as city',
                 'indonesia_districts.name as district',
-                'indonesia_villages.name as village',
+                'indonesia_villages.name as village'
                 )
                 ->leftjoin('indonesia_villages','indonesia_villages.id','karyawan.int_emp_villages2')
                 ->leftjoin('indonesia_districts','indonesia_districts.id','karyawan.int_emp_districts2')
@@ -116,14 +116,14 @@ class ControllerKaryawan extends Controller
                 ->get();
         
         $div = Karyawan::select('karyawan.*',
-                'division.division_name as division_name',
+                'division.division_name as division_name'
                 )
                 ->leftjoin('division','division.division_id','karyawan.int_emp_division')
                 ->where('karyawan.int_emp_id','=',$id)
                 ->get();
         
         $dept = Karyawan::select('karyawan.*',
-                'department.department_name as department_name',
+                'department.department_name as department_name'
                 )
                 ->leftjoin('department','department.department_id','karyawan.int_emp_department')
                 ->where('karyawan.int_emp_id','=',$id)
@@ -143,7 +143,7 @@ class ControllerKaryawan extends Controller
                 'indonesia_provinces.name as province',
                 'indonesia_cities.name as city',
                 'indonesia_districts.name as district',
-                'indonesia_villages.name as village',
+                'indonesia_villages.name as village'
                 )
                 ->leftjoin('indonesia_villages','indonesia_villages.id','karyawan.int_emp_villages1')
                 ->leftjoin('indonesia_districts','indonesia_districts.id','karyawan.int_emp_districts1')
@@ -160,7 +160,7 @@ class ControllerKaryawan extends Controller
                 'indonesia_provinces.name as province',
                 'indonesia_cities.name as city',
                 'indonesia_districts.name as district',
-                'indonesia_villages.name as village',
+                'indonesia_villages.name as village'
                 )
                 ->leftjoin('indonesia_villages','indonesia_villages.id','karyawan.int_emp_villages2')
                 ->leftjoin('indonesia_districts','indonesia_districts.id','karyawan.int_emp_districts2')
@@ -170,14 +170,14 @@ class ControllerKaryawan extends Controller
                 ->get();
 
        $div = Karyawan::select('karyawan.*',
-                'division.division_name as division_name',
+                'division.division_name as division_name'
                 )
                 ->leftjoin('division','division.division_id','karyawan.int_emp_division')
                 ->where('karyawan.int_emp_id','=',$id)
                 ->get();
        $divisions = Division::all();
        $dept = Karyawan::select('karyawan.*',
-                'department.department_name as department_name',
+                'department.department_name as department_name'
                 )
                 ->leftjoin('department','department.department_id','karyawan.int_emp_department')
                 ->where('karyawan.int_emp_id','=',$id)
