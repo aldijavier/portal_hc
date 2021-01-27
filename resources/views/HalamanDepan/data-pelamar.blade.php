@@ -50,7 +50,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="example2" class="table table-bordered table-striped">
+                <table id="" class="table table-bordered table-striped example4">
                 <thead>
 						<tr>
               <th>No</th>

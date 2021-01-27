@@ -67,17 +67,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                 <div class="form-group">
                     <b>Status Karyawan</b>
-                    <select name="int_emp_status" class="form-control" required>
-                        <option value="" disabled>Status Karyawan</option>
-                        <option value="{{ $karyawans->int_emp_status }}">{{ $karyawans->int_emp_status }} </option>
-                        <option value="Outsource">Outsource</option>
-                        <option value="Matrix">Matrix</option>
+                    <select name="int_emp_status" class="form-control" required readonly>
+                        <option disabled value>Status Karyawan</option>
+                        <option value="{{ $karyawans->int_emp_status }}">
+                        @foreach($kode_generate ?? '' as $kode_generate)
+                        {{ $kode_generate->keterangan_kode }} </option>
+                        @endforeach
+
+                        @foreach($kode_generates ?? '' as $kode_generates)
+                        <option value="{{ $kode_generates->id_kode }}">{{ $kode_generates->keterangan_kode }}</option>
+                        @endforeach
                     </select>
                 </div>
 
                 <div class="form-group">
                     <b>Nomor Karyawan</b>
-                    <input class="form-control" name="int_emp_number" type="text" value="{{ $karyawans->int_emp_number }}" disabled required>
+                    <input class="form-control" name="int_emp_number" type="text" value="{{ $karyawans->int_emp_number }}" readonly required>
                 </div>
                 
                 <div class="form-row">
@@ -409,12 +414,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="form-group">
                         <b>Direktorat</b>
                             <select name="int_emp_directorate" class="form-control" required>
-                                <option disabled value>Pilih Direktorat</option>
-                                <option value="{{ $karyawans->int_emp_directorate }}">{{ $karyawans->int_emp_directorate }}</option>
-                                <option value="Chief Commercial Officer">Chief Commercial Officer</option>
-                                <option value="Chief Finance Officer / Director">Chief Finance Officer / Director</option>
-                                <option value="Chief Business & System Support">Chief Business & System Support</option>
-                                <option value="Chief Network Officer">Chief Network Officer</option>
+                                <option disabled value>Pilih Directorate</option>
+                                <option value="{{ $karyawans->int_emp_directorate }}">
+                                @foreach($direct ?? '' as $direct)
+                                {{ $direct->directorate_name }} </option>
+                                @endforeach
+
+                                @foreach($directorates ?? '' as $directorates)
+                                <option value="{{ $directorates->directorate_id }}">{{ $directorates->directorate_name }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -457,74 +465,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="form-group">
                         <b>Posisi</b>
                         <select name="int_emp_position" class="form-control selectsearch" required>
-                            <option value disabled>Pilih Posisi</option>
-                            <option value="{{ $karyawans->int_emp_position }}">{{ $karyawans->int_emp_position }} </option>
-                            <option value="Customer Engagement">Customer Engagement</option>
-                            <option value="Sr Customer Care Associate">Sr Customer Care Associate</option>
-                            <option value="Customer Care Associate">Customer Care Associate</option>
-                            <option value="Customer Support Engineer">Customer Support Engineer</option>
-                            <option value="Sales Support Admin">Sales Support Admin</option>
-                            <option value="Sales Support Engineer">Sales Support Engineer</option>
-                            <option value="Sales Support Engineer (Bandung)">Sales Support Engineer (Bandung)</option>
-                            <option value="Marketing Communication">Marketing Communication</option>
-                            <option value="Digital Communication">Digital Communication</option>
-                            <option value="AM - Enterprise Sales">AM - Enterprise Sales</option>
-                            <option value="AM - Enterprise Sales (Bandung)">AM - Enterprise Sales (Bandung)</option>
-                            <option value="AE - Enterprise Sales">AE - Enterprise Sales</option>
-                            <option value="AM - Wholesale Sales">AM - Wholesale Sales</option>
-                            <option value="AM - Government Sales">AM - Government Sales</option>
-                            <option value="Key Account Manager">Key Account Manager</option>
-                            <option value="Senior Accounting Associate">Senior Accounting Associate</option>
-                            <option value="Accounting Associate">Accounting Associate</option>
-                            <option value="Tax Associate">Tax Associate</option>
-                            <option value="Finance Associate">Finance Associate</option>
-                            <option value="Budget Control Associate">Budget Control Associate</option>
-                            <option value="Revenue Assurance Associate">Revenue Assurance Associate</option>
-                            <option value="Risk & Compliance Associate">Risk & Compliance Associate</option>
-                            <option value="Partner Sourcing Manager">Partner Sourcing Manager</option>
-                            <option value="Property Relation">Property Relation</option>
-                            <option value="Procurrement Associate">Procurrement Associate</option>
-                            <option value="Facility & Asset Management Associate">Facility & Asset Management Associate</option>
-                            <option value="Quality Assurance Engineer">Quality Assurance Engineer</option>
-                            <option value="UI / UX Developer">UI / UX Developer</option>
-                            <option value="Application Developer">Application Developer</option>
-                            <option value="System Engineer">System Engineer</option>
-                            <option value="Helpdesk Support Associate">Helpdesk Support Associate</option>
-                            <option value="Capacity Design Senior Engineer">Capacity Design Senior Engineer</option>
-                            <option value="Capacity Design Engineer">Capacity Design Engineer</option>
-                            <option value="Network Senior Architect">Network Senior Architect</option>
-                            <option value="Network Architect">Network Architect</option>
-                            <option value="Network Senior Engineer">Network Senior Engineer</option>
-                            <option value="Network Engineer">Network Engineer</option>
-                            <option value="Network Monitoring Engineer">Network Monitoring Engineer</option>
-                            <option value="Monitoring Support Engineer">Monitoring Support Engineer</option>
-                            <option value="Service Delivery Engineer">Service Delivery Engineer</option>
-                            <option value="Field Support">Field Support</option>
-                            <option value="Service Deliery Engineer (Bandung)">Service Deliery Engineer (Bandung)</option>
-                            <option value="Field Support (Bandung)">Field Support (Bandung)</option>
-                            <option value="Field Support (Surabaya)">Field Support (Surabaya)</option>
-                            <option value="Admin Support">Admin Support</option>
-                            <option value="Project Management">Project Management</option>
-                            <option value="Infrastructure Engineer">Infrastructure Engineer</option>
-                            <option value="Infrastructure Support">Infrastructure Support</option>
-                            <option value="NQI Engineer">NQI Engineer</option>
-                            <option value="Data Center Support (PKU)">Data Center Support (PKU)</option>
-                            <option value="Data Center Support (Cyber1)">Data Center Support (Cyber1)</option>
-                            <option value="CLS Engineer (PM)">CLS Engineer (PM)</option>
-                            <option value="CLS Support (PM)">CLS Support (PM)</option>
-                            <option value="CLS Engineer (BTM)">CLS Engineer (BTM)</option>
-                            <option value="Legal Associate">Legal Associate</option>
-                            <option value="Human Capital Associate">Human Capital Associate</option>
-                            <option value="Driver">Driver</option>
-                            <option value="Messenger">Messenger</option>
-                            <option value="Strategic Planning Manager">Strategic Planning Manager</option>
-                            <option value="Corporate Planning Associate">Corporate Planning Associate</option>
-                            <option value="Office Boy">Office Boy</option>
-                            <option value="Office Boy (PKU)">Office Boy (PKU)</option>
-                            <option value="Office Boy (PM)">Office Boy (PM)</option>
-                            <option value="Office Boy (BTM)">Office Boy (BTM)</option>
-                            <option value="Receptionist">Receptionist</option>
-                            <option value="Internal Audit Associate">Internal Audit Associate</option>
+                            <option disabled value>Pilih Directorate</option>
+                                <option value="{{ $karyawans->int_emp_position }}">
+                                @foreach($position ?? '' as $position)
+                                {{ $position->position_name }} </option>
+                                @endforeach
+
+                                @foreach($positions ?? '' as $positions)
+                                <option value="{{ $positions->position_id }}">{{ $positions->position_name }}</option>
+                                @endforeach
                         </select>   
                         </div>
                     </div>
@@ -604,7 +553,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Tanggal Resign</b>
-                            <input class="form-control" name="int_emp_resigndate" type="date" value="{{ $karyawans->int_emp_resigndate }}" required>
+                            <input class="form-control" name="int_emp_resigndate" type="date" value="{{ $karyawans->int_emp_resigndate }}">
                         </div>
                     </div>
                 </div>
@@ -626,7 +575,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                 <div class="form-group">
                     <b>Lama kerja / Worklength</b>
-                    <input class="form-control" name="int_emp_worklength" type="text" value="{{ $karyawans->int_emp_worklength }}" required>
+                    <input class="form-control" name="int_emp_worklength" type="text" value="{{ $karyawans->int_emp_worklength }}">
                 </div>
 
                 <div class="form-row">

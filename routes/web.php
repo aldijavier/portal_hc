@@ -104,4 +104,3 @@ Route::get('/export_excel', 'ControllerKaryawan@export_excel')->name('export-exc
 
 // Route untuk export data karyawan tidak aktif berupa excel di Controller Karyawan
 Route::get('/export_excel2', 'ControllerKaryawan@export_excel2')->name('export-excel2');
-

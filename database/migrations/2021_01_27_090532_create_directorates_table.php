@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDepartmentsTable extends Migration
+class CreateDirectoratesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateDepartmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('department', function (Blueprint $table) {
-            $table->increments('department_id');
-            $table->string('department_name');
+        Schema::create('directorate', function (Blueprint $table) {
+            $table->increments('directorate_id');
+            $table->string('directorate_name');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateDepartmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('department');
+        Schema::dropIfExists('directorate');
     }
 }

@@ -76,7 +76,7 @@ class KaryawanExport implements FromQuery,WithHeadings
         // /*you can use condition in query to get required result
         //  return Karyawan::query()->where('int_emp_statuss', '0');
         return Karyawan::select(
-            'karyawan.int_emp_status',
+            'kode_generate.keterangan_kode',
             'karyawan.int_emp_number',
             'karyawan.int_emp_name',
             'karyawan.int_emp_pref_name',
@@ -105,10 +105,10 @@ class KaryawanExport implements FromQuery,WithHeadings
             'karyawan.int_emp_location',
             'karyawan.int_emp_subregion',
             'karyawan.int_emp_coa',
-            'karyawan.int_emp_directorate',
+            'directorate.directorate_name',
             'division.division_name',
             'department.department_name',
-            'karyawan.int_emp_position',
+            'position.position_name',
             'karyawan.int_emp_workday',
             'karyawan.int_emp_accountno',
             'karyawan.int_emp_accountname',
@@ -129,8 +129,11 @@ class KaryawanExport implements FromQuery,WithHeadings
             'karyawan.int_emp_reportline',
             'karyawan.int_emp_regisnpwp',
             'karyawan.int_emp_statuss')
+            ->leftJoin('kode_generate', 'kode_generate.id_kode', 'karyawan.int_emp_status')
+            ->leftJoin('directorate', 'directorate.directorate_id', 'karyawan.int_emp_directorate')
             ->leftJoin('department', 'department.department_id', 'karyawan.int_emp_department')
             ->leftJoin('division', 'division.division_id', 'karyawan.int_emp_division')
+            ->leftJoin('position', 'position.position_id', 'karyawan.int_emp_position')
             ->leftjoin('indonesia_villages','indonesia_villages.id','karyawan.int_emp_villages1')
             ->leftjoin('indonesia_districts','indonesia_districts.id','karyawan.int_emp_districts1')
             ->leftjoin('indonesia_cities','indonesia_cities.id','karyawan.int_emp_regencies1')
@@ -139,7 +142,7 @@ class KaryawanExport implements FromQuery,WithHeadings
             ->leftjoin('indonesia_cities as cities2','cities2.id','karyawan.int_emp_regencies2')
             ->leftjoin('indonesia_districts as districts2','districts2.id','karyawan.int_emp_districts2')
             ->leftjoin('indonesia_villages as villages2','villages2.id','karyawan.int_emp_villages2')
-    ->where('int_emp_statuss', '1');
+            ->where('int_emp_statuss', '1');
     }
     
 
