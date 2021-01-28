@@ -92,6 +92,7 @@ class ControllerKaryawan extends Controller
     
     public function detaildatakaryawan($id)
     {
+    
         $peg = Karyawan::select('karyawan.*',
                 'indonesia_provinces.name as province',
                 'indonesia_cities.name as city',
@@ -104,6 +105,7 @@ class ControllerKaryawan extends Controller
                 ->leftjoin('indonesia_provinces','indonesia_provinces.id','karyawan.int_emp_provinces1')
                 ->where('karyawan.int_emp_id','=',$id)
                 ->get();
+
         
         $peg2 = Karyawan::select('karyawan.*',
                 'indonesia_provinces.name as province',
@@ -133,7 +135,7 @@ class ControllerKaryawan extends Controller
                 ->get();
 
         $awal = date("Y-m-d");
-        return view('detail-data-karyawan',compact('peg', 'peg2', 'awal', 'div', 'dept'));
+        return view('detail-data-karyawan',compact('peg', 'peg2', 'awal', 'div', 'dept', 'work_length'));
    }
 
    public function editdatakaryawan($id){
@@ -366,18 +368,6 @@ class ControllerKaryawan extends Controller
         return redirect()->back()->with('success', 'Data Karyawan Berhasil di Update');;
     }
 
-    // public function work_duration(Request $request){
-    //     $postData = $request->all();
-
-    //     $int_emp_joindate = Carbon::parse($postData['int_emp_joindate']);
-    //     $now = Carbon::now();
-    //     $int_emp_resigndate = Carbon::parse($postData['int_emp_resigndate']);
-    //     if(!empty($int_emp_resigndate)){
-    //         $work_duration = $int_emp_joindate->diffInDays($int_emp_resigndate);
-    //     }else{
-    //         $work_duration = $int_emp_joindate->diffInDays($now);
-    //     }
-    // }
 
     public function proses_tambah(Request $request)
     {
@@ -498,17 +488,6 @@ class ControllerKaryawan extends Controller
 
         $postData = $request->all();
 
-        $int_emp_joindate = Carbon::parse($postData['int_emp_joindate']);
-        $now = Carbon::now();
-        $int_emp_resigndate = Carbon::parse($postData['int_emp_resigndate']);
-        if(!empty($int_emp_resigndate)){
-            $work_duration = $int_emp_joindate->diffInDays($int_emp_resigndate);
-        }else{
-            $work_duration =  $int_emp_joindate->diffInDays($now);
-        }
-        
-        // $diff = $int_emp_joindate->diffInDays($int_emp_resigndate);
-
         Karyawan::create([
                 'int_emp_status' => $request->int_emp_status,
                 'int_emp_number' => $test,
@@ -535,7 +514,7 @@ class ControllerKaryawan extends Controller
                 'int_emp_kode_pos2' => $request->int_emp_kode_pos2,
                 'int_emp_email' => $request->int_emp_email,
                 'int_emp_email_nap' => $request->int_emp_email_nap,
-                'int_emp_joindate' => $int_emp_joindate,
+                'int_emp_joindate' => $request->int_emp_joindate,
                 'int_emp_location' => $request->int_emp_location,
                 'int_emp_subregion' => $request->int_emp_subregion,
                 'int_emp_coa' => $request->int_emp_coa,
@@ -552,10 +531,10 @@ class ControllerKaryawan extends Controller
                 'int_emp_taxadd' => $request->int_emp_taxadd,
                 'int_emp_bpjstk' => $request->int_emp_bpjstk,
                 'int_emp_bpjsk' => $request->int_emp_bpjsk,
-                'int_emp_resigndate' => $int_emp_resigndate,
+                'int_emp_resigndate' => $request->int_emp_resigndate,
                 'int_emp_phone_home' => $request->int_emp_phone_home,
                 'int_emp_phone_mobile' => $request->int_emp_phone_mobile,
-                'int_emp_worklength' => $work_duration,
+                //'int_emp_worklength' => $work_duration,
                 'int_emp_level' => $request->int_emp_level,
                 'int_emp_grading' => $request->int_emp_grading,
                 'int_emp_vehicle' => $request->int_emp_vehicle,

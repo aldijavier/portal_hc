@@ -414,7 +414,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                 <div class="form-group">
                     <b>Lama Kerja</b>
-                    <input class="form-control"  value="{{ $peg->int_emp_worklength }}" disabled required>
+                    <input class="form-control"  value="{{ $peg->getWorkLength() }}" disabled required>
                 </div>
 
                 <div class="form-row">

@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Kode_generate;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 
@@ -36,6 +37,14 @@ class Karyawan extends Model
 
     public function division(){
         return $this->belongsTo(Division::class);
+    }
+
+    public function getWorkLength(){
+        if(empty($this->int_emp_resigndate)){
+            return Carbon::parse($this->int_emp_joindate)->diff(Carbon::now())->format('%y tahun %m bulan %d haari');
+        }else{
+            return Carbon::parse($this->int_emp_joindate)->diff(Carbon::parse($this->int_emp_resigndate))->format('%y tahun %m bulan %d hari');
+        }
     }
 
     public static function kode(int $status)
