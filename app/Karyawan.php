@@ -30,6 +30,10 @@ class Karyawan extends Model
         'int_emp_transtype', 'int_emp_reportline', 'int_emp_regisnpwp', 'int_emp_statuss'
     ];
 
+    public function department(){
+        return $this->belongsToMany('Department', 'department_name');
+    }
+
     public function division(){
         return $this->belongsTo(Division::class);
     }

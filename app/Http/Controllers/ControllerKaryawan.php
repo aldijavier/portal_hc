@@ -12,6 +12,7 @@ use App\Exports\KaryawanExport;
 use App\Exports\Karyawan2Export;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 class ControllerKaryawan extends Controller
 {
@@ -25,6 +26,8 @@ class ControllerKaryawan extends Controller
         $kode = ''; /*karyawan::kode();*/
         return view('HalamanDepan.tambah-data-karyawan',compact('kode_generate','kode','provinces_list', 'provinces_list2', 'divisions', 'departments'));
     }
+
+    
 
     public function datakaryawan()
     {
@@ -356,12 +359,25 @@ class ControllerKaryawan extends Controller
             'int_emp_grading' => $request->int_emp_grading,
             'int_emp_vehicle' => $request->int_emp_vehicle,
             'int_emp_transtype' => $request->int_emp_transtype,
-            'int_emp_reportline' => $request->int_emp_reportline,
+            'int_emp_reportline' => '3',
             'int_emp_regisnpwp' => $request->int_emp_regisnpwp,
             'int_emp_statuss' => $request->int_emp_statuss
         ]);
         return redirect()->back()->with('success', 'Data Karyawan Berhasil di Update');;
     }
+
+    // public function work_duration(Request $request){
+    //     $postData = $request->all();
+
+    //     $int_emp_joindate = Carbon::parse($postData['int_emp_joindate']);
+    //     $now = Carbon::now();
+    //     $int_emp_resigndate = Carbon::parse($postData['int_emp_resigndate']);
+    //     if(!empty($int_emp_resigndate)){
+    //         $work_duration = $int_emp_joindate->diffInDays($int_emp_resigndate);
+    //     }else{
+    //         $work_duration = $int_emp_joindate->diffInDays($now);
+    //     }
+    // }
 
     public function proses_tambah(Request $request)
     {
@@ -418,7 +434,7 @@ class ControllerKaryawan extends Controller
                 'int_emp_grading' => 'required',
                 'int_emp_vehicle' => 'required',
                 'int_emp_transtype' => 'required',
-                'int_emp_reportline' => 'required',
+                //'int_emp_reportline' => 'required',
                 'int_emp_regisnpwp' => 'required',
                 'int_emp_statuss' => 'required',
             ],
@@ -479,6 +495,20 @@ class ControllerKaryawan extends Controller
             ]
         );
         $test = Karyawan::kode($request->int_emp_status);
+
+        $postData = $request->all();
+
+        $int_emp_joindate = Carbon::parse($postData['int_emp_joindate']);
+        $now = Carbon::now();
+        $int_emp_resigndate = Carbon::parse($postData['int_emp_resigndate']);
+        if(!empty($int_emp_resigndate)){
+            $work_duration = $int_emp_joindate->diffInDays($int_emp_resigndate);
+        }else{
+            $work_duration =  $int_emp_joindate->diffInDays($now);
+        }
+        
+        // $diff = $int_emp_joindate->diffInDays($int_emp_resigndate);
+
         Karyawan::create([
                 'int_emp_status' => $request->int_emp_status,
                 'int_emp_number' => $test,
@@ -505,7 +535,7 @@ class ControllerKaryawan extends Controller
                 'int_emp_kode_pos2' => $request->int_emp_kode_pos2,
                 'int_emp_email' => $request->int_emp_email,
                 'int_emp_email_nap' => $request->int_emp_email_nap,
-                'int_emp_joindate' => $request->int_emp_joindate,
+                'int_emp_joindate' => $int_emp_joindate,
                 'int_emp_location' => $request->int_emp_location,
                 'int_emp_subregion' => $request->int_emp_subregion,
                 'int_emp_coa' => $request->int_emp_coa,
@@ -522,10 +552,10 @@ class ControllerKaryawan extends Controller
                 'int_emp_taxadd' => $request->int_emp_taxadd,
                 'int_emp_bpjstk' => $request->int_emp_bpjstk,
                 'int_emp_bpjsk' => $request->int_emp_bpjsk,
-                'int_emp_resigndate' => $request->int_emp_resigndate,
+                'int_emp_resigndate' => $int_emp_resigndate,
                 'int_emp_phone_home' => $request->int_emp_phone_home,
                 'int_emp_phone_mobile' => $request->int_emp_phone_mobile,
-                'int_emp_worklength' => $request->int_emp_worklength,
+                'int_emp_worklength' => $work_duration,
                 'int_emp_level' => $request->int_emp_level,
                 'int_emp_grading' => $request->int_emp_grading,
                 'int_emp_vehicle' => $request->int_emp_vehicle,
