@@ -6,6 +6,7 @@ use App\Kode_generate;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use DB;
+use DateTime;
 
 class Karyawan extends Model
 {
@@ -55,7 +56,9 @@ class Karyawan extends Model
     	
     	$kode = (int) $datakode->count() + 1;
         $incrementKode = $kode;
-
+        if (strlen($kode) == 0) {
+            $addNol = "0";
+        }
     	if (strlen($kode) == 1) {
     		$addNol = "000";
     	} elseif (strlen($kode) == 2) {

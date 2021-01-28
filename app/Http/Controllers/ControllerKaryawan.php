@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Karyawan;
+use App\Kode_generate;
+use App\Directorate;
 use App\Division;
 use App\Department;
-use App\Products;
-use App\Product_cat;
+use App\Position;
 use App\Exports\KaryawanExport;
 use App\Exports\Karyawan2Export;
 use Maatwebsite\Excel\Facades\Excel;
@@ -21,10 +22,13 @@ class ControllerKaryawan extends Controller
         $provinces_list = DB::table('indonesia_provinces')->get();
         $provinces_list2 = DB::table('indonesia_provinces')->get();
         $kode_generate = DB::table('kode_generate')->get();
+        $directorates = DB::table('directorate')->get();
         $divisions = DB::table('division')->get();
         $departments = DB::table('department')->get();
+        $positions = DB::table('position')->get();
         $kode = ''; /*karyawan::kode();*/
-        return view('HalamanDepan.tambah-data-karyawan',compact('kode_generate','kode','provinces_list', 'provinces_list2', 'divisions', 'departments'));
+        return view('HalamanDepan.tambah-data-karyawan',compact('kode_generate','kode',
+        'provinces_list', 'provinces_list2', 'directorates' ,'divisions', 'departments', 'positions'));
     }
 
     
@@ -105,8 +109,6 @@ class ControllerKaryawan extends Controller
                 ->leftjoin('indonesia_provinces','indonesia_provinces.id','karyawan.int_emp_provinces1')
                 ->where('karyawan.int_emp_id','=',$id)
                 ->get();
-
-        
         $peg2 = Karyawan::select('karyawan.*',
                 'indonesia_provinces.name as province',
                 'indonesia_cities.name as city',
@@ -119,23 +121,38 @@ class ControllerKaryawan extends Controller
                 ->leftjoin('indonesia_provinces','indonesia_provinces.id','karyawan.int_emp_provinces2')
                 ->where('karyawan.int_emp_id','=',$id)
                 ->get();
-        
+        $kode_generate = Karyawan::select('karyawan.*',
+                'kode_generate.keterangan_kode as keterangan_kode',
+                )
+                ->leftjoin('kode_generate','kode_generate.id_kode','karyawan.int_emp_status')
+                ->where('karyawan.int_emp_id','=',$id)
+                ->get();
+        $directorate = Karyawan::select('karyawan.*',
+                'directorate.directorate_name as directorate_name',
+                )
+                ->leftjoin('directorate','directorate.directorate_id','karyawan.int_emp_directorate')
+                ->where('karyawan.int_emp_id','=',$id)
+                ->get();
         $div = Karyawan::select('karyawan.*',
                 'division.division_name as division_name'
                 )
                 ->leftjoin('division','division.division_id','karyawan.int_emp_division')
                 ->where('karyawan.int_emp_id','=',$id)
                 ->get();
-        
         $dept = Karyawan::select('karyawan.*',
                 'department.department_name as department_name'
                 )
                 ->leftjoin('department','department.department_id','karyawan.int_emp_department')
                 ->where('karyawan.int_emp_id','=',$id)
                 ->get();
-
+        $position = Karyawan::select('karyawan.*',
+                'position.position_name as position_name',
+                )
+                ->leftjoin('position','position.position_id','karyawan.int_emp_position')
+                ->where('karyawan.int_emp_id','=',$id)
+                ->get();
         $awal = date("Y-m-d");
-        return view('detail-data-karyawan',compact('peg', 'peg2', 'awal', 'div', 'dept', 'work_length'));
+        return view('detail-data-karyawan',compact('peg', 'peg2', 'awal', 'kode_generate' , 'div', 'dept', 'directorate', 'position'));
    }
 
    public function editdatakaryawan($id){
@@ -173,7 +190,20 @@ class ControllerKaryawan extends Controller
                 ->leftjoin('indonesia_provinces','indonesia_provinces.id','karyawan.int_emp_provinces2')
                 ->where('karyawan.int_emp_id','=',$id)
                 ->get();
-
+        $kode_generate = Karyawan::select('karyawan.*',
+                'kode_generate.keterangan_kode as keterangan_kode',
+                )
+                ->leftjoin('kode_generate','kode_generate.id_kode','karyawan.int_emp_status')
+                ->where('karyawan.int_emp_id','=',$id)
+                ->get();
+        $kode_generates = Kode_generate::all();
+        $direct = Karyawan::select('karyawan.*',
+                'directorate.directorate_name as directorate_name',
+                )
+                ->leftjoin('directorate','directorate.directorate_id','karyawan.int_emp_directorate')
+                ->where('karyawan.int_emp_id','=',$id)
+                ->get();
+       $directorates = Directorate::all(); 
        $div = Karyawan::select('karyawan.*',
                 'division.division_name as division_name'
                 )
@@ -188,9 +218,17 @@ class ControllerKaryawan extends Controller
                 ->where('karyawan.int_emp_id','=',$id)
                 ->get();
        $departments = Department::all();
+       $position = Karyawan::select('karyawan.*',
+                'position.position_name as position_name',
+                )
+                ->leftjoin('position','position.position_id','karyawan.int_emp_position')
+                ->where('karyawan.int_emp_id','=',$id)
+                ->get();
+       $positions = Position::all();
        return view('HalamanDepan.edit-data-karyawan',compact('karyawans', 'provinces_list', 'cities_list',
        'districts_list', 'villages_list', 'peg', 'provinces_list2', 'cities_list2', 'districts_list2', 
-       'cities_list2', 'peg2', 'div', 'divisions', 'dept', 'departments'));
+       'cities_list2', 'peg2', 'kode_generate' , 'kode_generates' ,'direct' , 'directorates' ,'div', 'divisions', 
+       'dept', 'departments', 'position', 'positions'));
    }
 
    public function proses_update(Request $request, $id)
@@ -199,9 +237,9 @@ class ControllerKaryawan extends Controller
         $this->validate(
         $request,
         [
+             // 'int_emp_status' => 'required',
             // 'int_emp_number' => 'required',
             'int_emp_name' => 'required',
-            'int_emp_status' => 'required',
             'int_emp_pref_name' => 'required',
             'int_emp_gender' => 'required',
             'int_emp_marital' => 'required',
@@ -241,10 +279,10 @@ class ControllerKaryawan extends Controller
             'int_emp_taxadd' => 'required',
             'int_emp_bpjstk' => 'required',
             'int_emp_bpjsk' => 'required',
-            'int_emp_resigndate' => 'required',
+            // 'int_emp_resigndate' => 'required',
             'int_emp_phone_home' => 'required',
             'int_emp_phone_mobile' => 'required',
-            'int_emp_worklength' => 'required',
+            // 'int_emp_worklength' => 'required',
             'int_emp_level' => 'required',
             'int_emp_grading' => 'required',
             'int_emp_vehicle' => 'required',
@@ -254,8 +292,8 @@ class ControllerKaryawan extends Controller
             'int_emp_statuss' => 'required'
         ],
         [
-            'int_emp_status.required' => 'Status Karyawan harus diisi.',
-            'int_emp_number.required' => 'Nomor Karyawan harus diisi.',
+            // 'int_emp_status.required' => 'Status Karyawan harus diisi.',
+            // 'int_emp_number.required' => 'Nomor Karyawan harus diisi.',
             'int_emp_name.required' => 'Nama Karyawan harus diisi.',
             'int_emp_pref_name.required' => 'Nama Panggilan harus diisi.',
             'int_emp_gender.required' => 'Jenis Kelamin harus diisi.',
@@ -296,10 +334,10 @@ class ControllerKaryawan extends Controller
             'int_emp_taxadd.required' => 'Alamat Pajak harus diisi.',
             'int_emp_bpjstk.required' => 'BPJS Ketenagakerjaan harus diisi.',
             'int_emp_bpjsk.required' => 'BPJS Kesehatan harus diisi.',
-            'int_emp_resigndate.required' => 'Tanggal Resign harus diisi.',
+            // 'int_emp_resigndate.required' => 'Tanggal Resign harus diisi.',
             'int_emp_phone_home.required' => 'No Telephone harus diisi.',
             'int_emp_phone_mobile.required' => 'No Handphone harus diisi.',
-            'int_emp_worklength.required' => 'Lama Kerja harus diisi.',
+            // 'int_emp_worklength.required' => 'Lama Kerja harus diisi.',
             'int_emp_level.required' => 'Level harus diisi.',
             'int_emp_grading.required' => 'Nilai/Grading harus diisi.',
             'int_emp_vehicle.required' => 'Kendaraan harus diisi.',
@@ -312,7 +350,7 @@ class ControllerKaryawan extends Controller
     
        DB::table('karyawan')->where('int_emp_id', $id)->update([
             'int_emp_status' => $request->int_emp_status,
-            // 'int_emp_number' => $request->int_emp_number,
+            'int_emp_number' => $request->int_emp_number,
             'int_emp_name' => $request->int_emp_name,
             'int_emp_pref_name' => $request->int_emp_pref_name,
             'int_emp_gender' => $request->int_emp_gender,
@@ -384,7 +422,7 @@ class ControllerKaryawan extends Controller
                 'int_emp_tax_cat' => 'required',
                 'int_emp_dob' => 'required',
                 'int_emp_nation' => 'required',
-                'int_emp_ktp' => 'required',
+                'int_emp_ktp' => 'required|unique:Karyawan',
                 'int_emp_add1' => 'required',
                 'int_emp_provinces1' => 'required',
                 'int_emp_regencies1' => 'required',
@@ -416,10 +454,10 @@ class ControllerKaryawan extends Controller
                 'int_emp_taxadd' => 'required',
                 'int_emp_bpjstk' => 'required',
                 'int_emp_bpjsk' => 'required',
-                'int_emp_resigndate' => 'required',
+                // 'int_emp_resigndate' => 'required',
                 'int_emp_phone_home' => 'required',
                 'int_emp_phone_mobile' => 'required',
-                'int_emp_worklength' => 'required',
+                // 'int_emp_worklength' => 'required',
                 'int_emp_level' => 'required',
                 'int_emp_grading' => 'required',
                 'int_emp_vehicle' => 'required',
@@ -440,6 +478,7 @@ class ControllerKaryawan extends Controller
                 'int_emp_dob.required' => 'Tanggal Lahir harus diisi.',
                 'int_emp_nation.required' => 'Kebangsaan harus diisi.',
                 'int_emp_ktp.required' => 'KTP harus diisi.',
+                'int_emp_ktp.unique' => 'Untuk nomor KTP yang anda input sudah terdaftar, Silahkan diisi kembali.',
                 'int_emp_add1.required' => 'Alamat berdasarkan KTP harus diisi.',
                 'int_emp_provinces1.required' => 'Provinsi berdasarkan KTP harus diisi.',
                 'int_emp_regencies1.required' => 'Kota berdasarkan KTP harus diisi.',
@@ -471,10 +510,10 @@ class ControllerKaryawan extends Controller
                 'int_emp_taxadd.required' => 'Alamat Pajak harus diisi.',
                 'int_emp_bpjstk.required' => 'BPJS Ketenagakerjaan harus diisi.',
                 'int_emp_bpjsk.required' => 'BPJS Kesehatan harus diisi.',
-                'int_emp_resigndate.required' => 'Tanggal Resign harus diisi.',
+                // 'int_emp_resigndate.required' => 'Tanggal Resign harus diisi.',
                 'int_emp_phone_home.required' => 'No Telephone harus diisi.',
                 'int_emp_phone_mobile.required' => 'No Handphone harus diisi.',
-                'int_emp_worklength.required' => 'Lama Kerja harus diisi.',
+                // 'int_emp_worklength.required' => 'Lama Kerja harus diisi.',
                 'int_emp_level.required' => 'Level harus diisi.',
                 'int_emp_grading.required' => 'Nilai/Grading harus diisi.',
                 'int_emp_vehicle.required' => 'Kendaraan harus diisi.',

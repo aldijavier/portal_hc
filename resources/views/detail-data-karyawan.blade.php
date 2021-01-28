@@ -54,10 +54,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- /.card-header -->
                 <div class="card-body">
                 @foreach($peg ?? '' as $peg)
+
+                @foreach($kode_generate ?? '' as $kode_generate)
                 <div class="form-group">
                     <b>Status Karyawan</b>
-                    <input class="form-control"  value="{{ $peg->int_emp_status }}" disabled required>
+                    <input class="form-control"  value="{{ $kode_generate->keterangan_kode }}" disabled required>
                 </div>
+                @break
+                @endforeach
 
                 <div class="form-group">
                     <b>Nomor Karyawan</b>
@@ -282,13 +286,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <input class="form-control"  value="{{ $peg->int_emp_coa }}" disabled required >
                         </div>
                     </div>
+
+                    @foreach($directorate ?? '' as $directorate)
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Direktorat</b>
-                            <input class="form-control"  value="{{ $peg->int_emp_directorate }}" disabled required >
+                            <input class="form-control"  value="{{ $directorate->directorate_name }}" disabled required >
                         </div>
                     </div>
                 </div>
+                @break
+                @endforeach 
 
                 @foreach($div ?? '' as $div)
                 <div class="form-row">
@@ -313,12 +321,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 @endforeach
 
                 <div class="form-row">
+                @foreach($position ?? '' as $position)
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Posisi</b>
-                            <input class="form-control"  value="{{ $peg->int_emp_position }}" disabled required >
+                            <input class="form-control"  value="{{ $position->position_name }}" disabled required >
                         </div>
                     </div>
+                @break
+                @endforeach  
+                  
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Hari Kerja / Work Day</b>
