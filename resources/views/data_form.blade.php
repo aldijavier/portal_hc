@@ -515,9 +515,7 @@ function addressFunction1()
                                 <label class="small mb-1">Provinsi (*)</label>
                                 <select name="provinces" id="provinces" id="primary_provinces" class="form-control input-lg dynamic" data-dependent="Provinsi" require>
                          <option value="">Pilih Provinsi</option>
-                         @foreach($provinces_list as $provinces)
-                         <option value="{{$provinces->id}}">{{$provinces->name}}</option>
-                         @endforeach
+                         
                         </select></div>
                         </div>
                         <div class="col-md-6">

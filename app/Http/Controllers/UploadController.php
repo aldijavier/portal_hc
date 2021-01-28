@@ -42,7 +42,7 @@ class UploadController extends Controller
                 'indonesia_provinces.name as province',
                 'indonesia_cities.name as city',
                 'indonesia_districts.name as district',
-                'indonesia_villages.name as village',
+                'indonesia_villages.name as village'
                 )
                 ->leftjoin('indonesia_villages','indonesia_villages.id','pelamar.villages')
                 ->leftjoin('indonesia_districts','indonesia_districts.id','pelamar.districts')
@@ -55,7 +55,7 @@ class UploadController extends Controller
                 'indonesia_provinces.name as province',
                 'indonesia_cities.name as city',
                 'indonesia_districts.name as district',
-                'indonesia_villages.name as village',
+                'indonesia_villages.name as village'
                 )
                 ->leftjoin('indonesia_villages','indonesia_villages.id','pelamar.villages2')
                 ->leftjoin('indonesia_districts','indonesia_districts.id','pelamar.districts2')

@@ -13,6 +13,7 @@ use App\Exports\KaryawanExport;
 use App\Exports\Karyawan2Export;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 class ControllerKaryawan extends Controller
 {
@@ -29,6 +30,8 @@ class ControllerKaryawan extends Controller
         return view('HalamanDepan.tambah-data-karyawan',compact('kode_generate','kode',
         'provinces_list', 'provinces_list2', 'directorates' ,'divisions', 'departments', 'positions'));
     }
+
+    
 
     public function datakaryawan()
     {
@@ -93,11 +96,12 @@ class ControllerKaryawan extends Controller
     
     public function detaildatakaryawan($id)
     {
+    
         $peg = Karyawan::select('karyawan.*',
                 'indonesia_provinces.name as province',
                 'indonesia_cities.name as city',
                 'indonesia_districts.name as district',
-                'indonesia_villages.name as village',
+                'indonesia_villages.name as village'
                 )
                 ->leftjoin('indonesia_villages','indonesia_villages.id','karyawan.int_emp_villages1')
                 ->leftjoin('indonesia_districts','indonesia_districts.id','karyawan.int_emp_districts1')
@@ -109,7 +113,7 @@ class ControllerKaryawan extends Controller
                 'indonesia_provinces.name as province',
                 'indonesia_cities.name as city',
                 'indonesia_districts.name as district',
-                'indonesia_villages.name as village',
+                'indonesia_villages.name as village'
                 )
                 ->leftjoin('indonesia_villages','indonesia_villages.id','karyawan.int_emp_villages2')
                 ->leftjoin('indonesia_districts','indonesia_districts.id','karyawan.int_emp_districts2')
@@ -130,13 +134,13 @@ class ControllerKaryawan extends Controller
                 ->where('karyawan.int_emp_id','=',$id)
                 ->get();
         $div = Karyawan::select('karyawan.*',
-                'division.division_name as division_name',
+                'division.division_name as division_name'
                 )
                 ->leftjoin('division','division.division_id','karyawan.int_emp_division')
                 ->where('karyawan.int_emp_id','=',$id)
                 ->get();
         $dept = Karyawan::select('karyawan.*',
-                'department.department_name as department_name',
+                'department.department_name as department_name'
                 )
                 ->leftjoin('department','department.department_id','karyawan.int_emp_department')
                 ->where('karyawan.int_emp_id','=',$id)
@@ -161,7 +165,7 @@ class ControllerKaryawan extends Controller
                 'indonesia_provinces.name as province',
                 'indonesia_cities.name as city',
                 'indonesia_districts.name as district',
-                'indonesia_villages.name as village',
+                'indonesia_villages.name as village'
                 )
                 ->leftjoin('indonesia_villages','indonesia_villages.id','karyawan.int_emp_villages1')
                 ->leftjoin('indonesia_districts','indonesia_districts.id','karyawan.int_emp_districts1')
@@ -178,7 +182,7 @@ class ControllerKaryawan extends Controller
                 'indonesia_provinces.name as province',
                 'indonesia_cities.name as city',
                 'indonesia_districts.name as district',
-                'indonesia_villages.name as village',
+                'indonesia_villages.name as village'
                 )
                 ->leftjoin('indonesia_villages','indonesia_villages.id','karyawan.int_emp_villages2')
                 ->leftjoin('indonesia_districts','indonesia_districts.id','karyawan.int_emp_districts2')
@@ -201,14 +205,14 @@ class ControllerKaryawan extends Controller
                 ->get();
        $directorates = Directorate::all(); 
        $div = Karyawan::select('karyawan.*',
-                'division.division_name as division_name',
+                'division.division_name as division_name'
                 )
                 ->leftjoin('division','division.division_id','karyawan.int_emp_division')
                 ->where('karyawan.int_emp_id','=',$id)
                 ->get();
        $divisions = Division::all();
        $dept = Karyawan::select('karyawan.*',
-                'department.department_name as department_name',
+                'department.department_name as department_name'
                 )
                 ->leftjoin('department','department.department_id','karyawan.int_emp_department')
                 ->where('karyawan.int_emp_id','=',$id)
@@ -395,12 +399,13 @@ class ControllerKaryawan extends Controller
             'int_emp_grading' => $request->int_emp_grading,
             'int_emp_vehicle' => $request->int_emp_vehicle,
             'int_emp_transtype' => $request->int_emp_transtype,
-            'int_emp_reportline' => $request->int_emp_reportline,
+            'int_emp_reportline' => '3',
             'int_emp_regisnpwp' => $request->int_emp_regisnpwp,
             'int_emp_statuss' => $request->int_emp_statuss
         ]);
         return redirect()->back()->with('success', 'Data Karyawan Berhasil di Update');;
     }
+
 
     public function proses_tambah(Request $request)
     {
@@ -457,7 +462,7 @@ class ControllerKaryawan extends Controller
                 'int_emp_grading' => 'required',
                 'int_emp_vehicle' => 'required',
                 'int_emp_transtype' => 'required',
-                'int_emp_reportline' => 'required',
+                //'int_emp_reportline' => 'required',
                 'int_emp_regisnpwp' => 'required',
                 'int_emp_statuss' => 'required',
             ],
@@ -519,6 +524,9 @@ class ControllerKaryawan extends Controller
             ]
         );
         $test = Karyawan::kode($request->int_emp_status);
+
+        $postData = $request->all();
+
         Karyawan::create([
                 'int_emp_status' => $request->int_emp_status,
                 'int_emp_number' => $test,
@@ -565,7 +573,7 @@ class ControllerKaryawan extends Controller
                 'int_emp_resigndate' => $request->int_emp_resigndate,
                 'int_emp_phone_home' => $request->int_emp_phone_home,
                 'int_emp_phone_mobile' => $request->int_emp_phone_mobile,
-                'int_emp_worklength' => $request->int_emp_worklength,
+                //'int_emp_worklength' => $work_duration,
                 'int_emp_level' => $request->int_emp_level,
                 'int_emp_grading' => $request->int_emp_grading,
                 'int_emp_vehicle' => $request->int_emp_vehicle,
