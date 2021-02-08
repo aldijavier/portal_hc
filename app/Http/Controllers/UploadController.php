@@ -65,7 +65,7 @@ class UploadController extends Controller
                 ->get();
 
         $awal = date("Y-m-d");
-        return view('detail_data',compact('peg', 'peg2', 'awal'));
+        return view('HalamanDepan.detail-data-pelamar',compact('peg', 'peg2', 'awal'));
    }
 
     public function berandaUtama(){
@@ -254,5 +254,31 @@ class UploadController extends Controller
         ]);
         return redirect()->back()->with('success', 'Data Form Berhasil di Submit');;
 
+    }
+
+    public function proses_upload_nilai(Request $request, $id)
+   {
+    //    dd($request->all());
+        $this->validate(
+        $request,
+        [
+            'file_nilai'  => 'file|mimes:pdf|max:5000|nullable',
+        ]
+    );
+
+    // Menyimpan data file yang di upload ke variabel $file
+    if($request->hasFile('file_nilai')){
+        $file = $request->file_nilai->getClientOriginalName();
+        $request->file('file_nilai')->move('data_file', $file);
+        //var_dump($file);
+        //return ($file);
+        } else {
+            $file = null;
+        }
+    
+       DB::table('pelamar')->where('id', $id)->create([
+            'file_nilai' => $file
+        ]);
+        return redirect()->back()->with('success', 'Data File Nilai Berhasil di Submit');;
     }
 }

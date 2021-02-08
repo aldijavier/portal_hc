@@ -12,7 +12,6 @@
           <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
             <li><a href="{{ route('data-karyawan') }}" class="dropdown-item">Manajemen Data Karyawan</a></li>
             <li><a href="{{ route('filter-data-karyawan') }}" class="dropdown-item">Filter Data Karyawan</a></li>
-            <li><a href="{{ route('filter-data-karyawan2') }}" class="dropdown-item">Filter Data Karyawan2</a></li>
           </ul>
       </li>
       <li class="nav-item d-none d-sm-inline-block">

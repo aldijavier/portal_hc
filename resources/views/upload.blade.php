@@ -734,17 +734,6 @@ function addressFunction()
     $('#villages2').removeAttr('disabled', false);
     $("#secondaryaddress").prop("readOnly", false);  
     $("#secondaryzip").prop("readOnly", false);   
-    // $("#provinces2").prop("readOnly", false);
-    // $("#regencies2").prop("readOnly", false);  
-    // $("#districts2").prop("readOnly", false);  
-    // $("#villages").prop("readOnly", false); 
-    // $("#secondaryaddress").prop('disabled', false); 
-    // $("#provinces2").prop('disabled', false); 
-    // $("#regencies2").prop('disabled', false); 
-    // $("#districts2").prop('disabled', false); 
-    // $("#villages2").prop('disabled', false);  
-    // $("#secondaryzip").prop('disabled', false);  
-   // $('#secondaryaddress').removeAttr('disabled');
   } 
 }
 </script>

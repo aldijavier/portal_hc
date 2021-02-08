@@ -183,7 +183,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                 @foreach($peg2 ?? '' as $peg2)
                 <div class="form-group">
-                    <label for="secondaryaddress">Alamat saat ini (*)</label>
+                    <label for="secondaryaddress">Alamat saat ini</label>
                     <input class="form-control"  value="{{ $peg2->int_emp_add2 }}" disabled required >
                 </div>
 

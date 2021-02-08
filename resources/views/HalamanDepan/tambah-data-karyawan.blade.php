@@ -66,10 +66,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="card-body">
                 <div class="form-group">
                     <b>Status Karyawan</b>
-                    <select class="form-control" name="int_emp_status" id="int_emp_status"   >
+                    <select class="form-control" name="int_emp_status" id="int_emp_status">
                         <option value>Pilih Status Karyawan</option>
                         @foreach($kode_generate ?? '' as $kode_generate)
-                        <option value="{{ $kode_generate->id_kode }}">{{ $kode_generate->keterangan_kode }}</option>
+                        <option value="{{ $kode_generate->id_kode }}" {{ old('int_emp_status') == "$kode_generate->id_kode" ? 'selected' : '' }}>{{ $kode_generate->keterangan_kode }}</option>
                         @endforeach
                     </select> 
                 </div>
@@ -84,13 +84,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Nama Karyawan</b>
-                            <input class="form-control" name="int_emp_name" type="text" value=""   >
+                            <input class="form-control" name="int_emp_name" type="text" value="{{ old('int_emp_name') }}">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Nama Panggilan</b>
-                            <input class="form-control" name="int_emp_pref_name" type="text" value=""   >
+                            <input class="form-control" name="int_emp_pref_name" type="text" value="{{ old('int_emp_pref_name') }}">
                         </div>
                     </div>
                 </div>
@@ -99,10 +99,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Jenis Kelamin</b>
-                            <select name="int_emp_gender" class="form-control"   >
+                            <select name="int_emp_gender" class="form-control">
                                     <option value="">Jenis Kelamin </option>
-                                    <option value="Laki-Laki">Laki - Laki </option>
-                                    <option value="Perempuan">Perempuan</option>
+                                    <option value="Laki-Laki" {{ old('int_emp_gender') == "Laki-Laki" ? 'selected' : '' }}>Laki - Laki </option>
+                                    <option value="Perempuan" {{ old('int_emp_gender') == "Perempuan" ? 'selected' : '' }}>Perempuan</option>
                             </select>
                         </div>
                     </div>
@@ -111,8 +111,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <b>Status Pernikahan</b>
                             <select name="int_emp_marital" class="form-control"   >
                                     <option value="">Status Pernikahan</option>
-                                    <option value="Lajang">Lajang</option>
-                                    <option value="Menikah">Menikah</option>
+                                    <option value="Lajang"  {{ old('int_emp_marital') == "Lajang" ? 'selected' : '' }}>Lajang</option>
+                                    <option value="Menikah" {{ old('int_emp_marital') == "Menikah" ? 'selected' : '' }}>Menikah</option>
                             </select>
                         </div>
                     </div>
@@ -124,12 +124,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <b>Agama</b>
                             <select name="int_emp_religion" class="form-control"   >
                                     <option value="">Agama </option>
-                                    <option value="Islam">Islam</option>
-                                    <option value="Kristen Protestan">Kristen Protestan</option>
-                                    <option value="Kristen Katolik">Kristen Katolik</option>
-                                    <option value="Hindu">Hindu</option>
-                                    <option value="Budha">Budha</option>
-                                    <option value="Konghucu">Konghucu</option>
+                                    <option value="Islam" {{ old('int_emp_religion') == "Islam" ? 'selected' : '' }}>Islam</option>
+                                    <option value="Kristen Protestan" {{ old('int_emp_religion') == "Kristen Protestan" ? 'selected' : '' }}>Kristen Protestan</option>
+                                    <option value="Kristen Katolik" {{ old('int_emp_religion') == "Kristen Katolik" ? 'selected' : '' }}>Kristen Katolik</option>
+                                    <option value="Hindu" {{ old('int_emp_religion') == "Hindu" ? 'selected' : '' }}>Hindu</option>
+                                    <option value="Budha" {{ old('int_emp_religion') == "Budha" ? 'selected' : '' }}>Budha</option>
+                                    <option value="Konghucu" {{ old('int_emp_religion') == "Konghucu" ? 'selected' : '' }}>Konghucu</option>
                             </select>
                         </div>
                     </div>
@@ -138,14 +138,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <b>Kategori Pajak</b>
                             <select name="int_emp_tax_cat" class="form-control"   >
                                     <option value="">Kategori Pajak </option>
-                                    <option value="S0">S0</option>
-                                    <option value="S1">S1</option>
-                                    <option value="S2">S2</option>
-                                    <option value="S3">S3</option>
-                                    <option value="M0">M0</option>
-                                    <option value="M1">M1</option>
-                                    <option value="M2">M2</option>
-                                    <option value="M3">M3</option>
+                                    <option value="S0" {{ old('int_emp_tax_cat') == "S0" ? 'selected' : '' }}>S0</option>
+                                    <option value="S1" {{ old('int_emp_tax_cat') == "S1" ? 'selected' : '' }}>S1</option>
+                                    <option value="S2" {{ old('int_emp_tax_cat') == "S2" ? 'selected' : '' }}>S2</option>
+                                    <option value="S3" {{ old('int_emp_tax_cat') == "S3" ? 'selected' : '' }}>S3</option>
+                                    <option value="M0" {{ old('int_emp_tax_cat') == "M0" ? 'selected' : '' }}>M0</option>
+                                    <option value="M1" {{ old('int_emp_tax_cat') == "M1" ? 'selected' : '' }}>M1</option>
+                                    <option value="M2" {{ old('int_emp_tax_cat') == "M2" ? 'selected' : '' }}>M2</option>
+                                    <option value="M3" {{ old('int_emp_tax_cat') == "M3" ? 'selected' : '' }}>M3</option>
                             </select>
                         </div>
                     </div>
@@ -155,16 +155,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Tanggal Lahir</b>
-                            <input class="form-control" id="int_emp_dob" name="int_emp_dob" type="date"   >
+                            <input class="form-control" id="int_emp_dob" name="int_emp_dob" type="date" value="{{ old('int_emp_dob') }}">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Kebangsaan</b>
-                            <select name="int_emp_nation" class="form-control"   >
+                            <select name="int_emp_nation" class="form-control">
                                     <option value="">Kebangsaan</option>
-                                    <option value="WNI">WNI</option>
-                                    <option value="WNA">WNA</option>
+                                    <option value="WNI" {{ old('int_emp_nation') == "WNI" ? 'selected' : '' }}>WNI</option>
+                                    <option value="WNA" {{ old('int_emp_nation') == "WNA" ? 'selected' : '' }}>WNA</option>
                             </select>
                         </div>
                     </div>
@@ -172,31 +172,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     
                 <div class="form-group">
                     <b>KTP</b>
-                    <input class="form-control" name="int_emp_ktp" onkeypress="return onlyNumber(event)" maxlength="16" type="text" value=""   >
+                    <input class="form-control" name="int_emp_ktp" onkeypress="return onlyNumber(event)" maxlength="16" type="text" value="{{ old('int_emp_ktp') }}">
                 </div>
                 <br>
 
                 <div class="form-group">
                     <label for="primaryaddress">Alamat berdasarkan KTP</label>
-                    <textarea class="form-control" name="int_emp_add1" type="text" id="primaryaddress"   ></textarea>
+                    <textarea class="form-control" name="int_emp_add1" type="text" id="primaryaddress" value="{{ old('int_emp_add1') }}"> {{ old('int_emp_add1') }}</textarea>
                 </div>
 
                 <div class="form-row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Provinsi</b>
-                            <select name="int_emp_provinces1" id="provinces" class="form-control input-lg dynamic primaryprovinsi" data-dependent="Provinsi"   >
+                            <select name="int_emp_provinces1" id="provinces" class="form-control input-lg dynamic primaryprovinsi" data-dependent="Provinsi">
                                 <option value="">Pilih Provinsi</option>
-                                    @foreach($provinces_list as $provinces)
+                                @foreach($provinces_list as $provinces)
                                 <option value="{{$provinces->id}}">{{$provinces->name}}</option>
-                                    @endforeach
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Kota</b>
-                            <select name="int_emp_regencies1" id="regencies" class="form-control input-lg dynamic1" data-dependent="Kota"   >
+                            <select name="int_emp_regencies1" id="regencies" class="form-control input-lg dynamic1" data-dependent="Kota">
                                     <option class="form-control py-4" value="">Pilih Kota</option>
                             </select>
                         </div>
@@ -226,7 +226,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-md-6">
                         <div class="form-group">
                         <label for="primaryzip">Kode Pos</label>
-                            <input class="form-control" name="int_emp_kode_pos1" onkeypress="return onlyNumber(event)" maxlength="5" id="primaryzip" type="text" value=""   >
+                            <input class="form-control" name="int_emp_kode_pos1" onkeypress="return onlyNumber(event)" maxlength="5" id="primaryzip" type="text" value="{{ old('int_emp_kode_pos1') }}">
                         </div>
                     </div>
                 </div>
@@ -237,7 +237,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                 <div class="form-group">
                     <label for="secondaryaddress">Alamat saat ini</label>
-                    <textarea class="form-control" name="int_emp_add2" id="secondaryaddress" type="text"   ></textarea>
+                    <textarea class="form-control" name="int_emp_add2" id="secondaryaddress" type="text" value="{{ old('int_emp_add2') }}"> {{ old('int_emp_add2') }}</textarea>
                 </div>
 
                 <div class="form-row">
@@ -293,7 +293,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="secondaryzip">Kode Pos</label>
-                            <input class="form-control" name="int_emp_kode_pos2" onkeypress="return onlyNumber(event)" maxlength="5" id="secondaryzip" type="text" value=""   >
+                            <input class="form-control" name="int_emp_kode_pos2" onkeypress="return onlyNumber(event)" maxlength="5" id="secondaryzip" type="text" value="{{ old('int_emp_kode_pos2') }}">
                         </div>
                     </div>
                 </div>
@@ -303,13 +303,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Email Pribadi</b>
-                            <input class="form-control" name="int_emp_email" type="email" value=""   >
+                            <input class="form-control" name="int_emp_email" type="email" value="{{ old('int_emp_email') }}">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Email NAP</b>
-                            <input class="form-control" name="int_emp_email_nap" type="email" value=""   >
+                            <input class="form-control" name="int_emp_email_nap" type="email" value="{{ old('int_emp_email_nap') }}" >
                         </div>
                     </div>
                 </div>
@@ -318,7 +318,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Bergabung Tanggal</b>
-                            <input class="form-control" name="int_emp_joindate" type="date" value=""   >
+                            <input class="form-control" name="int_emp_joindate" type="date" value="{{ old('int_emp_joindate') }}">
                         </div>
                     </div>
                 </div>
@@ -327,13 +327,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Lokasi</b>
-                            <input class="form-control" name="int_emp_location" type="text" value=""   >
+                            <input class="form-control" name="int_emp_location" type="text" value="{{ old('int_emp_location') }}">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Sub Region</b>
-                            <input class="form-control" name="int_emp_subregion" type="text" value=""   >
+                            <input class="form-control" name="int_emp_subregion" type="text" value="{{ old('int_emp_subregion') }}">
                         </div>
                     </div>
                 </div>
@@ -351,37 +351,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                 <div class="form-group">
                     <b>COA</b>
-                    <input class="form-control" name="int_emp_coa" type="text" value=""   >
+                    <input class="form-control" name="int_emp_coa" type="text" value="{{ old('int_emp_coa') }}">
                 </div>
 
                 <div class="form-row">
                     <div class="col-md-6">
                         <div class="form-group">
                         <b>Direktorat</b>
-<<<<<<< HEAD
-                            <select name="int_emp_directorate" class="form-control"   >
-                                <option value="">Pilih Direktorat</option>
-                                <option value="Chief Commercial Officer">Chief Commercial Officer</option>
-                                <option value="Chief Finance Officer / Director">Chief Finance Officer / Director</option>
-                                <option value="Chief Business & System Support">Chief Business & System Support</option>
-                                <option value="Chief Network Officer">Chief Network Officer</option>
-=======
-                            <select name="int_emp_directorate" class="form-control" required>
+                            <select name="int_emp_directorate" class="form-control">
                                 <option value>Pilih Direktorat</option>
                                 @foreach($directorates ?? '' as $directorates)
-                                <option value="{{ $directorates->directorate_id }}">{{ $directorates->directorate_name }}</option>
+                                <option value="{{ $directorates->directorate_id }}" {{ old('int_emp_directorate') == "$directorates->directorate_id" ? 'selected' : '' }}>{{ $directorates->directorate_name }}</option>
                                 @endforeach
->>>>>>> d235e00441180cbfae867875209cb91283ad3ae6
                             </select>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                         <b>Divisi</b>
-                            <select class="form-control" name="int_emp_division" id="int_emp_division"   >
+                            <select class="form-control" name="int_emp_division" id="int_emp_division">
                                 <option value>Pilih Divisi</option>
                                 @foreach($divisions ?? '' as $divisions)
-                                <option value="{{ $divisions->division_id }}">{{ $divisions->division_name }}</option>
+                                <option value="{{ $divisions->division_id }}" {{ old('int_emp_division') == "$divisions->division_id" ? 'selected' : '' }}>{{ $divisions->division_name }}</option>
                                 @endforeach
                             </select>   
                         </div>
@@ -395,7 +386,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <select class="form-control department_reportline_name selectsearch" name="int_emp_department" id="int_emp_department"   >
                                 <option value>Pilih Department</option>
                                 @foreach($departments ?? '' as $departments)
-                                <option value="{{ $departments->department_id }}">{{ $departments->department_name }}</option>
+                                <option value="{{ $departments->department_id }}" {{ old('int_emp_department') == "$departments->department_id" ? 'selected' : '' }}>{{ $departments->department_name }}</option>
                                 @endforeach
                             </select> 
                         </div>
@@ -403,14 +394,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-md-6">
                         <div class="form-group">
                         <b>Posisi</b>
-<<<<<<< HEAD
-                            <select name="int_emp_position" class="form-control selectsearch"   >
-=======
-                            <select class="form-control selectsearch" name="int_emp_position" required>
->>>>>>> d235e00441180cbfae867875209cb91283ad3ae6
+                            <select class="form-control selectsearch" name="int_emp_position">
                                     <option value="">Pilih Posisi</option>
                                     @foreach($positions ?? '' as $positions)
-                                    <option value="{{ $positions->position_id }}">{{ $positions->position_name }}</option>
+                                    <option value="{{ $positions->position_id }}" {{ old('int_emp_position') == "$positions->position_id" ? 'selected' : '' }}>{{ $positions->position_name }}</option>
                                     @endforeach
                             </select>
                         </div>
@@ -421,7 +408,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Hari Kerja</b>
-                            <input class="form-control" name="int_emp_workday" type="text" value=""   >
+                            <input class="form-control" name="int_emp_workday" type="text" value="{{ old('int_emp_workday') }}">
                         </div>
                     </div>
                 </div>
@@ -430,13 +417,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Nomor Rekening</b>
-                            <input class="form-control" name="int_emp_accountno" onkeypress="return onlyNumber(event)" maxlength="30" type="text" value=""   >
+                            <input class="form-control" name="int_emp_accountno" onkeypress="return onlyNumber(event)" maxlength="30" type="text" value="{{ old('int_emp_accountno') }}">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Nama Akun</b>
-                            <input class="form-control" name="int_emp_accountname" type="text" value=""   >
+                            <input class="form-control" name="int_emp_accountname" type="text" value="{{ old('int_emp_accountname') }}">
                         </div>
                     </div>
                 </div>
@@ -445,13 +432,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Bank Swift</b>
-                            <input class="form-control" name="int_emp_bankswift" type="text" value=""   >
+                            <input class="form-control" name="int_emp_bankswift" type="text" value="{{ old('int_emp_bankswift') }}">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Bank Branch</b>
-                            <input class="form-control" name="int_emp_bankbranch" type="text" value=""   >
+                            <input class="form-control" name="int_emp_bankbranch" type="text" value="{{ old('int_emp_bankbranch')}}">
                         </div>
                     </div>
                 </div>
@@ -461,13 +448,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>ID Pajak</b>
-                            <input class="form-control" name="int_emp_taxid" onkeypress="return onlyNumber(event)" maxlength="30" type="text" value=""   >    
+                            <input class="form-control" name="int_emp_taxid" onkeypress="return onlyNumber(event)" maxlength="30" type="text" value="{{ old('int_emp_taxid') }}">    
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Alamat Pajak</b>
-                            <input class="form-control" name="int_emp_taxadd" type="text" value=""   >
+                            <input class="form-control" name="int_emp_taxadd" type="text" value="{{ old('int_emp_taxadd') }}">
                         </div>
                     </div>
                 </div>
@@ -476,13 +463,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>BPJS Ketenagakerjaan</b>
-                            <input class="form-control" name="int_emp_bpjstk" onkeypress="return onlyNumber(event)" maxlength="30" type="text" value=""   >    
+                            <input class="form-control" name="int_emp_bpjstk" onkeypress="return onlyNumber(event)" maxlength="30" type="text" value="{{ old('int_emp_bpjstk') }}">    
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>BPJS Kesehatan</b>
-                            <input class="form-control" name="int_emp_bpjsk" onkeypress="return onlyNumber(event)" maxlength="30" type="text" value=""   >                          
+                            <input class="form-control" name="int_emp_bpjsk" onkeypress="return onlyNumber(event)" maxlength="30" type="text" value="{{ old('int_emp_bpjsk') }}">                          
                         </div>
                     </div>
                 </div>
@@ -491,11 +478,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Tanggal Resign</b>
-<<<<<<< HEAD
-                            <input class="form-control" name="int_emp_resigndate" type="date" value=""   >
-=======
                             <input class="form-control" name="int_emp_resigndate" type="date" value="">
->>>>>>> d235e00441180cbfae867875209cb91283ad3ae6
                         </div>
                     </div>
                 </div>
@@ -504,53 +487,49 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>No Telephone</b>
-                            <input class="form-control" name="int_emp_phone_home" onkeypress="return onlyNumber(event)" maxlength="14" type="text" value=""   >
+                            <input class="form-control" name="int_emp_phone_home" onkeypress="return onlyNumber(event)" maxlength="14" type="text" value="{{ old('int_emp_phone_home') }}">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>No Handphone</b>
-                            <input class="form-control" name="int_emp_phone_mobile" onkeypress="return onlyNumber(event)" maxlength="14" type="text" value=""   >
+                            <input class="form-control" name="int_emp_phone_mobile" onkeypress="return onlyNumber(event)" maxlength="14" type="text" value="{{ old('int_emp_phone_mobile') }}">
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" hidden>
                         <b>Lama kerja</b>
-<<<<<<< HEAD
-                        <input class="form-control" name="int_emp_worklength" type="text" value=""   >
-=======
-                        <input class="form-control" name="int_emp_worklength" type="text" value="">
->>>>>>> d235e00441180cbfae867875209cb91283ad3ae6
+                        <input class="form-control" name="int_emp_worklength" type="text" value="" hidden>
                 </div>
 
                 <div class="form-row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Level</b>
-                            <select name="int_emp_level" class="form-control"   >
+                            <select name="int_emp_level" class="form-control">
                                     <option value="">Level</option>
-                                    <option value="Managing Director">Managing Director</option>
-                                    <option value="Chief / Director">Chief / Director</option>
-                                    <option value="Division Head">Division Head</option>
-                                    <option value="Advisor">Advisor</option>
-                                    <option value="Department Head">Department Head</option>
-                                    <option value="Expert">Expert</option>
-                                    <option value="Unit Head">Unit Head</option>
-                                    <option value="Specialist">Specialist</option>
-                                    <option value="Analyst">Analyst</option>
-                                    <option value="Officer">Officer</option>
-                                    <option value="Partner Service / Outsource">Partner Service / Outsource</option>
+                                    <option value="Managing Director" {{ old('int_emp_level') == "Managing Director" ? 'selected' : '' }}>Managing Director</option>
+                                    <option value="Chief / Director" {{ old('int_emp_level') == "Chief / Director" ? 'selected' : '' }}>Chief / Director</option>
+                                    <option value="Division Head" {{ old('int_emp_level') == "Division Head" ? 'selected' : '' }}>Division Head</option>
+                                    <option value="Advisor" {{ old('int_emp_level') == "Advisor" ? 'selected' : '' }}>Advisor</option>
+                                    <option value="Department Head" {{ old('int_emp_level') == "Department Head" ? 'selected' : '' }}>Department Head</option>
+                                    <option value="Expert" {{ old('int_emp_level') == "Expert" ? 'selected' : '' }}>Expert</option>
+                                    <option value="Unit Head" {{ old('int_emp_level') == "Unit Head" ? 'selected' : '' }}>Unit Head</option>
+                                    <option value="Specialist" {{ old('int_emp_level') == "Specialist" ? 'selected' : '' }}>Specialist</option>
+                                    <option value="Analyst" {{ old('int_emp_level') == "Analyst" ? 'selected' : '' }}>Analyst</option>
+                                    <option value="Officer" {{ old('int_emp_level') == "Officer" ? 'selected' : '' }}>Officer</option>
+                                    <option value="Partner Service / Outsource" {{ old('int_emp_level') == "Partner Service / Outsource" ? 'selected' : '' }}>Partner Service / Outsource</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Nilai / Grading</b>
-                            <select name="int_emp_grading" class="form-control"   >
+                            <select name="int_emp_grading" class="form-control">
                                     <option value="">Nilai / Grading</option>
-                                    <option value="A">A</option>
-                                    <option value="B">B</option>
+                                    <option value="A" {{ old('int_emp_grading') == "A" ? 'selected' : '' }}>A</option>
+                                    <option value="B" {{ old('int_emp_grading') == "B" ? 'selected' : '' }}>B</option>
                             </select>
                         </div>
                     </div>
@@ -560,20 +539,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Kendaraan</b>
-                            <select name="int_emp_vehicle" class="form-control"   >
+                            <select name="int_emp_vehicle" class="form-control">
                                     <option value="">Kendaraan</option>
-                                    <option value="Pribadi">Pribadi</option>
-                                    <option value="Umum">Umum</option>
+                                    <option value="Pribadi" {{ old('int_emp_vehicle') == "Pribadi" ? 'selected' : '' }}>Pribadi</option>
+                                    <option value="Umum" {{ old('int_emp_vehicle') == "Umum" ? 'selected' : '' }}>Umum</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Type Transportasi</b>
-                            <select name="int_emp_transtype" class="form-control"   >
+                            <select name="int_emp_transtype" class="form-control">
                                     <option value="">Type Transportasi</option>
-                                    <option value="Mobil">Mobil</option>
-                                    <option value="Motor">Motor</option>
+                                    <option value="Mobil" {{ old('int_emp_transtype') == "Mobil" ? 'selected' : '' }}>Mobil</option>
+                                    <option value="Motor" {{ old('int_emp_transtype') == "Motor" ? 'selected' : '' }}>Motor</option>
                             </select>
                         </div>
                     </div>
@@ -581,20 +560,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                 <div class="form-group">
                     <b>Report Line</b>
-                    <input class="form-control pic" name="int_emp_reportline" type="text" value="">
+                    <input class="form-control pic" name="int_emp_reportline" type="text" value="{{ old('int_emp_reportline') }}" readonly>
                 </div>
 
                 <div class="form-group">
                     <b>NPWP Terdaftar</b>
-                    <input class="form-control" name="int_emp_regisnpwp" onkeypress="return onlyNumber(event)" maxlength="30" type="text" value=""   >    
+                    <input class="form-control" name="int_emp_regisnpwp" onkeypress="return onlyNumber(event)" maxlength="30" type="text" value="{{ old('int_emp_regisnpwp') }}">    
                 </div>
 
                 <div class="form-group">
                     <b>Status</b>
-                    <select name="int_emp_statuss" class="form-control"   >
+                    <select name="int_emp_statuss" class="form-control">
                         <option value="">Status</option>
-                        <option value="1">Aktif</option>
-                        <option value="2">Tidak Aktif</option>
+                        <option value="1" {{ old('int_emp_statuss') == "1" ? 'selected' : '' }}>Aktif</option>
+                        <option value="2" {{ old('int_emp_statuss') == "2" ? 'selected' : '' }}>Tidak Aktif</option>
                     </select>
                 </div>
 

@@ -26,9 +26,10 @@ class ControllerKaryawan extends Controller
         $divisions = DB::table('division')->get();
         $departments = DB::table('department')->get();
         $positions = DB::table('position')->get();
+        $worklength = karyawan::first()->getWorkLength();
         $kode = ''; /*karyawan::kode();*/
         return view('HalamanDepan.tambah-data-karyawan',compact('kode_generate','kode',
-        'provinces_list', 'provinces_list2', 'directorates' ,'divisions', 'departments', 'positions'));
+        'provinces_list', 'provinces_list2', 'directorates' ,'divisions', 'departments', 'positions', 'worklength', 'kode'));
     }
 
     
@@ -152,7 +153,7 @@ class ControllerKaryawan extends Controller
                 ->where('karyawan.int_emp_id','=',$id)
                 ->get();
         $awal = date("Y-m-d");
-        return view('detail-data-karyawan',compact('peg', 'peg2', 'awal', 'kode_generate' , 'div', 'dept', 'directorate', 'position'));
+        return view('HalamanDepan.detail-data-karyawan',compact('peg', 'peg2', 'awal', 'kode_generate' , 'div', 'dept', 'directorate', 'position'));
    }
 
    public function editdatakaryawan($id){
@@ -399,7 +400,7 @@ class ControllerKaryawan extends Controller
             'int_emp_grading' => $request->int_emp_grading,
             'int_emp_vehicle' => $request->int_emp_vehicle,
             'int_emp_transtype' => $request->int_emp_transtype,
-            'int_emp_reportline' => '3',
+            'int_emp_reportline' => $request->int_emp_reportline,
             'int_emp_regisnpwp' => $request->int_emp_regisnpwp,
             'int_emp_statuss' => $request->int_emp_statuss
         ]);
@@ -462,7 +463,7 @@ class ControllerKaryawan extends Controller
                 'int_emp_grading' => 'required',
                 'int_emp_vehicle' => 'required',
                 'int_emp_transtype' => 'required',
-                //'int_emp_reportline' => 'required',
+                'int_emp_reportline' => 'required',
                 'int_emp_regisnpwp' => 'required',
                 'int_emp_statuss' => 'required',
             ],
@@ -478,7 +479,7 @@ class ControllerKaryawan extends Controller
                 'int_emp_dob.required' => 'Tanggal Lahir harus diisi.',
                 'int_emp_nation.required' => 'Kebangsaan harus diisi.',
                 'int_emp_ktp.required' => 'KTP harus diisi.',
-                'int_emp_ktp.unique' => 'Untuk nomor KTP yang anda input sudah terdaftar, Silahkan diisi kembali.',
+                'int_emp_ktp.unique' => 'Untuk nomor KTP yang anda input sudah terdaftar, Silahkan dicek kembali.',
                 'int_emp_add1.required' => 'Alamat berdasarkan KTP harus diisi.',
                 'int_emp_provinces1.required' => 'Provinsi berdasarkan KTP harus diisi.',
                 'int_emp_regencies1.required' => 'Kota berdasarkan KTP harus diisi.',
@@ -520,7 +521,7 @@ class ControllerKaryawan extends Controller
                 'int_emp_transtype.required' => 'Type Transportasi harus diisi.',
                 'int_emp_reportline.required' => 'Report Line harus di isi.',
                 'int_emp_regisnpwp.required' => 'NPWP Terdaftar harus di isi.',
-                'int_emp_statuss' => 'Status harus diisi.'
+                'int_emp_statuss.required' => 'Status harus diisi.'
             ]
         );
         $test = Karyawan::kode($request->int_emp_status);
@@ -573,7 +574,7 @@ class ControllerKaryawan extends Controller
                 'int_emp_resigndate' => $request->int_emp_resigndate,
                 'int_emp_phone_home' => $request->int_emp_phone_home,
                 'int_emp_phone_mobile' => $request->int_emp_phone_mobile,
-                //'int_emp_worklength' => $work_duration,
+                'int_emp_worklength' => $request->int_emp_worklength,
                 'int_emp_level' => $request->int_emp_level,
                 'int_emp_grading' => $request->int_emp_grading,
                 'int_emp_vehicle' => $request->int_emp_vehicle,

@@ -573,9 +573,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" hidden>
                     <b>Lama kerja / Worklength</b>
-                    <input class="form-control" name="int_emp_worklength" type="text" value="{{ $karyawans->int_emp_worklength }}">
+                    <input class="form-control" name="int_emp_worklength" type="text" value="" hidden>
                 </div>
 
                 <div class="form-row">

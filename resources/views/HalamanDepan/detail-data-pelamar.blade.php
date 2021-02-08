@@ -214,8 +214,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <b>Kode Pos</b>
                     <input class="form-control" value="{{ $peg->kode_pos2 }}" disabled required>
                 </div>
-                @break
-                @endforeach
 
                 <hr/>
                 <div class="form-row">
@@ -354,6 +352,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </div>
                     </div>
                 </div>
+
+                <hr/>
+                <form class="form-detail" action="{{ url('update-proses',$peg->id) }}" enctype="multipart/form-data" method="POST" id="myform">
+                {{ csrf_field() }}
+                @method('patch')
+
+                <!-- Upload Nilai -->
+                <div class="form-group">
+                    <label style="color:black">Upload Nilai<br>(* Max : 5 mb | format : pdf )</label>
+                    <input class="form-control" type="file" name="file_nilai" class="form-control-file border" required>
+                </div>
+                
+
+                <!-- Button Upload Nilai -->
+                <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                <input type="submit" name="submit" class="btn btn-primary btn-block" value="Submit">
+                </form>
+                </div>  
+
+                @break
+                @endforeach
         </div>      
       </div>
       <!-- /.card-body -->
@@ -364,6 +383,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 <!-- /.row -->
 <!-- END ALERTS AND CALLOUTS -->
+
               <!-- /.card-body -->
             </div>
             <!-- /.card -->

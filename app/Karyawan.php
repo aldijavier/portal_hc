@@ -42,10 +42,11 @@ class Karyawan extends Model
 
     public function getWorkLength(){
         if(empty($this->int_emp_resigndate)){
-            return Carbon::parse($this->int_emp_joindate)->diff(Carbon::now())->format('%y tahun %m bulan %d haari');
+            return Carbon::parse($this->int_emp_joindate)->diff(Carbon::now())->format('%y tahun %m bulan %d hari');
         }else{
             return Carbon::parse($this->int_emp_joindate)->diff(Carbon::parse($this->int_emp_resigndate))->format('%y tahun %m bulan %d hari');
         }
+        return null;
     }
 
     public static function kode(int $status)
@@ -56,9 +57,6 @@ class Karyawan extends Model
     	
     	$kode = (int) $datakode->count() + 1;
         $incrementKode = $kode;
-        if (strlen($kode) == 0) {
-            $addNol = "0";
-        }
     	if (strlen($kode) == 1) {
     		$addNol = "000";
     	} elseif (strlen($kode) == 2) {

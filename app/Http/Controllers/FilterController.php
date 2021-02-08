@@ -21,7 +21,7 @@ class FilterController extends Controller
         $search_agama_karyawan = $request->get('search_agama_karyawan');
         $search_department_karyawan = $request->get('search_department_karyawan');
         $search_statuss_karyawan = $request->get('search_statuss_karyawan');
-        $list_department = department::all();
+        $departments1 = department::all();
   
         $karyawan = DB::table('karyawan');
 
@@ -55,9 +55,58 @@ class FilterController extends Controller
             $karyawan=$karyawan->where('int_emp_statuss','=',$search_statuss_karyawan);
         }
 
-        $karyawan = $karyawan->paginate(1000);
+        $karyawan = $karyawan->paginate(10000);
         $karyawan = $karyawan->appends($request->all());
-        return view('HalamanDepan.filter-data-karyawan2', compact('karyawan', 'list_department'));
+        return view('HalamanDepan.data-karyawan', compact('karyawan', 'departments1'));
+
+    }
+    
+    
+    public function index2(Request $request)
+    {
+        $search_number_karyawan = $request->get('search_number_karyawan');
+        $search_nama_karyawan = $request->get('search_nama_karyawan');
+        $search_statuspernikahan_karyawan = $request->get('search_statuspernikahan_karyawan');
+        $search_agama_karyawan = $request->get('search_agama_karyawan');
+        $search_department_karyawan = $request->get('search_department_karyawan');
+        $search_statuss_karyawan = $request->get('search_statuss_karyawan');
+        $departments1 = department::all();
+  
+        $karyawan = DB::table('karyawan');
+
+        $karyawan = Karyawan::leftJoin('department', 'department.department_id', 'karyawan.int_emp_department')
+        ->select(
+                'karyawan.*',
+                'department.department_name as department_name'
+            );            
+            
+        if($request->get('search_number_karyawan')){
+            $karyawan=$karyawan->where('int_emp_number','like', '%'.$search_number_karyawan.'%');
+        }
+        
+        if($search_nama_karyawan){
+            $karyawan=$karyawan->where('int_emp_name','like', '%'.$search_nama_karyawan.'%');
+        }
+      
+        if($search_statuspernikahan_karyawan){
+            $karyawan=$karyawan->where('int_emp_marital','like','%'.$search_statuspernikahan_karyawan.'%');
+        }
+
+        if($search_agama_karyawan){
+            $karyawan=$karyawan->where('int_emp_religion','like', '%'.$search_agama_karyawan.'%');
+        }
+
+        if($search_department_karyawan){
+            $karyawan=$karyawan->where('int_emp_department','=',$search_department_karyawan);
+        }
+        
+        if($search_statuss_karyawan){
+            $karyawan=$karyawan->where('int_emp_statuss','=',$search_statuss_karyawan);
+        }
+
+        $karyawan = $karyawan->paginate(10000);
+        $karyawan = $karyawan->appends($request->all());
+        return view('HalamanDepan.filter-data-karyawan', compact('karyawan', 'departments1'));
 
     }    
         
