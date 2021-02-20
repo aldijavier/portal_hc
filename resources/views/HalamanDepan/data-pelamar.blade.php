@@ -20,13 +20,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- / .Main Sidebar Container -->
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  <div class="content-wrapper bg-white">
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-          <h1 class="m-0">Data Pelamar</h1>
+          <!-- <h1 class="m-0">Data Pelamar</h1> -->
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -45,8 +45,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="row">
           <div class="col-12">
             <div class="card">
-              <div class="card-header">
-                
+              <div class="card-header bg-indigo">
+              <h4 class="card-title">Data Pelamar</h4>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -61,8 +61,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							<th>IPK</th>
 							<th>Pengalaman</th>
        <!--   <th>Photo</th>  -->
- 							<th>Lihat Dokumen</th>
-							<th>Lihat Detail</th>
+ 							<!-- <th>Lihat Dokumen</th> -->
+              <th>Nilai Interview</th>
+							<th>Lihat Data</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -77,7 +78,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							<td>{{$g->ipk}}</td>
 							<td>{{$g->pengalaman}}</td>
         <!--  <td><img width="150px" src="{{ url('/data_file/'.$g->foto) }}"></td> -->
-              <td>
+              <!-- <td>
 								<a href="/data_file/{{ $g->file_cv }}" target="_blank" rel="noopener noreferrer">Lihat CV</a> |
 								<a href="/data_file/{{ $g->file_ktp }}" target="_blank" rel="noopener noreferrer">Lihat KTP</a> |
 								<a href="/data_file/{{ $g->file_npwp }}" target="_blank" rel="noopener noreferrer">Lihat NPWP</a> |
@@ -89,9 +90,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 								<a href="/data_file/{{ $g->file_kartu_keluarga }}" target="_blank" rel="noopener noreferrer">Lihat Kartu Keluarga</a> |
 								<a href="/data_file/{{ $g->foto }}" target="_blank" rel="noopener noreferrer">Lihat Foto</a> |
 								<a href="/data_file/{{ $g->file_buku_nikah }}" target="_blank" rel="noopener noreferrer">Lihat Buku Nikah</a>
+							</td> -->
+              <td>
+              <button class="btn bg-gradient-warning button3"><a href="{{url('nilai-interview/'.$g->id)}}" style="color:white">Nilai Interview</button>
 							</td>
 							<td>
-              <button class="btn bg-gradient-success"><a href="{{url('detail/'.$g->id)}}" style="color:white">Lihat Detail Data</button>
+              <button class="btn bg-gradient-primary button3"><a href="{{url('detail/'.$g->id)}}" style="color:white">Lihat Data</button>
 							</td>
 						</tr>
 						@endforeach

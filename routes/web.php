@@ -30,8 +30,15 @@ Route::get('/data-pelamar', 'UploadController@upload')->name('data-pelamar');
 // Route untuk melihat detail data di Controller Upload
 Route::get('/detail/{id}', 'UploadController@detail')->name('detail-data-pelamar');
 
+// Route untuk melihat penilaian interview berdasarkan id pelamar di Controller Upload
+Route::get('/nilai-interview/{id}', 'UploadController@nilai_interview')->name('nilai-interview');
+
 // Route untuk menyimpan file nilai Proses Upload di Controller
 Route::patch('/upload/proses/{id}', 'UploadController@proses_upload_nilai')->name('update-proses');
+
+// Route untuk menyimpan nilai Controller
+Route::patch('/upload/proses2/{id}', 'UploadController@proses_upload_nilai_interview')->name('update-proses-interview');
+
 
 /* --------------------------------------------------------------------------------------------------- */
 
@@ -70,7 +77,7 @@ Route::get('/data-karyawan', 'ControllerKaryawan@datakaryawan')->name('data-kary
 Route::get('/filter-data-karyawan', 'FilterController@index')->name('filter-data-karyawan');
 
 // Route untuk mendapatkan filter data karyawan di Filter Controller
-Route::get('/filter-data-karyawan', 'FilterController@index2')->name('filter-data-karyawan');
+Route::get('/filter-data-karyawan2', 'FilterController@index2')->name('filter-data-karyawan2');
 
 // Route untuk tambah data karyawan di Controller Karyawan
 Route::get('/tambah-data-karyawan', 'ControllerKaryawan@tambahdatakaryawan')->name('tambah-data-karyawan');

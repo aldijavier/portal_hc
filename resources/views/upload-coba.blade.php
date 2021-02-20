@@ -300,12 +300,44 @@
                             </div>
                         </div>
                     </div>
+                    <br>
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label class="small mb-1" for="pengalaman">Pengalaman (*)</label>
                         <input name="pengalaman" class="form-control py-4" id="pengalaman" type="text" required />
+                    </div> -->
+
+                    <div class="form-group after-add-more input-group-btn justify-content-between">
+                        <label class="small mb-1" for="pengalaman">Pengalaman Kerja (*)</label>
+                        <button class="btn btn-success add-more float-right btn-sm" type="button"><i class="fas fa-plus-square"></i> Add</button>
                     </div>
 
+                    <!-- Copy Fields -->
+                    <div class="copy d-none">
+                    <div class="form-group">
+                        <label class="small mb-1">Nama Perusahaan</label>
+                        <input type="text" name="nama_perusahaan[]" class="form-control">
+                        <label class="small mb-1">Jabatan</label>
+                        <input type="text" name="jabatan[]" class="form-control">
+                        <label class="small mb-1">Deskripsi Job</label>
+                        <textarea type="text" name="deskripsi_job[]" class="form-control"></textarea>
+                        <label class="small mb-1" for="startdate">Start Date</label>
+                        <input name="start_date" class="form-control" id="startdate" type="date"/>
+                            <!--// fungsi untuk read only ketika alamat saat ini di ceklis otomatis -->
+                            <input type="date" id="startdate1" name="start_date" hidden>
+                            <label class="small mb-1" for="enddate">End Date</label>
+                        <input name="end_date" class="form-control " id="enddate" type="date"/>
+                            <!--// fungsi untuk read only ketika alamat saat ini di ceklis otomatis -->
+                            <input type="date" name="end_date" hidden>
+                    <div class="mb-1 tulisan_kiri form-group" style="align:left">
+                        <label class="small mb-1" for="cek">
+                        <input type="checkbox" name="masih_aktif_bekerja" value="Masih Aktif Bekerja"/>
+                        Masih Aktif Bekerja</label>
+                    </div>
+                        <button class="btn btn-danger remove" type="button"><i class="fas fa-trash"></i></button>
+                    </div>
+                    </div>
+                    <br>
 
                     <div class="form-group">
                         <label class="small mb-1" for="file_cv">Upload CV<br>(* Max : 5 mb | format : pdf )</label>

@@ -20,9 +20,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- / .Main Sidebar Container -->
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  <div class="content-wrapper bg-white">
     <!-- Content Header (Page header) -->
-    <div class="content-header">
+    <div class="content-header bg-white">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-12">
@@ -34,14 +34,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-lg-3 col-6">
 
             <!-- small box -->
-            <div class="small-box bg-info">
+            <div class="small-box bg-lightblue">
               <div class="inner">
             <!-- SELECT count(*) FROM pelamar ?> -->
                 <h3>{!! $count ?? '' !!}</h3>
                 <p>Jumlah Data Karyawan</p>
               </div>
               <div class="icon">
-                <i class="ion ion-bag"></i>
+                <i class="fas fa-users"></i>
               </div>
               <a href="{{ route('data-karyawan') }}" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -50,13 +50,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-success">
+            <div class="small-box bg-maroon">
               <div class="inner">
                 <h3>{!! $count1 ?? '' !!}</h3>
                 <p>Jumlah Data Pelamar</p>
               </div>
               <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+                <i class="fas fa-users"></i>
               </div>
               <a href="{{ route('data-pelamar') }}" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
             </div>

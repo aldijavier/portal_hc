@@ -20,23 +20,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- / .Main Sidebar Container -->
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  <div class="content-wrapper bg-white">
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-6">
+          <div class="content-header">
           <h1 class="m-0">Manajemen Data Karyawan</h1>
           <br>
-          <button class="btn bg-gradient-success"><i class="fas fa-plus-square"></i><a href="{{ route('tambah-data-karyawan') }}" style="color:white"> Tambah Data Karyawan</button>
-          <button class="btn bg-gradient-info"><i class="fas fa-file-excel"></i><a href="{{ route('export-excel') }}" style="color:white"> Export Data Karyawan Aktif</button>
-          <button class="btn bg-gradient-danger"><i class="fas fa-file-excel"></i><a href="{{ route('export-excel2') }}" style="color:white"> Export Data Karyawan Tidak Aktif</button>
+          <button class="btn bg-gradient-success"><i class="fas fa-plus-square"></i><a href="{{ route('tambah-data-karyawan') }}" style="color:white"> Tambah Data Karyawan</button></a>
+          <button class="btn bg-gradient-info"><i class="fas fa-file-excel"></i><a href="{{ route('export-excel') }}" style="color:white"> Export Data Karyawan Aktif</button></a>
+          <button class="btn bg-gradient-danger"><i class="fas fa-file-excel"></i><a href="{{ route('export-excel2') }}" style="color:white"> Export Data Karyawan Tidak Aktif</button></a>
           </div><!-- /.col -->
           <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
+            <!-- <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ route('beranda-hc') }}">Home</a></li>
               <li class="breadcrumb-item active">Data Karyawan</li>
-            </ol>
+            </ol> -->
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -49,8 +49,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="row">
           <div class="col-12">
             <div class="card">
-              <div class="card-header">
-                <!-- <h3 class="card-title">DataTable with default features</h3> -->
+              <div class="card-header bg-indigo">
+                <h3 class="card-title">Data Karyawan</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body"> 
@@ -117,11 +117,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </div>
               <br>
               <button type="submit" class="btn btn-success"><i class="fa fa-search" aria-hidden="true"></i> Filter Data</button>
-              <a  class="btn btn-primary" href="{{url('/data-karyawan')}}"> <i class="fas fa-4 fa-sync-alt" aria-hidden="true" ></i> Reset Filter</a>
+              <a  class="btn btn-primary" href="{{url('/data-karyawan')}}"><i class="fas fa-sync fa-spin" aria-hidden="true" ></i> Reset Filter</a>
               </form>
               <br>
-             
-              <!-- <button class="btn btn-sm btn-flat btn-primary btn-refresh"><i class="fas fa-4 fa-sync-alt"></i> Refresh Data</button> -->
               <br>
 
               <table id="" class="table table-bordered table-striped example4">

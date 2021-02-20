@@ -19,7 +19,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- / .Main Sidebar Container -->
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  <div class="content-wrapper bg-white">
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
@@ -67,15 +67,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                 <div class="form-group">
                     <b>Status Karyawan</b>
-                    <select name="int_emp_status" class="form-control" required readonly>
-                        <option disabled value>Status Karyawan</option>
-                        <option value="{{ $karyawans->int_emp_status }}">
-                        @foreach($kode_generate ?? '' as $kode_generate)
-                        {{ $kode_generate->keterangan_kode }} </option>
-                        @endforeach
-
+                    @foreach($kode_generate ?? '' as $kode_generate)
+                    <input class="form-control"  value="{{ $kode_generate->keterangan_kode }}" readonly required>
+                    @endforeach
+                    <select name="int_emp_status" class="form-control" required readonly hidden>
                         @foreach($kode_generates ?? '' as $kode_generates)
-                        <option value="{{ $kode_generates->id_kode }}">{{ $kode_generates->keterangan_kode }}</option>
+                        <option value="{{ $kode_generates->id_kode }}" hidden>{{ $kode_generates->keterangan_kode }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -465,7 +462,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="form-group">
                         <b>Posisi</b>
                         <select name="int_emp_position" class="form-control selectsearch" required>
-                            <option disabled value>Pilih Directorate</option>
+                            <option disabled value>Pilih Posisi</option>
                                 <option value="{{ $karyawans->int_emp_position }}">
                                 @foreach($position ?? '' as $position)
                                 {{ $position->position_name }} </option>
@@ -573,9 +570,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                 </div>
 
-                <div class="form-group" hidden>
+                <div class="form-group">
                     <b>Lama kerja / Worklength</b>
-                    <input class="form-control" name="int_emp_worklength" type="text" value="" hidden>
+                    <input class="form-control" type="text" value="{{ $karyawans->getWorkLength() }}" readonly>
                 </div>
 
                 <div class="form-row">

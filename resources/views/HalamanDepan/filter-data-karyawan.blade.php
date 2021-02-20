@@ -51,7 +51,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <!-- /.card-header -->
               <div class="card-body">
 
-              <form action="/filter-data-karyawan" method="GET" enctype="multipart/form-data">
+              <form action="/filter-data-karyawan2" method="GET" enctype="multipart/form-data">
               {{csrf_field()}}
               <div class="row">
               <div class="col-md-4">
@@ -110,7 +110,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </div>
               <br>
               <button type="submit" class="btn btn-success"><i class="fa fa-search" aria-hidden="true"></i> Filter Data</button>
-              <a  class="btn btn-primary" href="{{url('/filter-data-karyawan')}}"> <i class="fas fa-4 fa-sync-alt" aria-hidden="true" ></i> Reset Filter</a>
+              <a  class="btn btn-primary" href="{{url('/filter-data-karyawan2')}}"> <i class="fas fa-4 fa-sync-alt" aria-hidden="true" ></i> Reset Filter</a>
               </form>
               <br>
              

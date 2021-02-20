@@ -1,6 +1,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Halaman Beranda</title>
+  <title>Dashboard Human Capital</title>
+    <!-- Logo Website -->
+    <link rel="shortcut icon" href="{{ asset('img/matrix.png') }}">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
@@ -19,5 +21,19 @@
     .button2 {width: 105%;}
     </style>
     <style>
+    .button3 {width: 107%;}
+    </style>
+    <style>
     .tulisan_kiri{text-align: left; }
     </style>
+    <style>
+    .center {
+    /* margin: auto;
+    width: 100%;
+    height: 300px;
+    padding: 200px; */
+    align-items: center;
+    justify-content: center;
+    }
+    </style>
+

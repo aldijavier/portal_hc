@@ -53,6 +53,11 @@ class CreatePelamarsTable extends Migration
             $table->string('file_kartu_keluarga');
             $table->string('foto');
             $table->string('file_buku_nikah');
+            $table->string('file_nilai');
+            $table->string('request_department');
+            $table->date('interview_date');
+            $table->string('total_score');
+            $table->string('notes_and_comments');
             $table->timestamps();
         });
     }
