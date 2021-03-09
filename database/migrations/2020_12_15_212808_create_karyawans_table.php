@@ -23,7 +23,7 @@ class CreateKaryawansTable extends Migration
             $table->string('int_emp_marital');
             $table->string('int_emp_religion');
             $table->string('int_emp_tax_cat');
-            $table->datetime('int_emp_dob');
+            $table->date('int_emp_dob');
             $table->string('int_emp_nation');
             $table->string('int_emp_ktp');
             $table->string('int_emp_add1');
@@ -40,7 +40,7 @@ class CreateKaryawansTable extends Migration
             $table->string('int_emp_kode_pos2');
             $table->string('int_emp_email');
             $table->string('int_emp_email_nap');
-            $table->datetime('int_emp_joindate');
+            $table->date('int_emp_joindate');
             $table->string('int_emp_location');
             $table->string('int_emp_subregion');
             $table->string('int_emp_coa');
@@ -57,9 +57,12 @@ class CreateKaryawansTable extends Migration
             $table->string('int_emp_taxadd');
             $table->string('int_emp_bpjstk');
             $table->string('int_emp_bpjsk');
-            $table->datetime('int_emp_resigndate');
+            $table->date('int_emp_resigndate');
             $table->string('int_emp_phone_home');
             $table->string('int_emp_phone_mobile');
+            $table->string('int_emp_emergency_contact_name');
+            $table->string('int_emp_relationship');
+            $table->string('int_emp_emergency_number');
             $table->string('int_emp_worklength');
             $table->string('int_emp_level');
             $table->string('int_emp_grading');

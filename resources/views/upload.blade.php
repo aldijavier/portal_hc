@@ -19,17 +19,23 @@
     <style>
     .tulisan_kiri{text-align: left; }
     </style>
+    <style> 
+    .body{ 
+    background-image:url("{{ asset('img/background.png') }}"); 
+    background-size:cover; 
+    background-attachment: fixed; } 
+    </style>
     </head>
-<body class="bg-purple">
+<body>
 <div id="layoutAuthentication">
     <div id="layoutAuthentication_content">
-        <main style="background: #151948">
+        <main class="body">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-8">
                         <div class="card shadow-lg border-0 rounded-lg mt-5">
                             <div class="card-header" style="background: white">
-                                <center><img src="img/matrix.png" width="50%"></center>
+                                <center><img src="img/matrixlogo.png" width="50%"></center>
                                 <h3 class="text-center font-weight-light my-4"><b>Application Form</b></h3>
                             </div>
                             <div class="card-body">
@@ -87,7 +93,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="small mb-1">Tanggal Lahir</label>
+                                <label class="small mb-1">Tanggal Lahir (*)</label>
                                 <!-- <input type="date" class="form-control" name="tgl_lahir" id="tgl_lahir" value="{{ date('Y-m-d', strtotime($newDate ?? '')) }}" required>  -->
                                 <!-- <input name="tgl_lahir" class="form-control py-4" id="datepicker" placeholder="dd/mm/yyyy" type="text" required /> -->
                                 <input name="tgl_lahir" class="form-control py-4" type="date" required />

@@ -9,7 +9,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image" style="margin: 0 auto;">
-          <img src="{{ asset('img/matrix.png') }}" style="width:100px;" class="img-circle elevation-20" alt="User Image">
+          <img src="{{ asset('img/matrixlogo.png') }}" style="width:100px;" class="img-circle elevation-20" alt="User Image">
         </div>
       </div>
 
@@ -39,12 +39,12 @@
                   <p>Data Karyawan</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="{{ route('data-pelamar') }}" class="nav-link">
+              <!-- <li class="nav-item">
+                <a href="{{ route('data-karyawan-temporary') }}" class="nav-link">
                   <i class="nav-icon fas fa-user-friends"></i>
-                  <p>Data Pelamar</p>
+                  <p>Data Karyawan Temporary</p>
                 </a>
-              </li>
+              </li> -->
             </ul>
           </li>
         </ul>

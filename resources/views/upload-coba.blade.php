@@ -19,11 +19,17 @@
     <style>
     .tulisan_kiri{text-align: left; }
     </style>
+    <style> 
+    .body{ 
+    background-image:url("{{ asset('img/background.png') }}"); 
+    background-size:cover; 
+    background-attachment: fixed; } 
+    </style>
     </head>
-<body class="bg-purple">
+<body>
 <div id="layoutAuthentication">
     <div id="layoutAuthentication_content">
-        <main style="background: #151948">
+        <main class="body">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-8">
@@ -329,11 +335,11 @@
                         <input name="end_date" class="form-control " id="enddate" type="date"/>
                             <!--// fungsi untuk read only ketika alamat saat ini di ceklis otomatis -->
                             <input type="date" name="end_date" hidden>
-                    <div class="mb-1 tulisan_kiri form-group" style="align:left">
+                    <!-- <div class="mb-1 tulisan_kiri form-group" style="align:left">
                         <label class="small mb-1" for="cek">
                         <input type="checkbox" name="masih_aktif_bekerja" value="Masih Aktif Bekerja"/>
                         Masih Aktif Bekerja</label>
-                    </div>
+                    </div> -->
                         <button class="btn btn-danger remove" type="button"><i class="fas fa-trash"></i></button>
                     </div>
                     </div>

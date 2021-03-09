@@ -11,10 +11,12 @@ use App\Department;
 use App\Position;
 use App\Exports\KaryawanExport;
 use App\Exports\Karyawan2Export;
+use App\Imports\KaryawanImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 class ControllerKaryawan extends Controller
 {
     public function index()
@@ -26,10 +28,10 @@ class ControllerKaryawan extends Controller
         $divisions = DB::table('division')->get();
         $departments = DB::table('department')->get();
         $positions = DB::table('position')->get();
-        $worklength = karyawan::first()->getWorkLength();
+        // $worklength = karyawan::first()->getWorkLength();
         $kode = ''; /*karyawan::kode();*/
         return view('HalamanDepan.tambah-data-karyawan',compact('kode_generate','kode',
-        'provinces_list', 'provinces_list2', 'directorates' ,'divisions', 'departments', 'positions', 'worklength', 'kode'));
+        'provinces_list', 'provinces_list2', 'directorates' ,'divisions', 'departments', 'positions', 'kode'));
     }
 
     
@@ -285,7 +287,6 @@ class ControllerKaryawan extends Controller
             'int_emp_phone_mobile' => 'required',
             // 'int_emp_worklength' => 'required',
             'int_emp_level' => 'required',
-            'int_emp_grading' => 'required',
             'int_emp_vehicle' => 'required',
             'int_emp_transtype' => 'required',
             'int_emp_reportline' => 'required',
@@ -341,7 +342,6 @@ class ControllerKaryawan extends Controller
             'int_emp_phone_mobile.required' => 'No Handphone harus diisi.',
             // 'int_emp_worklength.required' => 'Lama Kerja harus diisi.',
             'int_emp_level.required' => 'Level harus diisi.',
-            'int_emp_grading.required' => 'Nilai/Grading harus diisi.',
             'int_emp_vehicle.required' => 'Kendaraan harus diisi.',
             'int_emp_transtype.required' => 'Type Transportasi harus diisi.',
             'int_emp_reportline.required' => 'Report Line harus diisi.',
@@ -351,8 +351,8 @@ class ControllerKaryawan extends Controller
     );
     
        DB::table('karyawan')->where('int_emp_id', $id)->update([
-            'int_emp_status' => $request->int_emp_status,
-            'int_emp_number' => $request->int_emp_number,
+            // 'int_emp_status' => $request->int_emp_status,
+            // 'int_emp_number' => $request->int_emp_number,
             'int_emp_name' => $request->int_emp_name,
             'int_emp_pref_name' => $request->int_emp_pref_name,
             'int_emp_gender' => $request->int_emp_gender,
@@ -396,9 +396,11 @@ class ControllerKaryawan extends Controller
             'int_emp_resigndate' => $request->int_emp_resigndate,
             'int_emp_phone_home' => $request->int_emp_phone_home,
             'int_emp_phone_mobile' => $request->int_emp_phone_mobile,
+            'int_emp_emergency_contact_name' => $request->int_emp_emergency_contact_name,
+            'int_emp_relationship' => $request->int_emp_relationship,
+            'int_emp_emergency_number' => $request->int_emp_emergency_number,
             // 'int_emp_worklength' => $request->int_emp_worklength,
             'int_emp_level' => $request->int_emp_level,
-            'int_emp_grading' => $request->int_emp_grading,
             'int_emp_vehicle' => $request->int_emp_vehicle,
             'int_emp_transtype' => $request->int_emp_transtype,
             'int_emp_reportline' => $request->int_emp_reportline,
@@ -461,7 +463,6 @@ class ControllerKaryawan extends Controller
                 'int_emp_phone_mobile' => 'required',
                 // 'int_emp_worklength' => 'required',
                 'int_emp_level' => 'required',
-                'int_emp_grading' => 'required',
                 'int_emp_vehicle' => 'required',
                 'int_emp_transtype' => 'required',
                 'int_emp_reportline' => 'required',
@@ -518,7 +519,6 @@ class ControllerKaryawan extends Controller
                 'int_emp_phone_mobile.required' => 'No Handphone harus diisi.',
                 // 'int_emp_worklength.required' => 'Lama Kerja harus diisi.',
                 'int_emp_level.required' => 'Level harus diisi.',
-                'int_emp_grading.required' => 'Nilai/Grading harus diisi.',
                 'int_emp_vehicle.required' => 'Kendaraan harus diisi.',
                 'int_emp_transtype.required' => 'Type Transportasi harus diisi.',
                 'int_emp_reportline.required' => 'Report Line harus di isi.',
@@ -576,9 +576,11 @@ class ControllerKaryawan extends Controller
                 'int_emp_resigndate' => $request->int_emp_resigndate,
                 'int_emp_phone_home' => $request->int_emp_phone_home,
                 'int_emp_phone_mobile' => $request->int_emp_phone_mobile,
+                'int_emp_emergency_contact_name' => $request->int_emp_emergency_contact_name,
+                'int_emp_relationship' => $request->int_emp_relationship,
+                'int_emp_emergency_number' => $request->int_emp_emergency_number,
                 'int_emp_worklength' => $request->int_emp_worklength,
                 'int_emp_level' => $request->int_emp_level,
-                'int_emp_grading' => $request->int_emp_grading,
                 'int_emp_vehicle' => $request->int_emp_vehicle,
                 'int_emp_transtype' => $request->int_emp_transtype,
                 'int_emp_reportline' => $request->int_emp_reportline,
@@ -586,6 +588,98 @@ class ControllerKaryawan extends Controller
                 'int_emp_statuss' => $request->int_emp_statuss
         ]);
         return redirect()->back()->with('success', 'Data Karyawan Berhasil di Tambah');;
+    }
+
+    public function importFormkaryawan()
+    {
+        return view('HalamanDepan.data-karyawan');
+    }
+
+    public function importkaryawan(Request $request)
+    {
+        //VALIDASI
+        $this->validate($request, [
+            'file' => 'required|mimes:xls,xlsx'
+        ],
+        [
+            'file.required' => 'File belum diimport, silahkan dicek kembali.',
+            'file.mimes' => 'Type format file dalam bentuk .xlsx',
+        ]);
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file'); //GET FILE
+            $data = Excel::toArray(new KaryawanImport, $file); //IMPORT FILE
+            $i = 0;
+            foreach($data as $key => $value1){     // Looping Baris
+                foreach($value1 as $key => $value2){ // Looping Column
+                    if ($i > 0){
+                        $kodeNum = DB::table('kode_generate')->where('nama_kode', '=', $value2[0])->first();
+                        
+                        $test = Karyawan::kode($kodeNum->id_kode);
+                        Karyawan::create([
+                                'int_emp_status' => $kodeNum->id_kode,
+                                'int_emp_number' => $test,
+                                'int_emp_name' => $value2[2],
+                                'int_emp_pref_name' => $value2[3],
+                                'int_emp_gender' => $value2[4],
+                                'int_emp_marital' => $value2[5],
+                                'int_emp_religion' => $value2[6],
+                                'int_emp_tax_cat' => $value2[7],
+                                'int_emp_dob' => Date::excelToDateTimeObject($value2[8]),
+                                'int_emp_nation' => $value2[9],
+                                'int_emp_ktp' => $value2[10],
+                                'int_emp_add1' => $value2[11],
+                                'int_emp_provinces1' => $value2[12],
+                                'int_emp_regencies1' => $value2[13],
+                                'int_emp_districts1' => $value2[14],
+                                'int_emp_villages1' => $value2[15],
+                                'int_emp_kode_pos1' => $value2[16],
+                                'int_emp_add2' => $value2[17],
+                                'int_emp_provinces2' => $value2[18],
+                                'int_emp_regencies2' => $value2[19],
+                                'int_emp_districts2' => $value2[20],
+                                'int_emp_villages2' => $value2[21],
+                                'int_emp_kode_pos2' => $value2[22],
+                                'int_emp_email' => $value2[23],
+                                'int_emp_email_nap' => $value2[24],
+                                'int_emp_joindate' => Date::excelToDateTimeObject($value2[25]),
+                                'int_emp_location' => $value2[26],
+                                'int_emp_subregion' => $value2[27],
+                                'int_emp_coa' => $value2[28],
+                                'int_emp_directorate' => $value2[29],
+                                'int_emp_division' => $value2[30],
+                                'int_emp_department' => $value2[31],
+                                'int_emp_position' => $value2[32],
+                                'int_emp_workday' => $value2[33],
+                                'int_emp_accountno' => $value2[34],
+                                'int_emp_accountname' => $value2[35],
+                                'int_emp_bankswift' => $value2[36],
+                                'int_emp_bankbranch' => $value2[37],
+                                'int_emp_taxid' =>  $value2[38],
+                                'int_emp_taxadd' =>  $value2[39],
+                                'int_emp_bpjstk' =>  $value2[40],
+                                'int_emp_bpjsk' =>  $value2[41],
+                                'int_emp_resigndate' => $value2[42],
+                                'int_emp_phone_home' => $value2[43],
+                                'int_emp_phone_mobile' => $value2[44],
+                                'int_emp_emergency_contact_name' => $value2[45],
+                                'int_emp_relationship' => $value2[46],
+                                'int_emp_emergency_number' => $value2[47],
+                                'int_emp_worklength' =>  $value2[48],
+                                'int_emp_level' =>  $value2[49],
+                                'int_emp_vehicle' =>  $value2[50],
+                                'int_emp_transtype' =>  $value2[51],
+                                'int_emp_reportline' =>  $value2[52],
+                                'int_emp_regisnpwp' => $value2[53],
+                                'int_emp_statuss' => $value2[54]
+                        ]);
+                    }
+                    $i++;
+                }
+            }   
+            return redirect()->back()->with('success', 'Data karyawan berhasil di Import');  
+        }
+        return redirect()->back()->with(['error' => 'Please choose file before']);
     }
 }
 

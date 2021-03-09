@@ -59,7 +59,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="card card-default">
                 
                 <!-- /.card-header -->
-        <form class="form-detail" action="{{ url('update-proses',$karyawans->int_emp_id) }}" enctype="multipart/form-data" method="POST" id="myform">
+        <form class="form-detail" action="{{ url('update-proses-datakaryawan',$karyawans->int_emp_id) }}" enctype="multipart/form-data" method="POST" id="myform">
         {{ csrf_field() }}
         @method('patch')
 
@@ -161,7 +161,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Tanggal Lahir</b>
-                            <input class="form-control" id="int_emp_dob" name="int_emp_dob" type="date" value="{{ $karyawans->int_emp_dob }}" required>
+                            <input class="form-control" name="int_emp_dob" type="date" value="{{ $karyawans->int_emp_dob }}" required>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -570,43 +570,60 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <b>Lama kerja / Worklength</b>
-                    <input class="form-control" type="text" value="{{ $karyawans->getWorkLength() }}" readonly>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <b>Emergency Contact Name</b>
+                            <input class="form-control" name="int_emp_emergency_contact_name" value="{{ $karyawans->int_emp_emergency_contact_name }}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <b>Relationship with Employee</b>
+                            <select name="int_emp_relationship" class="form-control">
+                                    <option value="" disabled>Pilih Relationship</option>
+                                    <option value="{{ $karyawans->int_emp_relationship }}">{{ $karyawans->int_emp_relationship }} </option>
+                                    <option value="Istri">Istri</option>
+                                    <option value="Orang Tua">Orang Tua</option>
+                                    <option value="Paman Kandung">Paman Kandung</option>
+                                    <option value="Saudara Kandung">Saudara Kandung</option>
+                                    <option value="Suami">Suami</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <b>Level</b>
-                            <select name="int_emp_level" class="form-control" required>
-                                <option value="" disabled>Level</option>
-                                <option value="{{ $karyawans->int_emp_level }}">{{ $karyawans->int_emp_level }} </option>
-                                <option value="Managing Director">Managing Director</option>
-                                <option value="Chief / Director">Chief / Director</option>
-                                <option value="Division Head">Division Head</option>
-                                <option value="Advisor">Advisor</option>
-                                <option value="Department Head">Department Head</option>
-                                <option value="Expert">Expert</option>
-                                <option value="Unit Head">Unit Head</option>
-                                <option value="Specialist">Specialist</option>
-                                <option value="Analyst">Analyst</option>
-                                <option value="Officer">Officer</option>
-                                <option value="Partner Service / Outsource">Partner Service / Outsource</option>
-                            </select>
+                            <b>Emergency Number</b>
+                            <input class="form-control" name="int_emp_emergency_number" type="text" onkeypress="return onlyNumber(event)" maxlength="14" value="{{ $karyawans->int_emp_emergency_number }}">
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <b>Nilai / Grading</b>
-                            <select name="int_emp_grading" class="form-control" required>
-                                <option value="" disabled>Nilai / Grading</option>
-                                <option value="{{ $karyawans->int_emp_grading }}">{{ $karyawans->int_emp_grading }} </option>
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                            </select>
-                        </div>
-                    </div>
+                </div>
+
+                <div class="form-group">
+                    <b>Lama kerja / Worklength</b>
+                    <input class="form-control" type="text" value="{{ $karyawans->getWorkLength() }}" readonly>
+                </div>
+
+                <div class="form-group">
+                    <b>Level</b>
+                    <select name="int_emp_level" class="form-control" required>
+                        <option value="" disabled>Level</option>
+                        <option value="{{ $karyawans->int_emp_level }}">{{ $karyawans->int_emp_level }} </option>
+                        <option value="Managing Director">Managing Director</option>
+                        <option value="Chief / Director">Chief / Director</option>
+                        <option value="Division Head">Division Head</option>
+                        <option value="Advisor">Advisor</option>
+                        <option value="Department Head">Department Head</option>
+                        <option value="Expert">Expert</option>
+                        <option value="Unit Head">Unit Head</option>
+                        <option value="Specialist">Specialist</option>
+                        <option value="Analyst">Analyst</option>
+                        <option value="Officer">Officer</option>
+                        <option value="Partner Service / Outsource">Partner Service / Outsource</option>
+                    </select>
                 </div>
 
                 <div class="form-row">

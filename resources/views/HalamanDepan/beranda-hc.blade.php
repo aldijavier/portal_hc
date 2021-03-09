@@ -48,9 +48,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div>
 
           <!-- ./col -->
-          <div class="col-lg-3 col-6">
+          <!-- <div class="col-lg-3 col-6"> -->
             <!-- small box -->
-            <div class="small-box bg-maroon">
+            <!-- <div class="small-box bg-maroon">
               <div class="inner">
                 <h3>{!! $count1 ?? '' !!}</h3>
                 <p>Jumlah Data Pelamar</p>
@@ -60,7 +60,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </div>
               <a href="{{ route('data-pelamar') }}" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
             </div>
-          </div>
+          </div> -->
 
           <!-- ./col -->
           <!-- <div class="col-lg-3 col-6"> -->

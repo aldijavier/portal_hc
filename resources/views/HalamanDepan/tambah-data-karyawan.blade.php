@@ -59,7 +59,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="card card-default">
                 
                 <!-- /.card-header -->
-        <form class="form-detail" action="/tambah/proses" enctype="multipart/form-data" method="POST" id="myform">
+        <form class="form-detail" action="/tambah/proses/datakaryawan" enctype="multipart/form-data" method="POST" id="myform">
         {{ csrf_field() }}
                 
 
@@ -498,41 +498,58 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                 </div>
 
-                <div class="form-group" hidden>
-                        <b>Lama kerja</b>
-                        <input class="form-control" name="int_emp_worklength" type="text" value="" hidden>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <b>Emergency Contact Name</b>
+                            <input class="form-control" name="int_emp_emergency_contact_name" type="text" value="{{ old('int_emp_emergency_contact_name') }}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <b>Relationship with Employee</b>
+                            <select name="int_emp_relationship" class="form-control">
+                                    <option value="">Pilih Relationship </option>
+                                    <option value="Istri" {{ old('int_emp_relationship') == "Istri" ? 'selected' : '' }}>Istri</option>
+                                    <option value="Orang Tua" {{ old('int_emp_relationship') == "Orang Tua" ? 'selected' : '' }}>Orang Tua</option>
+                                    <option value="Paman Kandung" {{ old('int_emp_relationship') == "Paman Kandung" ? 'selected' : '' }}>Paman Kandung</option>
+                                    <option value="Saudara Kandung" {{ old('int_emp_relationship') == "Saudara Kandung" ? 'selected' : '' }}>Saudara Kandung</option>
+                                    <option value="Suami" {{ old('int_emp_relationship') == "Suami" ? 'selected' : '' }}>Suami</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <b>Level</b>
-                            <select name="int_emp_level" class="form-control">
-                                    <option value="">Level</option>
-                                    <option value="Managing Director" {{ old('int_emp_level') == "Managing Director" ? 'selected' : '' }}>Managing Director</option>
-                                    <option value="Chief / Director" {{ old('int_emp_level') == "Chief / Director" ? 'selected' : '' }}>Chief / Director</option>
-                                    <option value="Division Head" {{ old('int_emp_level') == "Division Head" ? 'selected' : '' }}>Division Head</option>
-                                    <option value="Advisor" {{ old('int_emp_level') == "Advisor" ? 'selected' : '' }}>Advisor</option>
-                                    <option value="Department Head" {{ old('int_emp_level') == "Department Head" ? 'selected' : '' }}>Department Head</option>
-                                    <option value="Expert" {{ old('int_emp_level') == "Expert" ? 'selected' : '' }}>Expert</option>
-                                    <option value="Unit Head" {{ old('int_emp_level') == "Unit Head" ? 'selected' : '' }}>Unit Head</option>
-                                    <option value="Specialist" {{ old('int_emp_level') == "Specialist" ? 'selected' : '' }}>Specialist</option>
-                                    <option value="Analyst" {{ old('int_emp_level') == "Analyst" ? 'selected' : '' }}>Analyst</option>
-                                    <option value="Officer" {{ old('int_emp_level') == "Officer" ? 'selected' : '' }}>Officer</option>
-                                    <option value="Partner Service / Outsource" {{ old('int_emp_level') == "Partner Service / Outsource" ? 'selected' : '' }}>Partner Service / Outsource</option>
-                            </select>
+                            <b>Emergency Number</b>
+                            <input class="form-control" name="int_emp_emergency_number" onkeypress="return onlyNumber(event)" maxlength="14" type="text" value="{{ old('int_emp_emergency_number') }}">
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <b>Nilai / Grading</b>
-                            <select name="int_emp_grading" class="form-control">
-                                    <option value="">Nilai / Grading</option>
-                                    <option value="A" {{ old('int_emp_grading') == "A" ? 'selected' : '' }}>A</option>
-                                    <option value="B" {{ old('int_emp_grading') == "B" ? 'selected' : '' }}>B</option>
-                            </select>
-                        </div>
-                    </div>
+                </div>
+
+                <div class="form-group" hidden>
+                        <b>Lama kerja</b>
+                        <input class="form-control" name="int_emp_worklength" type="text" value="" hidden>
+                </div>
+
+                <div class="form-group">
+                    <b>Level</b>
+                    <select name="int_emp_level" class="form-control">
+                            <option value="">Level</option>
+                            <option value="Managing Director" {{ old('int_emp_level') == "Managing Director" ? 'selected' : '' }}>Managing Director</option>
+                            <option value="Chief / Director" {{ old('int_emp_level') == "Chief / Director" ? 'selected' : '' }}>Chief / Director</option>
+                            <option value="Division Head" {{ old('int_emp_level') == "Division Head" ? 'selected' : '' }}>Division Head</option>
+                            <option value="Advisor" {{ old('int_emp_level') == "Advisor" ? 'selected' : '' }}>Advisor</option>
+                            <option value="Department Head" {{ old('int_emp_level') == "Department Head" ? 'selected' : '' }}>Department Head</option>
+                            <option value="Expert" {{ old('int_emp_level') == "Expert" ? 'selected' : '' }}>Expert</option>
+                            <option value="Unit Head" {{ old('int_emp_level') == "Unit Head" ? 'selected' : '' }}>Unit Head</option>
+                            <option value="Specialist" {{ old('int_emp_level') == "Specialist" ? 'selected' : '' }}>Specialist</option>
+                            <option value="Analyst" {{ old('int_emp_level') == "Analyst" ? 'selected' : '' }}>Analyst</option>
+                            <option value="Officer" {{ old('int_emp_level') == "Officer" ? 'selected' : '' }}>Officer</option>
+                            <option value="Partner Service / Outsource" {{ old('int_emp_level') == "Partner Service / Outsource" ? 'selected' : '' }}>Partner Service / Outsource</option>
+                    </select>
                 </div>
 
                 <div class="form-row">

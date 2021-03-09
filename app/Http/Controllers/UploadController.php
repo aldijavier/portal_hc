@@ -14,7 +14,7 @@ class UploadController extends Controller
     {
         $provinces_list = DB::table('indonesia_provinces')->get();
         $provinces_list2 = DB::table('indonesia_provinces')->get();
-        return view('upload')->with('provinces_list', $provinces_list)->with('provinces_list2', $provinces_list2);
+        return view('upload-coba')->with('provinces_list', $provinces_list)->with('provinces_list2', $provinces_list2);
     }
 
     public function upload()

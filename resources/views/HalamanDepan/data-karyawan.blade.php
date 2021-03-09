@@ -31,6 +31,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <button class="btn bg-gradient-success"><i class="fas fa-plus-square"></i><a href="{{ route('tambah-data-karyawan') }}" style="color:white"> Tambah Data Karyawan</button></a>
           <button class="btn bg-gradient-info"><i class="fas fa-file-excel"></i><a href="{{ route('export-excel') }}" style="color:white"> Export Data Karyawan Aktif</button></a>
           <button class="btn bg-gradient-danger"><i class="fas fa-file-excel"></i><a href="{{ route('export-excel2') }}" style="color:white"> Export Data Karyawan Tidak Aktif</button></a>
+          <br><br>
+          <form class="form-detail" action="{{route ('importkaryawan') }}" enctype="multipart/form-data" method="POST" id="myform">
+              {{ csrf_field() }}
+              <div class="form-group col-md-7">
+                <label for="file">Import Data Karyawan</label>
+                <input type="file" class="form-control" name="file">
+                <label for="file">(* type format : .xlxs )</label>
+                <p class="text-danger">{{ $errors->first('file') }}</p>
+              </div>
+              <div class="form-group col-md-7">
+                <button class="btn btn-outline-primary"><i class="fas fa-file-upload"></i> Import Data</button>
+              </div>
+            </form>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <!-- <ol class="breadcrumb float-sm-right">
@@ -186,6 +199,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!-- REQUIRED SCRIPTS -->
     @include('Template.script')
+    @include('sweetalert::alert')
 <!-- /.REQUIRED SCRIPTS -->
 </body>
 </html>

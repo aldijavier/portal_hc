@@ -39,7 +39,8 @@ Route::patch('/upload/proses/{id}', 'UploadController@proses_upload_nilai')->nam
 // Route untuk menyimpan nilai Controller
 Route::patch('/upload/proses2/{id}', 'UploadController@proses_upload_nilai_interview')->name('update-proses-interview');
 
-
+Route::get('upload-form', 'UploadFormController@index');
+Route::post('/upload/proses', 'UploadFormController@proses_upload');
 /* --------------------------------------------------------------------------------------------------- */
 
 
@@ -86,13 +87,13 @@ Route::get('/tambah-data-karyawan', 'ControllerKaryawan@tambahdatakaryawan')->na
 Route::get('/tambah-data-karyawan', 'ControllerKaryawan@index')->name('tambah-data-karyawan');
 
 // Route untuk menyimpan data Proses Tambah di Controller
-Route::post('/tambah/proses', 'ControllerKaryawan@proses_tambah');
+Route::post('/tambah/proses/datakaryawan', 'ControllerKaryawan@proses_tambah');
 
 // Route untuk menampilkan halaman edit data karyawan di Controller Karyawan
 Route::get('/editdatakaryawan/{id}', 'ControllerKaryawan@editdatakaryawan')->name('edit-data-karyawan');
 
 // Route untuk update data karyawan di Controller Karyawan
-Route::patch('update-proses/{id}', 'ControllerKaryawan@proses_update')->name('update-proses');
+Route::patch('update-proses-datakaryawan/{id}', 'ControllerKaryawan@proses_update')->name('update-proses-datakaryawan');
 
 // Route untuk melihat detail data karyawan di Controller Karyawan
 Route::get('/detaildatakaryawan/{id}', 'ControllerKaryawan@detaildatakaryawan')->name('detail-data-karyawan');
@@ -106,3 +107,27 @@ Route::get('/export_excel', 'ControllerKaryawan@export_excel')->name('export-exc
 // Route untuk export data karyawan tidak aktif berupa excel di Controller Karyawan
 Route::get('/export_excel2', 'ControllerKaryawan@export_excel2')->name('export-excel2');
 
+// Route untuk menampilkan import data karyawan berupa excel di Controller Karyawan
+Route::get('/import_form_karyawan', 'ControllerKaryawan@importFormkaryawan');
+
+// Route untuk proses upload import data karyawan berupa excel di Controller Karyawan
+Route::post('/import_karyawan', 'ControllerKaryawan@importkaryawan')->name('importkaryawan');
+
+/* ---------------------------------Untuk Data Karyawan Temporary----------------------------------------------- */
+
+// Route untuk mendapatkan data karyawan di Controller Karyawan Temporary
+Route::get('/data-karyawan-temporary', 'KaryawanTemporaryController@datakaryawantemporary')->name('data-karyawan-temporary');
+
+Route::get('/tambah-data-karyawan-temporary', 'KaryawanTemporaryController@tambahdatakaryawantemporary')->name('tambah-data-karyawan-temporary');
+
+Route::post('/tambah/proses', 'KaryawanTemporaryController@proses_tambah');
+
+Route::get('/editdatakaryawantemporary/{id}', 'KaryawanTemporaryController@editdatakaryawantemporary')->name('edit-data-karyawan-temporary');
+
+Route::patch('update-proses/{id}', 'KaryawanTemporaryController@proses_update')->name('update-proses');
+
+Route::get('/detaildatakaryawantemporary/{id}', 'KaryawanTemporaryController@detaildatakaryawantemporary')->name('detail-data-karyawan-temporary');
+
+Route::get('/import_form', 'KaryawanTemporaryController@importForm');
+
+Route::post('/import', 'KaryawanTemporaryController@import')->name('import');

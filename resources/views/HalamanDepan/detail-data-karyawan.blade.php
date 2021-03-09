@@ -25,7 +25,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-          <h1 class="m-0">Detail Data Karyawan</h1>
+          <h1 class="m-0">Detail Data Karyawan Temporary</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -424,25 +424,41 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <b>Lama Kerja</b>
-                    <input class="form-control"  value="{{ $peg->getWorkLength() }}" disabled required>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <b>Emergency Contact Name</b>
+                            <input class="form-control"  value="{{ $peg->int_emp_emergency_contact_name }}" disabled required >
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <b>Relationship with Employee</b>
+                            <input class="form-control"  value="{{ $peg->int_emp_relationship }}" disabled required >
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <b>Level</b>
-                            <input class="form-control"  value="{{ $peg->int_emp_level }}" disabled required >
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <b>Nilai / Grading</b>
-                            <input class="form-control"  value="{{ $peg->int_emp_grading }}" disabled required >
+                            <b>Emergency Number</b>
+                            <input class="form-control"  value="{{ $peg->int_emp_emergency_number }}" disabled required >
                         </div>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <b>Lama Kerja</b>
+                    <input class="form-control"  value="{{ $peg->getWorkLength() }}" disabled required>
+                </div>
+
+            
+                <div class="form-group">
+                    <b>Level</b>
+                    <input class="form-control"  value="{{ $peg->int_emp_level }}" disabled required >
+                </div>
+
 
                 <div class="form-row">
                     <div class="col-md-6">
