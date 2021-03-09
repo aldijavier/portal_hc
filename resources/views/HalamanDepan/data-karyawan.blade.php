@@ -130,7 +130,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </div>
               <br>
               <button type="submit" class="btn btn-success"><i class="fa fa-search" aria-hidden="true"></i> Filter Data</button>
-              <a  class="btn btn-primary" href="{{url('/data-karyawan')}}"><i class="fas fa-sync fa-spin" aria-hidden="true" ></i> Reset Filter</a>
+              <a  class="btn btn-primary" href="{{url('/data-karyawan')}}"><i class="fas fa-sync" aria-hidden="true" ></i> Reset Filter</a>
               </form>
               <br>
               <br>
