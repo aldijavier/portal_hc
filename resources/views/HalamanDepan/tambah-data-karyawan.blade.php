@@ -7,6 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
     @include('Template.head')   
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
     <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
 </head>
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
@@ -111,11 +112,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Status Pernikahan</b>
-                            <select name="int_emp_marital" class="form-control"   >
-                                    <option value="">Status Pernikahan</option>
-                                    <option value="Lajang"  {{ old('int_emp_marital') == "Lajang" ? 'selected' : '' }}>Lajang</option>
-                                    <option value="Menikah" {{ old('int_emp_marital') == "Menikah" ? 'selected' : '' }}>Menikah</option>
+                            <select name="int_emp_marital" class="form-control">
+                                <option value="">--- Select Marital Status ---</option>
+                                @foreach ($countries as $key => $value)
+                                <option value="{{ $key }}">{{ $value }}</option>
+                                @endforeach
                             </select>
+                            {{-- <select name="int_emp_marital" class="form-control">
+                                <option value>Pilih Status</option>
+                                @foreach ($states as $key => $value)
+                                <option value="{{ $key }}">{{ $value }}</option>
+                                @endforeach
+                            </select> --}}
+                            {{-- <select name="int_emp_marital" class="form-control">
+                                    <option value="">Status Pernikahan</option>
+                                    <option value="Lajang"  {{ old('int_emp_marital') == "Lajang" ? 'selected' : '' }}>Single</option>
+                                    <option value="Menikah" {{ old('int_emp_marital') == "Menikah" ? 'selected' : '' }}>Married</option>
+                                    <option value="Cerai" {{ old('int_emp_marital') == "Cerai" ? 'selected' : '' }}>Widower / Divorce</option>
+                            </select> --}}
                         </div>
                     </div>
                 </div>
@@ -138,7 +152,46 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Kategori Pajak</b>
-                            <select name="int_emp_tax_cat" class="form-control"   >
+                            <select name="int_emp_tax_cat" class="form-control">
+                                <option>--State--</option>
+                                </select>
+
+                                <script type="text/javascript">
+                                    jQuery(document).ready(function ()
+                                    {
+                                            jQuery('select[name="int_emp_marital"]').on('change',function(){
+                                               var countryID = jQuery(this).val();
+                                               if(countryID)
+                                               {
+                                                  jQuery.ajax({
+                                                     url : 'dropdownlist/getstates/' +countryID,
+                                                     type : "GET",
+                                                     dataType : "json",
+                                                     success:function(data)
+                                                     {
+                                                        console.log(data);
+                                                        jQuery('select[name="int_emp_tax_cat"]').empty();
+                                                        jQuery.each(data, function(key,value){
+                                                           $('select[name="int_emp_tax_cat"]').append('<option value="'+ key +'">'+ value +'</option>');
+                                                        });
+                                                     }
+                                                  });
+                                               }
+                                               else
+                                               {
+                                                  $('select[name="int_emp_tax_cat"]').empty();
+                                               }
+                                            });
+                                    });
+                                    </script>
+                            {{-- <select name="int_emp_tax_cat" class="form-control">
+                                <option value>Pilih Status</option>
+                                @foreach($pajak ?? '' as $pajak)
+                                <option value="{{ $pajak->id }}" {{ old('int_emp_tax_cat') == "$pajak->id" ? 'selected' : '' }}>{{ $pajak->jenis_pajak }}</option>
+                                @endforeach
+                            </select> --}}
+                            
+                            {{-- <select name="int_emp_tax_cat" class="form-control"   >
                                     <option value="">Kategori Pajak </option>
                                     <option value="S0" {{ old('int_emp_tax_cat') == "S0" ? 'selected' : '' }}>S0</option>
                                     <option value="S1" {{ old('int_emp_tax_cat') == "S1" ? 'selected' : '' }}>S1</option>
@@ -148,7 +201,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <option value="M1" {{ old('int_emp_tax_cat') == "M1" ? 'selected' : '' }}>M1</option>
                                     <option value="M2" {{ old('int_emp_tax_cat') == "M2" ? 'selected' : '' }}>M2</option>
                                     <option value="M3" {{ old('int_emp_tax_cat') == "M3" ? 'selected' : '' }}>M3</option>
-                            </select>
+                            </select> --}}
                         </div>
                     </div>
                 </div>
@@ -385,7 +438,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-md-6">
                         <div class="form-group">
                         <b>Departemen</b>
-                            <select class="form-control department_reportline_name selectsearch" name="int_emp_department" id="int_emp_department"   >
+                            <select class="form-control department_reportline_name selectsearch" name="int_emp_department" id="int_emp_department" style="height: 50px;"  >
                                 <option value>Pilih Department</option>
                                 @foreach($departments ?? '' as $departments)
                                 <option value="{{ $departments->department_id }}" {{ old('int_emp_department') == "$departments->department_id" ? 'selected' : '' }}>{{ $departments->department_name }}</option>

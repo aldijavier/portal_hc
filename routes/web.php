@@ -43,7 +43,8 @@ Route::get('upload-form', 'UploadFormController@index');
 Route::post('/upload/proses', 'UploadFormController@proses_upload');
 /* --------------------------------------------------------------------------------------------------- */
 
-
+// Route::get('/guests/logbook', 'GuestController@lokasi');
+Route::get('/json-pajak', 'ControllerKaryawan@pajak')->name('jsonPajak');
 
 /* ---------------------------------Untuk Data Karyawan----------------------------------------------- */
 // Route untuk Halaman Depan
@@ -56,6 +57,10 @@ Route::get('/login_hc', 'LoginController@login_hc')->name('login_hc');
 
 Route::get('/beranda-utama', 'UploadController@berandaUtama')->name('beranda-utama');
 Route::get('/beranda-hc', 'UploadController@berandaHC')->name('beranda-hc');
+
+//pajak dan nikah
+Route::get('myform',array('as'=>'myform','uses'=>'ControllerKaryawan@myform'));
+Route::get('myform/ajax/{id}',array('as'=>'myform.ajax','uses'=>'ControllerKaryawan@myformAjax'));
 
 Route::get('/dropdown', 'DynamicDependent@index');
 Route::post('dropdown/regencies', 'DynamicDependent@regencies')->name('dynamicdependent.regencies');
@@ -73,6 +78,9 @@ Route::post('dropdown2/villages2', 'DynamicDependent2@villages2')->name('dynamic
 
 // Route untuk mendapatkan data karyawan di Controller Upload
 Route::get('/data-karyawan', 'ControllerKaryawan@datakaryawan')->name('data-karyawan');
+
+Route::get('dropdownlist','ControllerKaryawan@getCountries');
+Route::get('dropdownlist/getstates/{id}','ControllerKaryawan@getStates');
 
 // Route untuk mendapatkan filter data karyawan di Filter Controller
 Route::get('/filter-data-karyawan', 'FilterController@index')->name('filter-data-karyawan');

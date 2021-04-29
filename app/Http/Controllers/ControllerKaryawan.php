@@ -9,6 +9,8 @@ use App\Directorate;
 use App\Division;
 use App\Department;
 use App\Position;
+use App\Marital;
+use App\Pajak;
 use App\Exports\KaryawanExport;
 use App\Exports\Karyawan2Export;
 use App\Imports\KaryawanImport;
@@ -26,15 +28,44 @@ class ControllerKaryawan extends Controller
         $kode_generate = DB::table('kode_generate')->get();
         $directorates = DB::table('directorate')->get();
         $divisions = DB::table('division')->get();
+        // $states = DB::table('marital_status')->get();
+        // $cities = DB::table('pajak')->get();
+        // $states = DB::table('marital_status')->get();
+        //$pajak = DB::table('pajak')->get();
+        $countries = DB::table('marital_status')->pluck("marital_status","id");
         $departments = DB::table('department')->get();
         $positions = DB::table('position')->get();
         // $worklength = karyawan::first()->getWorkLength();
         $kode = ''; /*karyawan::kode();*/
         return view('HalamanDepan.tambah-data-karyawan',compact('kode_generate','kode',
-        'provinces_list', 'provinces_list2', 'directorates' ,'divisions', 'departments', 'positions', 'kode'));
+        'provinces_list', 'provinces_list2', 'directorates', 'countries' ,'divisions', 'departments', 'positions', 'kode'));
     }
 
-    
+    public function getCountries()
+    {
+        $countries = DB::table('marital_status')->pluck("marital_status","id");
+        return view('HalamanDepan.tambah-data-karyawan',compact('countries'));
+    }
+
+    public function getStates($id) 
+{        
+        $states = DB::table("pajak")->where("marital",$id)->pluck("jenis_pajak","id");
+        return json_encode($states);
+}
+
+//    public function myform()
+//    {
+//        $states = DB::table("marital_status")->lists("id","marital_status");
+//        return view('HalamanDepan.tambah-data-karyawan',compact('states'));
+//    }
+
+//    public function myformAjax($id)
+//    {
+//        $cities = DB::table("pajak")
+//                    ->where("marital",$id)
+//                    ->lists("id","jenis_pajak");
+//        return json_encode($cities);
+//    }
 
     public function datakaryawan()
     {
@@ -130,6 +161,8 @@ class ControllerKaryawan extends Controller
                 ->leftjoin('kode_generate','kode_generate.id_kode','employee.int_emp_status')
                 ->where('employee.int_emp_id','=',$id)
                 ->get();
+        //status pernikahan
+        
         $directorate = Karyawan::select('employee.*',
                 'directorate.directorate_name as directorate_name',
                 )
@@ -206,6 +239,15 @@ class ControllerKaryawan extends Controller
                 ->leftjoin('directorate','directorate.directorate_id','employee.int_emp_directorate')
                 ->where('employee.int_emp_id','=',$id)
                 ->get();
+        //status pernikahan
+       $statusnikah = Marital::all(); 
+       $div = Karyawan::select('employee.*',
+                'division.division_name as division_name'
+                )
+                ->leftjoin('marital_status','marital_status.id','employee.int_emp_division')
+                ->where('employee.int_emp_id','=',$id)
+                ->get();      
+
        $directorates = Directorate::all(); 
        $div = Karyawan::select('employee.*',
                 'division.division_name as division_name'
