@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/select2/css/select2.min.css') }}">
     <!-- DataTables -->
     <link rel="stylesheet" href="{{url('AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
+    
     <style>
     .button2 {width: 105%;}
     </style>

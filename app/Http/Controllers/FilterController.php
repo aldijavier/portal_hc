@@ -23,11 +23,11 @@ class FilterController extends Controller
         $search_statuss_karyawan = $request->get('search_statuss_karyawan');
         $departments1 = department::all();
   
-        $karyawan = DB::table('karyawan');
+        $karyawan = DB::table('employee');
 
-        $karyawan = Karyawan::leftJoin('department', 'department.department_id', 'karyawan.int_emp_department')
+        $karyawan = Karyawan::leftJoin('department', 'department.department_id', 'employee.int_emp_department')
         ->select(
-                'karyawan.*',
+                'employee.*',
                 'department.department_name as department_name'
             );            
             
@@ -72,11 +72,11 @@ class FilterController extends Controller
         $search_statuss_karyawan = $request->get('search_statuss_karyawan');
         $departments1 = department::all();
   
-        $karyawan = DB::table('karyawan');
+        $karyawan = DB::table('employee');
 
-        $karyawan = Karyawan::leftJoin('department', 'department.department_id', 'karyawan.int_emp_department')
+        $karyawan = Karyawan::leftJoin('department', 'department.department_id', 'employee.int_emp_department')
         ->select(
-                'karyawan.*',
+                'employee.*',
                 'department.department_name as department_name'
             );            
             

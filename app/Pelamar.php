@@ -10,7 +10,7 @@ class Pelamar extends Model
     //
     protected $hidden = ['created_at', 'updated_at'];
 
-    protected $table = "pelamar";
+    protected $table = "applicant";
 
     protected $fillable = [
         'nama_depan', 'nama_belakang', 'no_ktp', 'email', 'jenis_kelamin', 'tgl_lahir',

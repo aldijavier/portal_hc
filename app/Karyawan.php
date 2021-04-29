@@ -13,7 +13,7 @@ class Karyawan extends Model
     //
     protected $hidden = ['created_at', 'updated_at'];
 
-    protected $table = "karyawan";
+    protected $table = "employee";
     protected $primaryKey = "int_emp_id";
     public $timestamps = false;
     public $incrementing = false;
@@ -95,7 +95,7 @@ class Karyawan extends Model
 
     public static function kode(int $status)
     {
-        $datakode = DB::table('karyawan')->where('int_emp_status','=', $status)->get();
+        $datakode = DB::table('employee')->where('int_emp_status','=', $status)->get();
        
         $addNol = '';
         $kodeNum = DB::table('kode_generate')->where('id_kode', '=', $status)->first();

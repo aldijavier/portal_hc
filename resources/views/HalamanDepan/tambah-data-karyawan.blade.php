@@ -6,6 +6,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <html lang="en">
 <head>
     @include('Template.head')   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
 </head>
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
 <div class="wrapper">
@@ -582,7 +584,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                 <div class="form-group">
                     <b>NPWP Terdaftar</b>
-                    <input class="form-control" name="int_emp_regisnpwp" onkeypress="return onlyNumber(event)" maxlength="30" type="text" value="{{ old('int_emp_regisnpwp') }}">    
+                    <input class="form-control" id="int_emp_regisnpwp" name="int_emp_regisnpwp" onkeypress="return onlyNumber(event)" maxlength="30" placeholder="00.000.000.0-000.000" type="text" value="{{ old('int_emp_regisnpwp') }}">    
                 </div>
 
                 <div class="form-group">
@@ -657,8 +659,70 @@ function onlyNumber(evt) {
     $('.selectsearch').select2();
     });
 </script>
+<script type="text/javascript">
+
+    var txtNPWP = document.getElementById("int_emp_regisnpwp");
+
+    txtNPWP.addEventListener('keyup', function (e) {
+        
+        var cursorStart = txtNPWP.selectionStart,
+            cursorEnd   = txtNPWP.selectionEnd,
+            target      = e.target,
+            chars       = target.value.replace(/\D/g, ''),
+            new_chars;
 
 
+        if (cursorStart == "3" || cursorStart == "7" || cursorStart == "11" || cursorStart == "13" || cursorStart == "17") {
+            cursorStart = txtNPWP.selectionStart + 1;
+            cursorEnd = txtNPWP.selectionEnd + 1;
+        }
+        
+        var char = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,3})(\d{0,3})(\d{0,1})(\d{0,3})(\d{0,3})/);
+        e.target.value = char[1] + (char[2] ? '.' + char[2] : '') + (char[3] ? '.' + char[3] : '') + (char[4] ? '.' + char[4] : '') + (char[5] ? '-' + char[5] : '') + (char[6] ? '.' + char[6] : '');
+        
+        txtNPWP.setSelectionRange(cursorStart, cursorEnd);
+
+    }, false);
+
+</script>
+{{-- <script type="text/javascript">
+    $(document).ready(function($){
+        function formatNpwp(value) {
+  if (typeof value === 'string') {
+    return value.replace(/(\d{2})(\d{3})(\d{3})(\d{1})(\d{3})(\d{3})/, '$1.$2.$3.$4-$5.$6');
+  }
+        }
+    });
+</script> --}}
+
+<script type="text/javascript">
+    $(document).ready(function(){
+    $('#int_emp_regisnpwp').inputmask({
+        mask: 'SJ-AAA-****-99999',
+        definitions: {
+            A: {
+                validator: "[A-Za-z0-9 ]"
+            },
+        },            
+    });
+
+    $("#input_mask_date_time").inputmask("datetime", {
+        mask: "y-1-2 h:s:s",
+        placeholder: "yyyy-mm-dd hh:mm:ss",
+        separator: "-",
+        hourFormat : 12
+    });
+
+    $("#input_mask_currency").inputmask({
+        prefix : 'Rp ',
+        radixPoint: ',',
+        groupSeparator: ".",
+        alias: "numeric",
+        autoGroup: true,
+        digits: 0
+    });
+});
+</script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$(document).on('change','.department_reportline_name',function () {

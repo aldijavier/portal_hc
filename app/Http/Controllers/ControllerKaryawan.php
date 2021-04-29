@@ -39,9 +39,9 @@ class ControllerKaryawan extends Controller
     public function datakaryawan()
     {
         $departments1 = DB::table('department')->get();
-        $karyawan = Karyawan::leftJoin('department', 'department.department_id', 'karyawan.int_emp_department')
+        $karyawan = Karyawan::leftJoin('department', 'department.department_id', 'employee.int_emp_department')
         ->select(
-            'karyawan.*',
+            'employee.*',
             'department.department_name as department_name'
         )
         ->get();
@@ -58,9 +58,9 @@ class ControllerKaryawan extends Controller
     public function filterdatakaryawan()
     {
         $departments1 = DB::table('department')->get();
-        $karyawan = Karyawan::leftJoin('department', 'department.department_id', 'karyawan.int_emp_department')
+        $karyawan = Karyawan::leftJoin('department', 'department.department_id', 'employee.int_emp_department')
         ->select(
-            'karyawan.*',
+            'employee.*',
             'department.department_name as department_name'
         )
         ->get();
@@ -70,10 +70,10 @@ class ControllerKaryawan extends Controller
     public function datatables(Request $request)
     {
         $query = Karyawan::select([
-            'karyawan.*',
+            'employee.*',
             'department.deparment_name as nama_department'
         ])
-        ->join('department','department.id','=','karyawan.int_emp_department')
+        ->join('department','department.id','=','employee.int_emp_department')
         ;
         $query = Karyawan::all(['int_emp_number', 'int_emp_name', 'int_emp_gender', 'int_emp_marital', 
                'int_emp_religion', 'int_emp_dob', 'int_emp_department', 'int_emp_statuss'])
@@ -100,59 +100,59 @@ class ControllerKaryawan extends Controller
     public function detaildatakaryawan($id)
     {
     
-        $peg = Karyawan::select('karyawan.*',
+        $peg = Karyawan::select('employee.*',
                 'indonesia_provinces.name as province',
                 'indonesia_cities.name as city',
                 'indonesia_districts.name as district',
                 'indonesia_villages.name as village'
                 )
-                ->leftjoin('indonesia_villages','indonesia_villages.id','karyawan.int_emp_villages1')
-                ->leftjoin('indonesia_districts','indonesia_districts.id','karyawan.int_emp_districts1')
-                ->leftjoin('indonesia_cities','indonesia_cities.id','karyawan.int_emp_regencies1')
-                ->leftjoin('indonesia_provinces','indonesia_provinces.id','karyawan.int_emp_provinces1')
-                ->where('karyawan.int_emp_id','=',$id)
+                ->leftjoin('indonesia_villages','indonesia_villages.id','employee.int_emp_villages1')
+                ->leftjoin('indonesia_districts','indonesia_districts.id','employee.int_emp_districts1')
+                ->leftjoin('indonesia_cities','indonesia_cities.id','employee.int_emp_regencies1')
+                ->leftjoin('indonesia_provinces','indonesia_provinces.id','employee.int_emp_provinces1')
+                ->where('employee.int_emp_id','=',$id)
                 ->get();
-        $peg2 = Karyawan::select('karyawan.*',
+        $peg2 = Karyawan::select('employee.*',
                 'indonesia_provinces.name as province',
                 'indonesia_cities.name as city',
                 'indonesia_districts.name as district',
                 'indonesia_villages.name as village'
                 )
-                ->leftjoin('indonesia_villages','indonesia_villages.id','karyawan.int_emp_villages2')
-                ->leftjoin('indonesia_districts','indonesia_districts.id','karyawan.int_emp_districts2')
-                ->leftjoin('indonesia_cities','indonesia_cities.id','karyawan.int_emp_regencies2')
-                ->leftjoin('indonesia_provinces','indonesia_provinces.id','karyawan.int_emp_provinces2')
-                ->where('karyawan.int_emp_id','=',$id)
+                ->leftjoin('indonesia_villages','indonesia_villages.id','employee.int_emp_villages2')
+                ->leftjoin('indonesia_districts','indonesia_districts.id','employee.int_emp_districts2')
+                ->leftjoin('indonesia_cities','indonesia_cities.id','employee.int_emp_regencies2')
+                ->leftjoin('indonesia_provinces','indonesia_provinces.id','employee.int_emp_provinces2')
+                ->where('employee.int_emp_id','=',$id)
                 ->get();
-        $kode_generate = Karyawan::select('karyawan.*',
+        $kode_generate = Karyawan::select('employee.*',
                 'kode_generate.keterangan_kode as keterangan_kode',
                 )
-                ->leftjoin('kode_generate','kode_generate.id_kode','karyawan.int_emp_status')
-                ->where('karyawan.int_emp_id','=',$id)
+                ->leftjoin('kode_generate','kode_generate.id_kode','employee.int_emp_status')
+                ->where('employee.int_emp_id','=',$id)
                 ->get();
-        $directorate = Karyawan::select('karyawan.*',
+        $directorate = Karyawan::select('employee.*',
                 'directorate.directorate_name as directorate_name',
                 )
-                ->leftjoin('directorate','directorate.directorate_id','karyawan.int_emp_directorate')
-                ->where('karyawan.int_emp_id','=',$id)
+                ->leftjoin('directorate','directorate.directorate_id','employee.int_emp_directorate')
+                ->where('employee.int_emp_id','=',$id)
                 ->get();
-        $div = Karyawan::select('karyawan.*',
+        $div = Karyawan::select('employee.*',
                 'division.division_name as division_name'
                 )
-                ->leftjoin('division','division.division_id','karyawan.int_emp_division')
-                ->where('karyawan.int_emp_id','=',$id)
+                ->leftjoin('division','division.division_id','employee.int_emp_division')
+                ->where('employee.int_emp_id','=',$id)
                 ->get();
-        $dept = Karyawan::select('karyawan.*',
+        $dept = Karyawan::select('employee.*',
                 'department.department_name as department_name'
                 )
-                ->leftjoin('department','department.department_id','karyawan.int_emp_department')
-                ->where('karyawan.int_emp_id','=',$id)
+                ->leftjoin('department','department.department_id','employee.int_emp_department')
+                ->where('employee.int_emp_id','=',$id)
                 ->get();
-        $position = Karyawan::select('karyawan.*',
+        $position = Karyawan::select('employee.*',
                 'position.position_name as position_name',
                 )
-                ->leftjoin('position','position.position_id','karyawan.int_emp_position')
-                ->where('karyawan.int_emp_id','=',$id)
+                ->leftjoin('position','position.position_id','employee.int_emp_position')
+                ->where('employee.int_emp_id','=',$id)
                 ->get();
         $awal = date("Y-m-d");
         return view('HalamanDepan.detail-data-karyawan',compact('peg', 'peg2', 'awal', 'kode_generate' , 'div', 'dept', 'directorate', 'position'));
@@ -164,68 +164,68 @@ class ControllerKaryawan extends Controller
        $cities_list = DB::table('indonesia_cities')->get();
        $districts_list = DB::table('indonesia_districts')->get();
        $villages_list = DB::table('indonesia_villages')->get();
-       $peg = Karyawan::select('karyawan.*',
+       $peg = Karyawan::select('employee.*',
                 'indonesia_provinces.name as province',
                 'indonesia_cities.name as city',
                 'indonesia_districts.name as district',
                 'indonesia_villages.name as village'
                 )
-                ->leftjoin('indonesia_villages','indonesia_villages.id','karyawan.int_emp_villages1')
-                ->leftjoin('indonesia_districts','indonesia_districts.id','karyawan.int_emp_districts1')
-                ->leftjoin('indonesia_cities','indonesia_cities.id','karyawan.int_emp_regencies1')
-                ->leftjoin('indonesia_provinces','indonesia_provinces.id','karyawan.int_emp_provinces1')
-                ->where('karyawan.int_emp_id','=',$id)
+                ->leftjoin('indonesia_villages','indonesia_villages.id','employee.int_emp_villages1')
+                ->leftjoin('indonesia_districts','indonesia_districts.id','employee.int_emp_districts1')
+                ->leftjoin('indonesia_cities','indonesia_cities.id','employee.int_emp_regencies1')
+                ->leftjoin('indonesia_provinces','indonesia_provinces.id','employee.int_emp_provinces1')
+                ->where('employee.int_emp_id','=',$id)
                 ->get();
 
        $provinces_list2 = DB::table('indonesia_provinces')->get();
        $cities_list2 = DB::table('indonesia_cities')->get();
        $districts_list2 = DB::table('indonesia_districts')->get();
        $villages_list2 = DB::table('indonesia_villages')->get();
-       $peg2 = Karyawan::select('karyawan.*',
+       $peg2 = Karyawan::select('employee.*',
                 'indonesia_provinces.name as province',
                 'indonesia_cities.name as city',
                 'indonesia_districts.name as district',
                 'indonesia_villages.name as village'
                 )
-                ->leftjoin('indonesia_villages','indonesia_villages.id','karyawan.int_emp_villages2')
-                ->leftjoin('indonesia_districts','indonesia_districts.id','karyawan.int_emp_districts2')
-                ->leftjoin('indonesia_cities','indonesia_cities.id','karyawan.int_emp_regencies2')
-                ->leftjoin('indonesia_provinces','indonesia_provinces.id','karyawan.int_emp_provinces2')
-                ->where('karyawan.int_emp_id','=',$id)
+                ->leftjoin('indonesia_villages','indonesia_villages.id','employee.int_emp_villages2')
+                ->leftjoin('indonesia_districts','indonesia_districts.id','employee.int_emp_districts2')
+                ->leftjoin('indonesia_cities','indonesia_cities.id','employee.int_emp_regencies2')
+                ->leftjoin('indonesia_provinces','indonesia_provinces.id','employee.int_emp_provinces2')
+                ->where('employee.int_emp_id','=',$id)
                 ->get();
-        $kode_generate = Karyawan::select('karyawan.*',
+        $kode_generate = Karyawan::select('employee.*',
                 'kode_generate.keterangan_kode as keterangan_kode',
                 )
-                ->leftjoin('kode_generate','kode_generate.id_kode','karyawan.int_emp_status')
-                ->where('karyawan.int_emp_id','=',$id)
+                ->leftjoin('kode_generate','kode_generate.id_kode','employee.int_emp_status')
+                ->where('employee.int_emp_id','=',$id)
                 ->get();
         $kode_generates = Kode_generate::all();
-        $direct = Karyawan::select('karyawan.*',
+        $direct = Karyawan::select('employee.*',
                 'directorate.directorate_name as directorate_name',
                 )
-                ->leftjoin('directorate','directorate.directorate_id','karyawan.int_emp_directorate')
-                ->where('karyawan.int_emp_id','=',$id)
+                ->leftjoin('directorate','directorate.directorate_id','employee.int_emp_directorate')
+                ->where('employee.int_emp_id','=',$id)
                 ->get();
        $directorates = Directorate::all(); 
-       $div = Karyawan::select('karyawan.*',
+       $div = Karyawan::select('employee.*',
                 'division.division_name as division_name'
                 )
-                ->leftjoin('division','division.division_id','karyawan.int_emp_division')
-                ->where('karyawan.int_emp_id','=',$id)
+                ->leftjoin('division','division.division_id','employee.int_emp_division')
+                ->where('employee.int_emp_id','=',$id)
                 ->get();
        $divisions = Division::all();
-       $dept = Karyawan::select('karyawan.*',
+       $dept = Karyawan::select('employee.*',
                 'department.department_name as department_name'
                 )
-                ->leftjoin('department','department.department_id','karyawan.int_emp_department')
-                ->where('karyawan.int_emp_id','=',$id)
+                ->leftjoin('department','department.department_id','employee.int_emp_department')
+                ->where('employee.int_emp_id','=',$id)
                 ->get();
        $departments = Department::all();
-       $position = Karyawan::select('karyawan.*',
+       $position = Karyawan::select('employee.*',
                 'position.position_name as position_name',
                 )
-                ->leftjoin('position','position.position_id','karyawan.int_emp_position')
-                ->where('karyawan.int_emp_id','=',$id)
+                ->leftjoin('position','position.position_id','employee.int_emp_position')
+                ->where('employee.int_emp_id','=',$id)
                 ->get();
        $positions = Position::all();
        return view('HalamanDepan.edit-data-karyawan',compact('karyawans', 'provinces_list', 'cities_list',
@@ -350,7 +350,7 @@ class ControllerKaryawan extends Controller
         ]
     );
     
-       DB::table('karyawan')->where('int_emp_id', $id)->update([
+       DB::table('employee')->where('int_emp_id', $id)->update([
             // 'int_emp_status' => $request->int_emp_status,
             // 'int_emp_number' => $request->int_emp_number,
             'int_emp_name' => $request->int_emp_name,

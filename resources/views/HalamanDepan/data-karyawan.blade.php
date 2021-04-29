@@ -7,6 +7,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <html lang="en">
 <head>
     @include('Template.head')
+    <link href="{{asset('css/dashboard.css')}}" rel="stylesheet" type="text/css">
+    {{-- <link href="{{asset('css/upload.css')}}" rel="stylesheet" type="text/css"> --}}
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+
 </head>
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
 <div class="wrapper">
@@ -26,23 +30,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="content-header">
-          <h1 class="m-0">Manajemen Data Karyawan</h1>
+          <h1 class="m-0" style="text-align: center">Data Employee Management</h1>
           <br>
-          <button class="btn bg-gradient-success"><i class="fas fa-plus-square"></i><a href="{{ route('tambah-data-karyawan') }}" style="color:white"> Tambah Data Karyawan</button></a>
-          <button class="btn bg-gradient-info"><i class="fas fa-file-excel"></i><a href="{{ route('export-excel') }}" style="color:white"> Export Data Karyawan Aktif</button></a>
-          <button class="btn bg-gradient-danger"><i class="fas fa-file-excel"></i><a href="{{ route('export-excel2') }}" style="color:white"> Export Data Karyawan Tidak Aktif</button></a>
+          <button class="custom-btn btn-31" style="width: 250px;"><i class="fas fa-plus-square"></i><a href="{{ route('tambah-data-karyawan') }}" style="color:white"> Add Data Employee</button></a>
+          <button class="custom-btn btn-21" style="width: 250px;"><i class="fas fa-file-excel"></i><a href="{{ route('export-excel') }}" style="color:white"> Export Data Employee Active</button></a>
+          <button class="custom-btn btn-11" style="width: 310px;"><i class="fas fa-file-excel"></i><a href="{{ route('export-excel2') }}" style="color:white"> Export Data Employee Non Active</button></a>
           <br><br>
           <form class="form-detail" action="{{route ('importkaryawan') }}" enctype="multipart/form-data" method="POST" id="myform">
               {{ csrf_field() }}
-              <div class="form-group col-md-7">
-                <label for="file">Import Data Karyawan</label>
-                <input type="file" class="form-control" name="file">
+              <div class="form-group col-md-4">
+                <label for="file">Import Data Employee</label>
+                <input type="file" class="form-control" name="file" style="height: 45px;"> <span style="margin:295px;"><button class="btn btn-outline-primary" style="margin-top: -51px;"><i class="fas fa-file-upload"></i> Import Data</button></span>
                 <label for="file">(* type format : .xlxs )</label>
                 <p class="text-danger">{{ $errors->first('file') }}</p>
               </div>
-              <div class="form-group col-md-7">
+              {{-- <div class="form-group col-md-7">
                 <button class="btn btn-outline-primary"><i class="fas fa-file-upload"></i> Import Data</button>
-              </div>
+              </div> --}}
             </form>
           </div><!-- /.col -->
           <div class="col-sm-6">
@@ -62,36 +66,36 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="row">
           <div class="col-12">
             <div class="card">
-              <div class="card-header bg-indigo">
-                <h3 class="card-title">Data Karyawan</h3>
+              <div class="card-header" style="background-color: #151A48">
+                <h3 class="card-title" style="color: white">Data Employee</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body"> 
               
-              <center><h1>Filter Data</h1></center>
+              <center><h1 style="font-size: 30px;">Filter Data</h1></center>
               <br>
               
               <form action="/filter-data-karyawan" method="GET" enctype="multipart/form-data">
               {{csrf_field()}}
               <div class="row">
               <div class="col-md-4">
-              <label for="name"> Nomor Karyawan </label>
-                <input data-column="0" type="text" name="search_number_karyawan" id="search_number_karyawan" class="form-control filter-number" autocomplete="off" placeholder="Masukan nomor karyawan"
+              <label for="name"> Number Employee </label>
+                <input data-column="0" type="text" name="search_number_karyawan" id="search_number_karyawan" class="form-control filter-number" autocomplete="off" placeholder="Input Employee Number"
                 value="{{ (request()->get('search_number_karyawan')) }}">
               </div>
 
               <div class="col-md-4">
-                <label for="name"> Nama Karyawan </label>
-                <input  data-column="1" type="text"  name="search_nama_karyawan" id="search_nama_karyawan" class="form-control" autocomplete="off" placeholder="Masukan nama karyawan"
+                <label for="name"> Name Employee </label>
+                <input  data-column="1" type="text"  name="search_nama_karyawan" id="search_nama_karyawan" class="form-control" autocomplete="off" placeholder="Input Name of Employee"
                 value="{{ (request()->get('search_nama_karyawan')) }}">
               </div>
 
                 <div class="col-md-4">
-                  <label for="filter-pernikahan">Status Pernikahan</label>
+                  <label for="filter-pernikahan">Marital Status</label>
                   <select data-column="3" name="search_statuspernikahan_karyawan" id="search_statuspernikahan_karyawan" class="form-control filter-pernikahan">
-                    <option value="">Pilih Status Pernikahan</option>
-                    <option @if(request()->get('search_statuspernikahan_karyawan')=="Lajang") selected @endif value="Lajang" >Lajang</option>
-                    <option @if(request()->get('search_statuspernikahan_karyawan')=="Menikah") selected @endif value="Menikah" >Menikah</option>
+                    <option value="">Choose Marital Status</option>
+                    <option @if(request()->get('search_statuspernikahan_karyawan')=="Single") selected @endif value="Single" >Single</option>
+                    <option @if(request()->get('search_statuspernikahan_karyawan')=="Married") selected @endif value="Married" >Married</option>
                   </select>
                 </div>
                 </div>
@@ -99,9 +103,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                 <div class="row">
                 <div class="col-md-4">
-                  <label>Agama</label>
+                  <label>Religion</label>
                   <select data-column="4" name="search_agama_karyawan" id="search_agama_karyawan" class="form-control filter-agama">
-                    <option value="">Pilih Agama</option>
+                    <option value="">Choose Religion</option>
                     <option @if(request()->get('search_agama_karyawan')=="Islam") selected @endif value="Islam" >Islam</option>
                     <option @if(request()->get('search_agama_karyawan')=="Kristen Protestan") selected @endif value="Kristen Protestan" >Kristen Protestan</option>
                     <option @if(request()->get('search_agama_karyawan')=="Kristen Katolik") selected @endif value="Kristen Katolik" >Kristen Katolik</option>
@@ -113,18 +117,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="col-md-4">
                   <label>Departement</label>
                   <select data-column="6" name="search_department_karyawan" id="search_department_karyawan" class="form-control filter-department">
-                    <option value="">Pilih Departement</option>
+                    <option value="">Choose Departement</option>
                     @foreach($departments1 as $department)
                     <option @if(request()->get('search_department_karyawan')=="{{$department->department_id}}") selected @endif value="{{$department->department_id}}">{{$department->department_name}}</option>
                     @endforeach
                   </select>
                 </div>
                 <div class="col-md-4">
-                <label for="filter-statuss"> Status Karyawan </label>
+                <label for="filter-statuss"> Status Employee </label>
                   <select class="form-control filter-statuss" name="search_statuss_karyawan" id="search_statuss_karyawan">
-                      <option value=""> Pilih Status Karyawan </option>
-                      <option @if(request()->get('search_statuss_karyawan')=="1") selected @endif value="1" >Aktif</option>
-                      <option @if(request()->get('search_statuss_karyawan')=="2") selected @endif value="2" >Tidak Aktif</option>
+                      <option value=""> Choose Employee Status </option>
+                      <option @if(request()->get('search_statuss_karyawan')=="1") selected @endif value="1" >Active</option>
+                      <option @if(request()->get('search_statuss_karyawan')=="2") selected @endif value="2" >Non Active</option>
                   </select>
                 </div>
               </div>
@@ -139,12 +143,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <thead>
 						<tr>
               <th>No</th>
-              <th>Nomor Karyawan</th>
-							<th>Nama Karyawan</th>
-							<th>Jenis Kelamin</th>
-							<th>Status Pernikahan</th>
-							<th>Agama</th>
-              <th>Tanggal Lahir</th>
+              <th>Number Identity Employee</th>
+							<th>Name of Employee</th>
+							<th>Gender</th>
+							<th>Marital Status</th>
+							<th>Religion</th>
+              <th>Birth of Date</th>
               <th>Department</th>
               <th>Status</th>
 							<th>Action</th>
