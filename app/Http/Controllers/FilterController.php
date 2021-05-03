@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Karyawan;
 use App\Department;
+use App\Marital;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -22,13 +23,15 @@ class FilterController extends Controller
         $search_department_karyawan = $request->get('search_department_karyawan');
         $search_statuss_karyawan = $request->get('search_statuss_karyawan');
         $departments1 = department::all();
-  
+        $marital = Marital::all();
         $karyawan = DB::table('employee');
 
         $karyawan = Karyawan::leftJoin('department', 'department.department_id', 'employee.int_emp_department')
+        ->leftJoin('marital_status', 'marital_status.id', 'employee.int_emp_marital')
         ->select(
                 'employee.*',
-                'department.department_name as department_name'
+                'department.department_name as department_name',
+                'marital_status.marital_status as marital'
             );            
             
         if($request->get('search_number_karyawan')){
@@ -57,7 +60,7 @@ class FilterController extends Controller
 
         $karyawan = $karyawan->paginate(10000);
         $karyawan = $karyawan->appends($request->all());
-        return view('HalamanDepan.data-karyawan', compact('karyawan', 'departments1'));
+        return view('HalamanDepan.data-karyawan', compact('karyawan', 'departments1', 'marital'));
 
     }
     
@@ -71,13 +74,16 @@ class FilterController extends Controller
         $search_department_karyawan = $request->get('search_department_karyawan');
         $search_statuss_karyawan = $request->get('search_statuss_karyawan');
         $departments1 = department::all();
+        $marital = Marital::all();
   
         $karyawan = DB::table('employee');
 
         $karyawan = Karyawan::leftJoin('department', 'department.department_id', 'employee.int_emp_department')
+        ->leftJoin('marital_status', 'marital_status.id', 'employee.int_emp_marital')
         ->select(
                 'employee.*',
-                'department.department_name as department_name'
+                'department.department_name as department_name',
+                'marital_status.marital_status as marital'
             );            
             
         if($request->get('search_number_karyawan')){
@@ -106,7 +112,7 @@ class FilterController extends Controller
 
         $karyawan = $karyawan->paginate(10000);
         $karyawan = $karyawan->appends($request->all());
-        return view('HalamanDepan.filter-data-karyawan', compact('karyawan', 'departments1'));
+        return view('HalamanDepan.filter-data-karyawan', compact('karyawan', 'departments1', 'marital'));
 
     }    
         

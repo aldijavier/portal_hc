@@ -109,6 +109,8 @@ class Karyawan extends Model
     	} elseif (strlen($kode) == 3) {
     		$addNol = "0";
     	}
+        
+
 
     	$kodeBaru = $kodeNum->nama_kode.$addNol.$incrementKode;
     	return $kodeBaru;

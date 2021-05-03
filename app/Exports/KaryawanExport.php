@@ -79,73 +79,75 @@ class KaryawanExport implements FromQuery,WithHeadings
         //  return Karyawan::query()->where('int_emp_statuss', '0');
         return Karyawan::select(
             'kode_generate.nama_kode',
-            'karyawan.int_emp_number',
-            'karyawan.int_emp_name',
-            'karyawan.int_emp_pref_name',
-            'karyawan.int_emp_gender',
-            'karyawan.int_emp_marital',
-            'karyawan.int_emp_religion',
-            'karyawan.int_emp_tax_cat',
-            'karyawan.int_emp_dob',
-            'karyawan.int_emp_nation',
-            'karyawan.int_emp_ktp',
-            'karyawan.int_emp_add1',
+            'employee.int_emp_number',
+            'employee.int_emp_name',
+            'employee.int_emp_pref_name',
+            'employee.int_emp_gender',
+            'marital_status.marital_status as marital',
+            'employee.int_emp_religion',
+            'pajak.jenis_pajak as pajak',
+            'employee.int_emp_dob',
+            'employee.int_emp_nation',
+            'employee.int_emp_ktp',
+            'employee.int_emp_add1',
             'indonesia_provinces.name as province1',
             'indonesia_cities.name as city1',
             'indonesia_districts.name as district1',
             'indonesia_villages.name as village1',
-            'karyawan.int_emp_kode_pos1',
-            'karyawan.int_emp_add2',
+            'employee.int_emp_kode_pos1',
+            'employee.int_emp_add2',
             'provinces2.name as province2',
             'cities2.name as city2',
             'districts2.name as district2',
             'villages2.name as village2',
-            'karyawan.int_emp_kode_pos2',
-            'karyawan.int_emp_email',
-            'karyawan.int_emp_email_nap',
-            'karyawan.int_emp_joindate',
-            'karyawan.int_emp_location',
-            'karyawan.int_emp_subregion',
-            'karyawan.int_emp_coa',
+            'employee.int_emp_kode_pos2',
+            'employee.int_emp_email',
+            'employee.int_emp_email_nap',
+            'employee.int_emp_joindate',
+            'employee.int_emp_location',
+            'employee.int_emp_subregion',
+            'employee.int_emp_coa',
             'directorate.directorate_name',
             'division.division_name',
             'department.department_name',
             'position.position_name',
-            'karyawan.int_emp_workday',
-            'karyawan.int_emp_accountno',
-            'karyawan.int_emp_accountname',
-            'karyawan.int_emp_bankswift',
-            'karyawan.int_emp_bankbranch',
-            'karyawan.int_emp_taxid',
-            'karyawan.int_emp_taxadd',
-            'karyawan.int_emp_bpjstk',
-            'karyawan.int_emp_bpjsk',
-            'karyawan.int_emp_resigndate',
-            'karyawan.int_emp_phone_home',
-            'karyawan.int_emp_phone_mobile',
-            'karyawan.int_emp_emergency_contact_name',
-            'karyawan.int_emp_relationship',
-            'karyawan.int_emp_emergency_number',
+            'employee.int_emp_workday',
+            'employee.int_emp_accountno',
+            'employee.int_emp_accountname',
+            'employee.int_emp_bankswift',
+            'employee.int_emp_bankbranch',
+            'employee.int_emp_taxid',
+            'employee.int_emp_taxadd',
+            'employee.int_emp_bpjstk',
+            'employee.int_emp_bpjsk',
+            'employee.int_emp_resigndate',
+            'employee.int_emp_phone_home',
+            'employee.int_emp_phone_mobile',
+            'employee.int_emp_emergency_contact_name',
+            'employee.int_emp_relationship',
+            'employee.int_emp_emergency_number',
             // 'karyawan.int_emp_worklength',
-            'karyawan.int_emp_level',
-            'karyawan.int_emp_vehicle',
-            'karyawan.int_emp_transtype',
-            'karyawan.int_emp_reportline',
-            'karyawan.int_emp_regisnpwp',
-            'karyawan.int_emp_statuss')
-            ->leftJoin('kode_generate', 'kode_generate.id_kode', 'karyawan.int_emp_status')
-            ->leftJoin('directorate', 'directorate.directorate_id', 'karyawan.int_emp_directorate')
-            ->leftJoin('department', 'department.department_id', 'karyawan.int_emp_department')
-            ->leftJoin('division', 'division.division_id', 'karyawan.int_emp_division')
-            ->leftJoin('position', 'position.position_id', 'karyawan.int_emp_position')
-            ->leftjoin('indonesia_villages','indonesia_villages.id','karyawan.int_emp_villages1')
-            ->leftjoin('indonesia_districts','indonesia_districts.id','karyawan.int_emp_districts1')
-            ->leftjoin('indonesia_cities','indonesia_cities.id','karyawan.int_emp_regencies1')
-            ->leftjoin('indonesia_provinces','indonesia_provinces.id','karyawan.int_emp_provinces1')
-            ->leftjoin('indonesia_provinces as provinces2','provinces2.id','karyawan.int_emp_provinces2')
-            ->leftjoin('indonesia_cities as cities2','cities2.id','karyawan.int_emp_regencies2')
-            ->leftjoin('indonesia_districts as districts2','districts2.id','karyawan.int_emp_districts2')
-            ->leftjoin('indonesia_villages as villages2','villages2.id','karyawan.int_emp_villages2')
+            'employee.int_emp_level',
+            'employee.int_emp_vehicle',
+            'employee.int_emp_transtype',
+            'employee.int_emp_reportline',
+            'employee.int_emp_regisnpwp',
+            'employee.int_emp_statuss')
+            ->leftJoin('kode_generate', 'kode_generate.id_kode', 'employee.int_emp_status')
+            ->leftJoin('directorate', 'directorate.directorate_id', 'employee.int_emp_directorate')
+            ->leftJoin('department', 'department.department_id', 'employee.int_emp_department')
+            ->leftJoin('division', 'division.division_id', 'employee.int_emp_division')
+            ->leftJoin('position', 'position.position_id', 'employee.int_emp_position')
+            ->leftjoin('indonesia_villages','indonesia_villages.id','employee.int_emp_villages1')
+            ->leftjoin('indonesia_districts','indonesia_districts.id','employee.int_emp_districts1')
+            ->leftjoin('indonesia_cities','indonesia_cities.id','employee.int_emp_regencies1')
+            ->leftjoin('indonesia_provinces','indonesia_provinces.id','employee.int_emp_provinces1')
+            ->leftjoin('indonesia_provinces as provinces2','provinces2.id','employee.int_emp_provinces2')
+            ->leftjoin('indonesia_cities as cities2','cities2.id','employee.int_emp_regencies2')
+            ->leftjoin('indonesia_districts as districts2','districts2.id','employee.int_emp_districts2')
+            ->leftjoin('indonesia_villages as villages2','villages2.id','employee.int_emp_villages2')
+            ->leftJoin('marital_status', 'marital_status.id', 'employee.int_emp_marital')
+            ->leftJoin('pajak', 'pajak.id', 'employee.int_emp_tax_cat')
             ->where('int_emp_statuss', '1');
     }
     

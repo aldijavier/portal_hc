@@ -94,8 +94,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <label for="filter-pernikahan">Marital Status</label>
                   <select data-column="3" name="search_statuspernikahan_karyawan" id="search_statuspernikahan_karyawan" class="form-control filter-pernikahan">
                     <option value="">Choose Marital Status</option>
-                    <option @if(request()->get('search_statuspernikahan_karyawan')=="Single") selected @endif value="Single" >Single</option>
-                    <option @if(request()->get('search_statuspernikahan_karyawan')=="Married") selected @endif value="Married" >Married</option>
+                    <option @if(request()->get('search_statuspernikahan_karyawan')=="1") selected @endif value="1" >Single</option>
+                    <option @if(request()->get('search_statuspernikahan_karyawan')=="2") selected @endif value="2" >Married</option>
+                    <option @if(request()->get('search_statuspernikahan_karyawan')=="3") selected @endif value="3" >Widower / Divorce</option>
                   </select>
                 </div>
                 </div>
@@ -114,10 +115,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <option @if(request()->get('search_agama_karyawan')=="Konghucu") selected @endif value="Konghucu" >Konghucu</option>
                   </select>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <label>Departement</label>
                   <select data-column="6" name="search_department_karyawan" id="search_department_karyawan" class="form-control filter-department">
-                    <option value="">Choose Departement</option>
+                    <option value="" style="padding-bottom: 500px;">Choose Departement</option>
                     @foreach($departments1 as $department)
                     <option @if(request()->get('search_department_karyawan')=="{{$department->department_id}}") selected @endif value="{{$department->department_id}}">{{$department->department_name}}</option>
                     @endforeach
@@ -162,7 +163,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							<td>{{$g->int_emp_number}}</td>
               <td>{{$g->int_emp_name}}</td>
 							<td>{{$g->int_emp_gender}}</td>
-							<td>{{$g->int_emp_marital}}</td>
+							<td>{{$g->marital}}</td>
 							<td>{{$g->int_emp_religion}}</td>
               <td>{{Carbon\Carbon::parse($g->int_emp_dob)->format("d/m/Y")}}</td>
               <td>{{$g->department_name}}</td>

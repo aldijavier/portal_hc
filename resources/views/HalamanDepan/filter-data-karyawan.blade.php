@@ -70,8 +70,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <label for="filter-pernikahan">Status Pernikahan</label>
                   <select data-column="3" name="search_statuspernikahan_karyawan" id="search_statuspernikahan_karyawan" class="form-control filter-pernikahan">
                     <option value="">Pilih Status Pernikahan</option>
-                    <option @if(request()->get('search_statuspernikahan_karyawan')=="Lajang") selected @endif value="Lajang" >Lajang</option>
-                    <option @if(request()->get('search_statuspernikahan_karyawan')=="Menikah") selected @endif value="Menikah" >Menikah</option>
+                    <option @if(request()->get('search_statuspernikahan_karyawan')=="1") selected @endif value="1" >Single</option>
+                    <option @if(request()->get('search_statuspernikahan_karyawan')=="2") selected @endif value="2" >Married</option>
+                    <option @if(request()->get('search_statuspernikahan_karyawan')=="3") selected @endif value="3" >Widower</option>
                   </select>
                 </div>
                 </div>

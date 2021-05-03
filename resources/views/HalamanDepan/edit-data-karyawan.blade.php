@@ -6,6 +6,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <html lang="en">
 <head>
     @include('Template.head')   
+    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
 </head>
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
 <div class="wrapper">
@@ -59,6 +64,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="card card-default">
                 
                 <!-- /.card-header -->
+                
         <form class="form-detail" action="{{ url('update-proses-datakaryawan',$karyawans->int_emp_id) }}" enctype="multipart/form-data" method="POST" id="myform">
         {{ csrf_field() }}
         @method('patch')
@@ -114,9 +120,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <b>Status Pernikahan</b>
                             <select name="int_emp_marital" class="form-control" required>
                                     <option value="" disabled>Status Pernikahan</option>
-                                    <option value="{{ $karyawans->int_emp_marital }}">{{ $karyawans->int_emp_marital }} </option>
-                                    <option value="Lajang">Lajang</option>
-                                    <option value="Menikah">Menikah</option>
+                                    <option value="{{ $karyawans->marital }}">
+                                        @foreach($peg ?? '' as $peg)
+                                        {{ $peg->marital }} </option>
+                                        
+        
+                                        @foreach ($countries as $key => $value)
+                                        <option value="{{ $key }}">{{ $value }}</option>
+                                        @endforeach
                             </select>
                         </div>
                     </div>
@@ -143,16 +154,37 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <b>Kategori Pajak</b>
                             <select name="int_emp_tax_cat" class="form-control" required>
                                     <option disabled value="">Kategori Pajak </option>
-                                    <option value="{{ $karyawans->int_emp_tax_cat }}">{{ $karyawans->int_emp_tax_cat }} </option>
-                                    <option value="S0">S0</option>
-                                    <option value="S1">S1</option>
-                                    <option value="S2">S2</option>
-                                    <option value="S3">S3</option>
-                                    <option value="M0">M0</option>
-                                    <option value="M1">M1</option>
-                                    <option value="M2">M2</option>
-                                    <option value="M3">M3</option>
+                                    <option value="{{ $karyawans->pajak }}">
+                                        {{ $peg->pajak }} </option>
                             </select>
+                            <script type="text/javascript">
+                                jQuery(document).ready(function ()
+                                {
+                                        jQuery('select[name="int_emp_marital"]').on('change',function(){
+                                           var countryID = jQuery(this).val();
+                                           if(countryID)
+                                           {
+                                              jQuery.ajax({
+                                                 url : 'dropdownlist/getstates/' +countryID,
+                                                 type : "GET",
+                                                 dataType : "json",
+                                                 success:function(data)
+                                                 {
+                                                    console.log(data);
+                                                    jQuery('select[name="int_emp_tax_cat"]').empty();
+                                                    jQuery.each(data, function(key,value){
+                                                       $('select[name="int_emp_tax_cat"]').append('<option value="'+ key +'">'+ value +'</option>');
+                                                    });
+                                                 }
+                                              });
+                                           }
+                                           else
+                                           {
+                                              $('select[name="int_emp_tax_cat"]').empty();
+                                           }
+                                        });
+                                });
+                                </script>
                         </div>
                     </div>
                 </div>
@@ -195,7 +227,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <select name="int_emp_provinces1" id="provinces" class="form-control input-lg dynamic primaryprovinsi" data-dependent="Provinsi" required>
                                 <option disabled value="">Pilih Provinsi</option>
                                 <option value="{{ $karyawans->int_emp_provinces1 }}">
-                                @foreach($peg ?? '' as $peg)
+                                {{-- @foreach($peg ?? '' as $peg) --}}
                                 {{ $peg->province }} </option>
                                 
 

@@ -25,7 +25,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-          <h1 class="m-0">Detail Data Karyawan Temporary</h1>
+          <h1 class="m-0">Detail Data Karyawan</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -93,7 +93,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Status Pernikahan</b>
-                            <input class="form-control"  value="{{ $peg->int_emp_marital }}" disabled required >
+                            <input class="form-control"  value="{{ $peg->marital }}" disabled required >
                         </div>
                     </div>
                 </div>
@@ -108,7 +108,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Kategori Pajak</b>
-                            <input class="form-control"  value="{{ $peg->int_emp_tax_cat }}" disabled required >
+                            <input class="form-control"  value="{{ $peg->pajak }}" disabled required >
                         </div>
                     </div>
                 </div>

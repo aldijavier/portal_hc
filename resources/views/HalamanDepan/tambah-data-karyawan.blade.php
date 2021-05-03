@@ -6,9 +6,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <html lang="en">
 <head>
     @include('Template.head')   
+    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
-    <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+
 </head>
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
 <div class="wrapper">
@@ -113,7 +117,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="form-group">
                             <b>Status Pernikahan</b>
                             <select name="int_emp_marital" class="form-control">
-                                <option value="">--- Select Marital Status ---</option>
+                                <option value="">Pilih Status Pernikahan</option>
                                 @foreach ($countries as $key => $value)
                                 <option value="{{ $key }}">{{ $value }}</option>
                                 @endforeach
@@ -153,7 +157,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="form-group">
                             <b>Kategori Pajak</b>
                             <select name="int_emp_tax_cat" class="form-control">
-                                <option>--State--</option>
+                                <option>Pilih Kategori Pajak</option>
                                 </select>
 
                                 <script type="text/javascript">
@@ -212,6 +216,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <b>Tanggal Lahir</b>
                             <input class="form-control" id="int_emp_dob" name="int_emp_dob" type="date" value="{{ old('int_emp_dob') }}">
                         </div>
+                        {{-- <script type="text/javascript">
+                            jQuery(document).ready(function ()
+                            {
+                                $(".int_emp_dob").datepicker({
+                                    dateFormat: "dd/mm/yyyy"
+                                }); 
+                        });
+                        </script> --}}
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">

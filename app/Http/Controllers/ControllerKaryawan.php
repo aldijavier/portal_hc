@@ -28,8 +28,8 @@ class ControllerKaryawan extends Controller
         $kode_generate = DB::table('kode_generate')->get();
         $directorates = DB::table('directorate')->get();
         $divisions = DB::table('division')->get();
-        // $states = DB::table('marital_status')->get();
-        // $cities = DB::table('pajak')->get();
+        $marital = DB::table('marital_status')->get();
+        $pajak = DB::table('pajak')->get();
         // $states = DB::table('marital_status')->get();
         //$pajak = DB::table('pajak')->get();
         $countries = DB::table('marital_status')->pluck("marital_status","id");
@@ -38,7 +38,7 @@ class ControllerKaryawan extends Controller
         // $worklength = karyawan::first()->getWorkLength();
         $kode = ''; /*karyawan::kode();*/
         return view('HalamanDepan.tambah-data-karyawan',compact('kode_generate','kode',
-        'provinces_list', 'provinces_list2', 'directorates', 'countries' ,'divisions', 'departments', 'positions', 'kode'));
+        'provinces_list', 'provinces_list2', 'directorates', 'countries', 'marital', 'pajak', 'divisions', 'departments', 'positions', 'kode'));
     }
 
     public function getCountries()
@@ -70,13 +70,16 @@ class ControllerKaryawan extends Controller
     public function datakaryawan()
     {
         $departments1 = DB::table('department')->get();
+        $marital = DB::table('marital_status')->get();
         $karyawan = Karyawan::leftJoin('department', 'department.department_id', 'employee.int_emp_department')
+        ->leftJoin('marital_status', 'marital_status.id', 'employee.int_emp_marital')
         ->select(
             'employee.*',
-            'department.department_name as department_name'
+            'department.department_name as department_name',
+            'marital_status.marital_status as marital'
         )
         ->get();
-        return view('HalamanDepan.data-karyawan', compact('karyawan', 'departments1'));
+        return view('HalamanDepan.data-karyawan', compact('karyawan', 'departments1', 'marital'));
     
     }
     
@@ -89,13 +92,16 @@ class ControllerKaryawan extends Controller
     public function filterdatakaryawan()
     {
         $departments1 = DB::table('department')->get();
+        $marital = DB::table('marital_status')->get();
         $karyawan = Karyawan::leftJoin('department', 'department.department_id', 'employee.int_emp_department')
+        ->leftJoin('marital_status', 'marital_status.id', 'employee.int_emp_marital')
         ->select(
             'employee.*',
-            'department.department_name as department_name'
+            'department.department_name as department_name',
+            'marital_status.marital_status as marital'
         )
         ->get();
-        return view('HalamanDepan.filter-data-karyawan', compact('karyawan', 'departments1'));    
+        return view('HalamanDepan.filter-data-karyawan', compact('karyawan', 'departments1', 'marital'));    
     }
 
     public function datatables(Request $request)
@@ -135,12 +141,16 @@ class ControllerKaryawan extends Controller
                 'indonesia_provinces.name as province',
                 'indonesia_cities.name as city',
                 'indonesia_districts.name as district',
-                'indonesia_villages.name as village'
+                'indonesia_villages.name as village',
+                'marital_status.marital_status as marital',
+                'pajak.jenis_pajak as pajak'
                 )
                 ->leftjoin('indonesia_villages','indonesia_villages.id','employee.int_emp_villages1')
                 ->leftjoin('indonesia_districts','indonesia_districts.id','employee.int_emp_districts1')
                 ->leftjoin('indonesia_cities','indonesia_cities.id','employee.int_emp_regencies1')
                 ->leftjoin('indonesia_provinces','indonesia_provinces.id','employee.int_emp_provinces1')
+                ->leftJoin('marital_status', 'marital_status.id', 'employee.int_emp_marital')
+                ->leftJoin('pajak', 'pajak.id', 'employee.int_emp_tax_cat')
                 ->where('employee.int_emp_id','=',$id)
                 ->get();
         $peg2 = Karyawan::select('employee.*',
@@ -163,6 +173,13 @@ class ControllerKaryawan extends Controller
                 ->get();
         //status pernikahan
         
+        $marital = Karyawan::select('employee.*',
+                'marital_status.marital_status as marital',
+                )
+                ->leftJoin('marital_status', 'marital_status.id', 'employee.int_emp_marital')
+                ->where('employee.int_emp_id','=',$id)
+                ->get();
+
         $directorate = Karyawan::select('employee.*',
                 'directorate.directorate_name as directorate_name',
                 )
@@ -188,7 +205,7 @@ class ControllerKaryawan extends Controller
                 ->where('employee.int_emp_id','=',$id)
                 ->get();
         $awal = date("Y-m-d");
-        return view('HalamanDepan.detail-data-karyawan',compact('peg', 'peg2', 'awal', 'kode_generate' , 'div', 'dept', 'directorate', 'position'));
+        return view('HalamanDepan.detail-data-karyawan',compact('peg', 'peg2', 'awal', 'marital', 'kode_generate' , 'div', 'dept', 'directorate', 'position'));
    }
 
    public function editdatakaryawan($id){
@@ -197,16 +214,27 @@ class ControllerKaryawan extends Controller
        $cities_list = DB::table('indonesia_cities')->get();
        $districts_list = DB::table('indonesia_districts')->get();
        $villages_list = DB::table('indonesia_villages')->get();
+       $marital = DB::table('marital_status')->get();
+       $pajak = DB::table('pajak')->get();
+       $directorates = DB::table('directorate')->get();
+       $divisions = DB::table('division')->get();
+        $countries = DB::table('marital_status')->pluck("marital_status","id");
+
+       // $worklength = karyawan::first()->getWorkLength();
        $peg = Karyawan::select('employee.*',
                 'indonesia_provinces.name as province',
                 'indonesia_cities.name as city',
                 'indonesia_districts.name as district',
-                'indonesia_villages.name as village'
+                'indonesia_villages.name as village',
+                'marital_status.marital_status as marital',
+                'pajak.jenis_pajak as pajak'
                 )
                 ->leftjoin('indonesia_villages','indonesia_villages.id','employee.int_emp_villages1')
                 ->leftjoin('indonesia_districts','indonesia_districts.id','employee.int_emp_districts1')
                 ->leftjoin('indonesia_cities','indonesia_cities.id','employee.int_emp_regencies1')
                 ->leftjoin('indonesia_provinces','indonesia_provinces.id','employee.int_emp_provinces1')
+                ->leftJoin('marital_status', 'marital_status.id', 'employee.int_emp_marital')
+                ->leftJoin('pajak', 'pajak.id', 'employee.int_emp_tax_cat')
                 ->where('employee.int_emp_id','=',$id)
                 ->get();
 
@@ -240,14 +268,13 @@ class ControllerKaryawan extends Controller
                 ->where('employee.int_emp_id','=',$id)
                 ->get();
         //status pernikahan
-       $statusnikah = Marital::all(); 
-       $div = Karyawan::select('employee.*',
-                'division.division_name as division_name'
-                )
-                ->leftjoin('marital_status','marital_status.id','employee.int_emp_division')
-                ->where('employee.int_emp_id','=',$id)
-                ->get();      
-
+        $marital_status = Marital::all();
+        $marital = Karyawan::select('employee.*',
+        'marital_status.marital_status as marital',
+        )
+        ->leftJoin('marital_status', 'marital_status.id', 'employee.int_emp_marital')
+        ->where('employee.int_emp_id','=',$id)
+        ->get();
        $directorates = Directorate::all(); 
        $div = Karyawan::select('employee.*',
                 'division.division_name as division_name'
@@ -270,10 +297,10 @@ class ControllerKaryawan extends Controller
                 ->where('employee.int_emp_id','=',$id)
                 ->get();
        $positions = Position::all();
-       return view('HalamanDepan.edit-data-karyawan',compact('karyawans', 'provinces_list', 'cities_list',
+       return view('HalamanDepan.edit-data-karyawan',compact('karyawans', 'provinces_list', 'cities_list', 'marital', 'marital_status', 'pajak',
        'districts_list', 'villages_list', 'peg', 'provinces_list2', 'cities_list2', 'districts_list2', 
        'cities_list2', 'peg2', 'kode_generate' , 'kode_generates' ,'direct' , 'directorates' ,'div', 'divisions', 
-       'dept', 'departments', 'position', 'positions'));
+       'dept', 'departments', 'position', 'positions', 'countries'));
    }
 
    public function proses_update(Request $request, $id)
@@ -468,7 +495,7 @@ class ControllerKaryawan extends Controller
                 'int_emp_tax_cat' => 'required',
                 'int_emp_dob' => 'required',
                 'int_emp_nation' => 'required',
-                'int_emp_ktp' => 'required|unique:Karyawan|min:16',
+                'int_emp_ktp' => 'required|unique:employee|min:16',
                 'int_emp_add1' => 'required',
                 'int_emp_provinces1' => 'required',
                 'int_emp_regencies1' => 'required',
@@ -569,9 +596,9 @@ class ControllerKaryawan extends Controller
             ]
         );
         $test = Karyawan::kode($request->int_emp_status);
-
+        
         $postData = $request->all();
-
+        
         Karyawan::create([
                 'int_emp_status' => $request->int_emp_status,
                 'int_emp_number' => $test,
@@ -628,7 +655,9 @@ class ControllerKaryawan extends Controller
                 'int_emp_reportline' => $request->int_emp_reportline,
                 'int_emp_regisnpwp' => $request->int_emp_regisnpwp,
                 'int_emp_statuss' => $request->int_emp_statuss
+                
         ]);
+        
         return redirect()->back()->with('success', 'Data Karyawan Berhasil di Tambah');;
     }
 
@@ -656,7 +685,6 @@ class ControllerKaryawan extends Controller
                 foreach($value1 as $key => $value2){ // Looping Column
                     if ($i > 0){
                         $kodeNum = DB::table('kode_generate')->where('nama_kode', '=', $value2[0])->first();
-                        
                         $test = Karyawan::kode($kodeNum->id_kode);
                         Karyawan::create([
                                 'int_emp_status' => $kodeNum->id_kode,
@@ -714,6 +742,7 @@ class ControllerKaryawan extends Controller
                                 'int_emp_reportline' =>  $value2[52],
                                 'int_emp_regisnpwp' => $value2[53],
                                 'int_emp_statuss' => $value2[54]
+                                
                         ]);
                     }
                     $i++;
