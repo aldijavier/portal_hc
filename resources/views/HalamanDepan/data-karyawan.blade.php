@@ -108,8 +108,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <select data-column="4" name="search_agama_karyawan" id="search_agama_karyawan" class="form-control filter-agama">
                     <option value="">Choose Religion</option>
                     <option @if(request()->get('search_agama_karyawan')=="Islam") selected @endif value="Islam" >Islam</option>
-                    <option @if(request()->get('search_agama_karyawan')=="Kristen Protestan") selected @endif value="Kristen Protestan" >Kristen Protestan</option>
-                    <option @if(request()->get('search_agama_karyawan')=="Kristen Katolik") selected @endif value="Kristen Katolik" >Kristen Katolik</option>
+                    <option @if(request()->get('search_agama_karyawan')=="Kristen Protestan") selected @endif value="Kristen Protestan" >Kristen</option>
+                    <option @if(request()->get('search_agama_karyawan')=="Kristen Katolik") selected @endif value="Kristen Katolik" >Katolik</option>
                     <option @if(request()->get('search_agama_karyawan')=="Hindu") selected @endif value="Hindu" >Hindu</option>
                     <option @if(request()->get('search_agama_karyawan')=="Budha") selected @endif value="Budha" >Budha</option>
                     <option @if(request()->get('search_agama_karyawan')=="Konghucu") selected @endif value="Konghucu" >Konghucu</option>

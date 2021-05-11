@@ -8,6 +8,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     @include('Template.head')   
     <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
@@ -118,17 +119,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Status Pernikahan</b>
-                            <select name="int_emp_marital" class="form-control" required>
-                                    <option value="" disabled>Status Pernikahan</option>
-                                    <option value="{{ $karyawans->marital }}">
-                                        @foreach($peg ?? '' as $peg)
-                                        {{ $peg->marital }} </option>
-                                        
-        
-                                        @foreach ($countries as $key => $value)
-                                        <option value="{{ $key }}">{{ $value }}</option>
-                                        @endforeach
+                            <select name="int_emp_marital" class="form-control">
+                                @foreach($peg ?? '' as $peg)
+                                <option value="{{ $peg->marital }}">{{ $peg->marital}}</option>
+
+                                @foreach ($countries as $key => $value)
+                                <option value="{{ $key }}">{{ $value }}</option>
+                                @endforeach
                             </select>
+                            {{-- <select name="int_emp_marital" class="form-control" required>
+                                    <option value="" disabled>Status Pernikahan</option>
+                                    
+                                        @foreach($peg ?? '' as $peg)
+                                        <option value="{{ $peg->marital }}">{{ $peg->marital}}</option>
+
+                                        @foreach ($cntr as $keys => $values)
+                                            <option value="{{ $keys }}">{{ $values }}</option>
+                                        @endforeach
+                            </select> --}}
                         </div>
                     </div>
                 </div>
@@ -153,10 +161,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="form-group">
                             <b>Kategori Pajak</b>
                             <select name="int_emp_tax_cat" class="form-control" required>
-                                    <option disabled value="">Kategori Pajak </option>
-                                    <option value="{{ $karyawans->pajak }}">
-                                        {{ $peg->pajak }} </option>
+                                <option value="{{ $peg->pajak }}">{{ $peg->pajak}}</option>
                             </select>
+                            
                             <script type="text/javascript">
                                 jQuery(document).ready(function ()
                                 {
@@ -165,7 +172,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                            if(countryID)
                                            {
                                               jQuery.ajax({
-                                                 url : 'dropdownlist/getstates/' +countryID,
+                                                 url : '/dropdownlist/getstates/' +countryID,
                                                  type : "GET",
                                                  dataType : "json",
                                                  success:function(data)

@@ -145,8 +145,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <select name="int_emp_religion" class="form-control"   >
                                     <option value="">Agama </option>
                                     <option value="Islam" {{ old('int_emp_religion') == "Islam" ? 'selected' : '' }}>Islam</option>
-                                    <option value="Kristen Protestan" {{ old('int_emp_religion') == "Kristen Protestan" ? 'selected' : '' }}>Kristen Protestan</option>
-                                    <option value="Kristen Katolik" {{ old('int_emp_religion') == "Kristen Katolik" ? 'selected' : '' }}>Kristen Katolik</option>
+                                    <option value="Kristen Protestan" {{ old('int_emp_religion') == "Kristen Protestan" ? 'selected' : '' }}>Kristen</option>
+                                    <option value="Kristen Katolik" {{ old('int_emp_religion') == "Kristen Katolik" ? 'selected' : '' }}>Katolik</option>
                                     <option value="Hindu" {{ old('int_emp_religion') == "Hindu" ? 'selected' : '' }}>Hindu</option>
                                     <option value="Budha" {{ old('int_emp_religion') == "Budha" ? 'selected' : '' }}>Budha</option>
                                     <option value="Konghucu" {{ old('int_emp_religion') == "Konghucu" ? 'selected' : '' }}>Konghucu</option>
@@ -450,7 +450,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-md-6">
                         <div class="form-group">
                         <b>Departemen</b>
-                            <select class="form-control department_reportline_name selectsearch" name="int_emp_department" id="int_emp_department" style="height: 50px;"  >
+                            <select class="form-control department_reportline_name" name="int_emp_department" id="int_emp_department">
                                 <option value>Pilih Department</option>
                                 @foreach($departments ?? '' as $departments)
                                 <option value="{{ $departments->department_id }}" {{ old('int_emp_department') == "$departments->department_id" ? 'selected' : '' }}>{{ $departments->department_name }}</option>
@@ -461,7 +461,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-md-6">
                         <div class="form-group">
                         <b>Posisi</b>
-                            <select class="form-control selectsearch" name="int_emp_position">
+                            <select class="form-control" name="int_emp_position">
                                     <option value="">Pilih Posisi</option>
                                     @foreach($positions ?? '' as $positions)
                                     <option value="{{ $positions->position_id }}" {{ old('int_emp_position') == "$positions->position_id" ? 'selected' : '' }}>{{ $positions->position_name }}</option>
@@ -718,10 +718,10 @@ function onlyNumber(evt) {
 </script>
 
 
-<script>
+<script type="text/javascript">
     $(document).ready(function() 
     {
-    $('.selectsearch').select2();
+    $('.int_emp_department').select2();
     });
 </script>
 <script type="text/javascript">

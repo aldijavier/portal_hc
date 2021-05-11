@@ -41,15 +41,15 @@ class ControllerKaryawan extends Controller
         'provinces_list', 'provinces_list2', 'directorates', 'countries', 'marital', 'pajak', 'divisions', 'departments', 'positions', 'kode'));
     }
 
-    public function getCountries()
-    {
-        $countries = DB::table('marital_status')->pluck("marital_status","id");
-        return view('HalamanDepan.tambah-data-karyawan',compact('countries'));
-    }
+    // public function getCountries()
+    // {
+    //     $countries = DB::table('marital_status')->pluck("marital_status","id");
+    //     return view('HalamanDepan.tambah-data-karyawan',compact('countries'));
+    // }
 
     public function getStates($id) 
 {        
-        $states = DB::table("pajak")->where("marital",$id)->pluck("jenis_pajak","id");
+        $states = DB::table("pajak")->where("marital",$id)->pluck("jenis_pajak", "id");
         return json_encode($states);
 }
 
@@ -208,6 +208,18 @@ class ControllerKaryawan extends Controller
         return view('HalamanDepan.detail-data-karyawan',compact('peg', 'peg2', 'awal', 'marital', 'kode_generate' , 'div', 'dept', 'directorate', 'position'));
    }
 
+   public function getCntr()
+    {
+        $cntr = DB::table('marital_status')->pluck("marital_status","id");
+        return view('HalamanDepan.edit-data-karyawan',compact('cntr'));
+    }
+
+    public function getSts($id) 
+    {        
+        $sts = DB::table("pajak")->where("marital",$id)->pluck("jenis_pajak");
+        return json_encode($sts);
+    }
+
    public function editdatakaryawan($id){
        $karyawans = Karyawan::findorfail($id);
        $provinces_list = DB::table('indonesia_provinces')->get();
@@ -218,7 +230,7 @@ class ControllerKaryawan extends Controller
        $pajak = DB::table('pajak')->get();
        $directorates = DB::table('directorate')->get();
        $divisions = DB::table('division')->get();
-        $countries = DB::table('marital_status')->pluck("marital_status","id");
+       $countries = DB::table('marital_status')->pluck("marital_status","id");
 
        // $worklength = karyawan::first()->getWorkLength();
        $peg = Karyawan::select('employee.*',
@@ -268,13 +280,18 @@ class ControllerKaryawan extends Controller
                 ->where('employee.int_emp_id','=',$id)
                 ->get();
         //status pernikahan
-        $marital_status = Marital::all();
         $marital = Karyawan::select('employee.*',
-        'marital_status.marital_status as marital',
-        )
-        ->leftJoin('marital_status', 'marital_status.id', 'employee.int_emp_marital')
-        ->where('employee.int_emp_id','=',$id)
-        ->get();
+                'marital_status.marital_status as marital',
+                )
+                ->leftJoin('marital_status', 'marital_status.id', 'employee.int_emp_marital')
+                ->where('employee.int_emp_id','=',$id)
+                ->get();
+        $pajak = Karyawan::select('employee.*',
+                'pajak.jenis_pajak as pajak',
+                )
+                ->leftJoin('pajak', 'pajak.id', 'employee.int_emp_tax_cat')
+                ->where('employee.int_emp_id','=',$id)
+                ->get();
        $directorates = Directorate::all(); 
        $div = Karyawan::select('employee.*',
                 'division.division_name as division_name'
@@ -297,10 +314,10 @@ class ControllerKaryawan extends Controller
                 ->where('employee.int_emp_id','=',$id)
                 ->get();
        $positions = Position::all();
-       return view('HalamanDepan.edit-data-karyawan',compact('karyawans', 'provinces_list', 'cities_list', 'marital', 'marital_status', 'pajak',
+       return view('HalamanDepan.edit-data-karyawan',compact('karyawans', 'provinces_list', 'cities_list', 'pajak',
        'districts_list', 'villages_list', 'peg', 'provinces_list2', 'cities_list2', 'districts_list2', 
        'cities_list2', 'peg2', 'kode_generate' , 'kode_generates' ,'direct' , 'directorates' ,'div', 'divisions', 
-       'dept', 'departments', 'position', 'positions', 'countries'));
+       'dept', 'departments', 'position', 'positions', 'countries', 'marital'));
    }
 
    public function proses_update(Request $request, $id)
