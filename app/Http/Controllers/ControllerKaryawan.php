@@ -11,6 +11,8 @@ use App\Department;
 use App\Position;
 use App\Marital;
 use App\Pajak;
+use App\Bank_Swift;
+use App\Bank;
 use App\Exports\KaryawanExport;
 use App\Exports\Karyawan2Export;
 use App\Imports\KaryawanImport;
@@ -30,15 +32,17 @@ class ControllerKaryawan extends Controller
         $divisions = DB::table('division')->get();
         $marital = DB::table('marital_status')->get();
         $pajak = DB::table('pajak')->get();
+        $swift = DB::table('bank_swift')->get();
         // $states = DB::table('marital_status')->get();
         //$pajak = DB::table('pajak')->get();
+        $bank = DB::table('bank_list')->pluck("nama_bank","id");
         $countries = DB::table('marital_status')->pluck("marital_status","id");
         $departments = DB::table('department')->get();
         $positions = DB::table('position')->get();
         // $worklength = karyawan::first()->getWorkLength();
         $kode = ''; /*karyawan::kode();*/
         return view('HalamanDepan.tambah-data-karyawan',compact('kode_generate','kode',
-        'provinces_list', 'provinces_list2', 'directorates', 'countries', 'marital', 'pajak', 'divisions', 'departments', 'positions', 'kode'));
+        'provinces_list', 'provinces_list2', 'directorates', 'countries', 'marital', 'pajak', 'divisions', 'departments', 'positions', 'kode', 'bank', 'swift'));
     }
 
     // public function getCountries()
@@ -48,10 +52,16 @@ class ControllerKaryawan extends Controller
     // }
 
     public function getStates($id) 
-{        
-        $states = DB::table("pajak")->where("marital",$id)->pluck("jenis_pajak", "id");
-        return json_encode($states);
-}
+    {        
+            $states = DB::table("pajak")->where("marital",$id)->pluck("jenis_pajak", "id");
+            return json_encode($states);
+    }
+
+    public function getBank($id) 
+    {        
+            $states = DB::table("bank_swift")->where("bank",$id)->pluck("swift", "id");
+            return json_encode($states);
+    }
 
 //    public function myform()
 //    {
@@ -360,6 +370,7 @@ class ControllerKaryawan extends Controller
             'int_emp_department' => 'required',
             'int_emp_position' => 'required',
             'int_emp_workday' => 'required',
+            'int_name_bank' => 'required',
             'int_emp_accountno' => 'required',
             'int_emp_accountname' => 'required',
             'int_emp_bankswift' => 'required',
@@ -423,6 +434,7 @@ class ControllerKaryawan extends Controller
             'int_emp_taxadd.required' => 'Alamat Pajak harus diisi.',
             'int_emp_bpjstk.required' => 'BPJS Ketenagakerjaan harus diisi.',
             'int_emp_bpjsk.required' => 'BPJS Kesehatan harus diisi.',
+            'int_name_bank.required' => 'Nama Bank harus diisi.',
             // 'int_emp_resigndate.required' => 'Tanggal Resign harus diisi.',
             'int_emp_phone_home.required' => 'No Telephone harus diisi.',
             'int_emp_phone_mobile.required' => 'No Handphone harus diisi.',
@@ -471,6 +483,7 @@ class ControllerKaryawan extends Controller
             'int_emp_department' => $request->int_emp_department,
             'int_emp_position' => $request->int_emp_position,
             'int_emp_workday' => $request->int_emp_workday,
+            'int_name_bank' => $request->int_name_bank,
             'int_emp_accountno' => $request->int_emp_accountno,
             'int_emp_accountname' => $request->int_emp_accountname,
             'int_emp_bankswift' => $request->int_emp_bankswift,
@@ -536,6 +549,7 @@ class ControllerKaryawan extends Controller
                 'int_emp_department' => 'required',
                 'int_emp_position' => 'required',
                 'int_emp_workday' => 'required',
+                'int_name_bank' => 'required',
                 'int_emp_accountno' => 'required',
                 'int_emp_accountname' => 'required',
                 'int_emp_bankswift' => 'required',
@@ -599,6 +613,7 @@ class ControllerKaryawan extends Controller
                 'int_emp_taxid.required' => 'ID Pajak harus diisi.',
                 'int_emp_taxadd.required' => 'Alamat Pajak harus diisi.',
                 'int_emp_bpjstk.required' => 'BPJS Ketenagakerjaan harus diisi.',
+                'int_name_bank.required' => 'Nama Bank Ketenagakerjaan harus diisi.',
                 'int_emp_bpjsk.required' => 'BPJS Kesehatan harus diisi.',
                 // 'int_emp_resigndate.required' => 'Tanggal Resign harus diisi.',
                 'int_emp_phone_home.required' => 'No Telephone harus diisi.',
@@ -651,6 +666,7 @@ class ControllerKaryawan extends Controller
                 'int_emp_department' => $request->int_emp_department,
                 'int_emp_position' => $request->int_emp_position,
                 'int_emp_workday' => $request->int_emp_workday,
+                'int_name_bank' => $request->int_name_bank,
                 'int_emp_accountno' => $request->int_emp_accountno,
                 'int_emp_accountname' => $request->int_emp_accountname,
                 'int_emp_bankswift' => $request->int_emp_bankswift,

@@ -81,6 +81,7 @@ Route::get('/data-karyawan', 'ControllerKaryawan@datakaryawan')->name('data-kary
 
 Route::get('dropdownlist','ControllerKaryawan@getCountries');
 Route::get('dropdownlist/getstates/{id}','ControllerKaryawan@getStates');
+Route::get('dropdownlist/getbank/{id}','ControllerKaryawan@getBank');
 
 // Route untuk mendapatkan filter data karyawan di Filter Controller
 Route::get('/filter-data-karyawan', 'FilterController@index')->name('filter-data-karyawan');

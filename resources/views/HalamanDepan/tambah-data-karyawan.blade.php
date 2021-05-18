@@ -188,6 +188,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             });
                                     });
                                     </script>
+                                     <script type="text/javascript">
+                                    //  jQuery(document).ready(function ()
+                                    // {
+                                    //     $('#int_emp_status').on('change',function(){
+                                    //         var int_emp_bankswift = $(this).children('option:selected').data('int_emp_bankswift');
+                                    //         $('#int_emp_bankswift').val(int_emp_bankswift);
+                                    //     });
+                                    // });
+                                        </script>
                             {{-- <select name="int_emp_tax_cat" class="form-control">
                                 <option value>Pilih Status</option>
                                 @foreach($pajak ?? '' as $pajak)
@@ -478,8 +487,46 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <input class="form-control" name="int_emp_workday" type="text" value="{{ old('int_emp_workday') }}">
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <b>Nama Bank</b>
+                            <select name="int_name_bank" class="form-control">
+                                <option value="">Pilih Bank</option>
+                                @foreach ($bank as $key => $value)
+                                <option value="{{ $key }}">{{ $value }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                 </div>
-
+                <script type="text/javascript">
+                    jQuery(document).ready(function ()
+                    {
+                        jQuery('select[name="int_name_bank"]').on('change',function(){
+                            var countryID = jQuery(this).val();
+                               if(countryID)
+                               {
+                                  jQuery.ajax({
+                                     url : 'dropdownlist/getbank/' +countryID,
+                                     type : "GET",
+                                     dataType : "json",
+                                     success:function(data)
+                                     {
+                                        console.log(data);
+                                        jQuery('input[name="int_emp_bankswift"]').empty();
+                                        jQuery.each(data, function(key,value){
+                                           $('input[name="int_emp_bankswift"]').val(value, key);
+                                        });
+                                     }
+                                  });
+                               }
+                               else
+                               {
+                                  $('input[name="int_emp_bankswift"]').empty();
+                               }
+                            });
+                    });
+                  </script>
                 <div class="form-row">
                     <div class="col-md-6">
                         <div class="form-group">

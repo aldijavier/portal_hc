@@ -518,7 +518,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="form-row">
                     <div class="col-md-6">
                         <div class="form-group">
-                        <b>Hari Kerja / Work Day</b>
+                        <b>Hari Kerja</b>
                         <input class="form-control" name="int_emp_workday" type="text" value="{{ $karyawans->int_emp_workday }}" required>
                         </div>
                     </div>
@@ -527,13 +527,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="form-row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <b>Nomor Rekening / Account No</b>
+                            <b>Nomor Rekening</b>
                             <input class="form-control" name="int_emp_accountno" onkeypress="return onlyNumber(event)" maxlength="16" type="text" value="{{ $karyawans->int_emp_accountno }}" required>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <b>Nama Akun / Account Name</b>
+                            <b>Nama Akun</b>
                             <input class="form-control" name="int_emp_accountname" type="text" value="{{ $karyawans->int_emp_accountname }}" required>
                         </div>
                     </div>
@@ -558,13 +558,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="form-row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <b>ID Pajak / Tax ID</b>
+                            <b>ID Pajak</b>
                             <input class="form-control" name="int_emp_taxid" onkeypress="return onlyNumber(event)" maxlength="20" type="text" value="{{ $karyawans->int_emp_taxid }}" required>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <b>Alamat Pajak / Tax Add</b>
+                            <b>Alamat Pajak</b>
                             <input class="form-control" name="int_emp_taxadd" type="text" value="{{ $karyawans->int_emp_taxadd }}" required>
                         </div>
                     </div>
