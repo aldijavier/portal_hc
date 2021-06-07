@@ -115,7 +115,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <option @if(request()->get('search_agama_karyawan')=="Konghucu") selected @endif value="Konghucu" >Konghucu</option>
                   </select>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <label>Departement</label>
                   <select data-column="6" name="search_department_karyawan" id="search_department_karyawan" class="form-control filter-department">
                     <option value="" style="padding-bottom: 500px;">Choose Departement</option>

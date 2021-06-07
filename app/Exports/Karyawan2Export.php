@@ -50,6 +50,7 @@ class Karyawan2Export implements FromQuery,WithHeadings
         'Hari Kerja', 
         'Nomor Rekening', 
         'Nama Akun', 
+        'Bank Name',
         'Bank Swift', 
         'Bank Branch', 
         'ID Pajak / Tax ID', 
@@ -67,7 +68,7 @@ class Karyawan2Export implements FromQuery,WithHeadings
         'Type Transportasi', 
         'Report Line', 
         'NPWP Terdaftar',
-        'Status'
+        // 'Status'
         ];
     }
 
@@ -105,7 +106,7 @@ class Karyawan2Export implements FromQuery,WithHeadings
             'employee.int_emp_joindate',
             'employee.int_emp_location',
             'employee.int_emp_subregion',
-            'employee.int_emp_coa',
+            'coa.name_coa as coa',
             'directorate.directorate_name',
             'division.division_name',
             'department.department_name',
@@ -113,7 +114,8 @@ class Karyawan2Export implements FromQuery,WithHeadings
             'employee.int_emp_workday',
             'employee.int_emp_accountno',
             'employee.int_emp_accountname',
-            'employee.int_emp_bankswift',
+            'bank_list.nama_bank as bank_list',
+            'bank_swift.swift as bank_swift',
             'employee.int_emp_bankbranch',
             'employee.int_emp_taxid',
             'employee.int_emp_taxadd',
@@ -130,8 +132,8 @@ class Karyawan2Export implements FromQuery,WithHeadings
             'employee.int_emp_vehicle',
             'employee.int_emp_transtype',
             'employee.int_emp_reportline',
-            'employee.int_emp_regisnpwp',
-            'employee.int_emp_statuss')
+            'employee.int_emp_regisnpwp')
+            // 'employee.int_emp_statuss')
             ->leftJoin('kode_generate', 'kode_generate.id_kode', 'employee.int_emp_status')
             ->leftJoin('directorate', 'directorate.directorate_id', 'employee.int_emp_directorate')
             ->leftJoin('department', 'department.department_id', 'employee.int_emp_department')
@@ -147,6 +149,9 @@ class Karyawan2Export implements FromQuery,WithHeadings
             ->leftjoin('indonesia_villages as villages2','villages2.id','employee.int_emp_villages2')
             ->leftJoin('marital_status', 'marital_status.id', 'employee.int_emp_marital')
             ->leftJoin('pajak', 'pajak.id', 'employee.int_emp_tax_cat')
+            ->leftJoin('bank_list', 'bank_list.id', 'employee.int_name_bank')
+            ->leftJoin('bank_swift', 'bank_swift.id', 'employee.int_emp_bankswift')
+            ->leftJoin('coa', 'coa.id', 'employee.int_emp_coa')
             ->where('int_emp_statuss', '2');
     }
     
@@ -190,6 +195,7 @@ class Karyawan2Export implements FromQuery,WithHeadings
             $karyawan->int_emp_workday,
             $karyawan->int_emp_accountno,
             $karyawan->int_emp_accountname,
+            $karyawan->int_name_bank,
             $karyawan->int_emp_bankswift,
             $karyawan->int_emp_bankbranch,
             $karyawan->int_emp_taxid,
@@ -208,7 +214,7 @@ class Karyawan2Export implements FromQuery,WithHeadings
             $karyawan->int_emp_transtype,
             $karyawan->int_emp_reportline,
             $karyawan->int_emp_regisnpwp,
-            $karyawan->int_emp_statuss
+            // $karyawan->int_emp_statuss
         ];
     }
 }

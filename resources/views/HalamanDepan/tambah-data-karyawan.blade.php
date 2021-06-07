@@ -497,7 +497,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <b>Nama Bank</b><span style="color: red">*</span>
                             <select name="int_name_bank" class="form-control">
                                 <option value="">Pilih Bank</option>
-                                @foreach ($bank as $key => $value)
+                                @foreach ($bank_list as $key => $value)
                                 <option value="{{ $key }}">{{ $value }}</option>
                                 @endforeach
                             </select>

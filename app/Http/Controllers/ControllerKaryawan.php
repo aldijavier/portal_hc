@@ -44,7 +44,7 @@ class ControllerKaryawan extends Controller
         // $worklength = karyawan::first()->getWorkLength();
         $kode = ''; /*karyawan::kode();*/
         return view('HalamanDepan.tambah-data-karyawan',compact('kode_generate','kode',
-        'provinces_list', 'provinces_list2', 'directorates', 'countries', 'bank_list', 'coa', 'marital', 'pajak', 'divisions', 'departments', 'positions', 'kode', 'bank', 'swift'));
+        'provinces_list', 'provinces_list2', 'directorates', 'countries', 'bank_list', 'coa', 'marital', 'pajak', 'divisions', 'departments', 'positions', 'kode', 'swift'));
     }
 
     // public function getCountries()
@@ -104,7 +104,6 @@ class ControllerKaryawan extends Controller
         )
         ->get();
         return view('HalamanDepan.data-karyawan', compact('karyawan', 'departments1', 'marital'));
-    
     }
     
     public function findReportLineName(Request $request)
