@@ -333,7 +333,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   
                     <div class="col-md-6">
                         <div class="form-group">
-                            <b>Hari Kerja / Work Day</b>
+                            <b>Hari Kerja</b>
                             <input class="form-control"  value="{{ $peg->int_emp_workday }}" disabled required >
                         </div>
                     </div>
@@ -342,13 +342,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="form-row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <b>Nomor Rekening / Account No</b>
+                            <b>Nomor Rekening</b>
                             <input class="form-control"  value="{{ $peg->int_emp_accountno }}" disabled required >
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <b>Nama Akun / Account Name</b>
+                            <b>Nama Akun</b>
                             <input class="form-control"  value="{{ $peg->int_emp_accountname }}" disabled required >
                         </div>
                     </div>
@@ -373,13 +373,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="form-row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <b>ID Pajak / Tax ID</b>
+                            <b>ID Pajak</b>
                             <input class="form-control"  value="{{ $peg->int_emp_taxid }}" disabled required >
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <b>Alamat Pajak / Tax Add</b>
+                            <b>Alamat Pajak</b>
                             <input class="form-control"  value="{{ $peg->int_emp_taxadd }}" disabled required >
                         </div>
                     </div>
@@ -438,7 +438,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <b>Nilai / Grading</b>
+                            <b>Nilai</b>
                             <input class="form-control"  value="{{ $peg->int_emp_grading }}" disabled required >
                         </div>
                     </div>

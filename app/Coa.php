@@ -4,19 +4,23 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Pajak extends Model
+class Marital extends Model
 {
     //
     protected $hidden = ['created_at', 'updated_at'];
 
-    protected $table = "bank_swift";
+    protected $table = "coa";
     protected $primaryKey = "id";
 
     protected $fillable = [
-        'id', 'swift', 'bank'
+        'id', 'name_coa',
     ];
 
-    public function karyawan(){
-        return $this->hasMany(App\Bank_Swift::class);
+    protected $guarded = [];
+
+    public function subcategories(){
+
+        return $this->hasMany('App\Coa', 'id');
+
     }
 }

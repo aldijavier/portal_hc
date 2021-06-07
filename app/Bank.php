@@ -13,7 +13,7 @@ class Marital extends Model
     protected $primaryKey = "id";
 
     protected $fillable = [
-        'id', 'kode_bank', 'nama_bank'
+        'id', 'nama_bank'
     ];
 
     protected $guarded = [];

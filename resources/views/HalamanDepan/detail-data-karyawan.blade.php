@@ -279,27 +279,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- /.card-header -->
       <div class="card-body">
 
-                <div class="form-row">
-                    <div class="col-md-6">
+        <div class="form-group">
                         <div class="form-group">
                             <b>COA</b>
-                            <input class="form-control"  value="{{ $peg->int_emp_coa }}" disabled required >
+                            <input class="form-control"  value="{{ $peg->coa }}" disabled required >
                         </div>
                     </div>
 
                     @foreach($directorate ?? '' as $directorate)
+                    <div class="form-row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Direktorat</b>
                             <input class="form-control"  value="{{ $directorate->directorate_name }}" disabled required >
                         </div>
                     </div>
-                </div>
+                
                 @break
                 @endforeach 
 
                 @foreach($div ?? '' as $div)
-                <div class="form-row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Divisi</b>
@@ -308,7 +307,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                 @break
                 @endforeach
-
+            </div>
+            <div class="form-row">
                 @foreach($dept ?? '' as $dept)
                     <div class="col-md-6">
                         <div class="form-group">
@@ -316,39 +316,43 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <input class="form-control"  value="{{ $dept->department_name }}" disabled required >
                         </div>
                     </div>
-                </div>
+                
                 @break
                 @endforeach
-
-                <div class="form-row">
-                @foreach($position ?? '' as $position)
                     <div class="col-md-6">
                         <div class="form-group">
-                            <b>Posisi</b>
-                            <input class="form-control"  value="{{ $position->position_name }}" disabled required >
+                            <b>Nama Bank</b>
+                            <input class="form-control"  value="{{ $peg->coa }}" disabled required >
                         </div>
                     </div>
-                @break
-                @endforeach  
-                  
+            </div>
+            <div class="form-row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <b>Hari Kerja / Work Day</b>
+                            <b>Hari Kerja</b>
                             <input class="form-control"  value="{{ $peg->int_emp_workday }}" disabled required >
                         </div>
                     </div>
+                    @foreach($position ?? '' as $position)
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <b>Posisi</b>
+                        <input class="form-control"  value="{{ $position->position_name }}" disabled required >
+                    </div>
                 </div>
-
+                @break
+                @endforeach  
+            </div>
                 <div class="form-row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <b>Nomor Rekening / Account No</b>
+                            <b>Nomor Rekening</b>
                             <input class="form-control"  value="{{ $peg->int_emp_accountno }}" disabled required >
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <b>Nama Akun / Account Name</b>
+                            <b>Nama Akun</b>
                             <input class="form-control"  value="{{ $peg->int_emp_accountname }}" disabled required >
                         </div>
                     </div>
@@ -358,7 +362,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Bank Swift</b>
-                            <input class="form-control"  value="{{ $peg->int_emp_bankswift }}" disabled required >
+                            <input class="form-control"  value="{{ $peg->bank_swift }}" disabled required >
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -373,13 +377,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="form-row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <b>ID Pajak / Tax ID</b>
+                            <b>ID Pajak</b>
                             <input class="form-control"  value="{{ $peg->int_emp_taxid }}" disabled required >
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <b>Alamat Pajak / Tax Add</b>
+                            <b>Alamat Pajak</b>
                             <input class="form-control"  value="{{ $peg->int_emp_taxadd }}" disabled required >
                         </div>
                     </div>

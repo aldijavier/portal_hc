@@ -13,6 +13,7 @@ use App\Marital;
 use App\Pajak;
 use App\Bank_Swift;
 use App\Bank;
+use App\Coa;
 use App\Exports\KaryawanExport;
 use App\Exports\Karyawan2Export;
 use App\Imports\KaryawanImport;
@@ -35,14 +36,15 @@ class ControllerKaryawan extends Controller
         $swift = DB::table('bank_swift')->get();
         // $states = DB::table('marital_status')->get();
         //$pajak = DB::table('pajak')->get();
-        $bank = DB::table('bank_list')->pluck("nama_bank","id");
+        $coa = DB::table('coa')->pluck("name_coa","id");
+        $bank_list = DB::table('bank_list')->pluck("nama_bank","id");
         $countries = DB::table('marital_status')->pluck("marital_status","id");
         $departments = DB::table('department')->get();
         $positions = DB::table('position')->get();
         // $worklength = karyawan::first()->getWorkLength();
         $kode = ''; /*karyawan::kode();*/
         return view('HalamanDepan.tambah-data-karyawan',compact('kode_generate','kode',
-        'provinces_list', 'provinces_list2', 'directorates', 'countries', 'marital', 'pajak', 'divisions', 'departments', 'positions', 'kode', 'bank', 'swift'));
+        'provinces_list', 'provinces_list2', 'directorates', 'countries', 'bank_list', 'coa', 'marital', 'pajak', 'divisions', 'departments', 'positions', 'kode', 'bank', 'swift'));
     }
 
     // public function getCountries()
@@ -60,6 +62,18 @@ class ControllerKaryawan extends Controller
     public function getBank($id) 
     {        
             $states = DB::table("bank_swift")->where("bank",$id)->pluck("swift", "id");
+            return json_encode($states);
+    }
+
+    public function getBankList($id) 
+    {        
+            $states = DB::table("bank_)list")->where("nama_bank",$id)->pluck("nama_bank", "id");
+            return json_encode($states);
+    }
+
+    public function getCoa($id) 
+    {        
+            $states = DB::table("coa")->where("name_coa",$id)->pluck("name_coa", "id");
             return json_encode($states);
     }
 
@@ -153,7 +167,10 @@ class ControllerKaryawan extends Controller
                 'indonesia_districts.name as district',
                 'indonesia_villages.name as village',
                 'marital_status.marital_status as marital',
-                'pajak.jenis_pajak as pajak'
+                'pajak.jenis_pajak as pajak',
+                'bank_list.nama_bank as bank_list',
+                'bank_swift.swift as bank_swift',
+                'coa.name_coa as coa'
                 )
                 ->leftjoin('indonesia_villages','indonesia_villages.id','employee.int_emp_villages1')
                 ->leftjoin('indonesia_districts','indonesia_districts.id','employee.int_emp_districts1')
@@ -161,8 +178,12 @@ class ControllerKaryawan extends Controller
                 ->leftjoin('indonesia_provinces','indonesia_provinces.id','employee.int_emp_provinces1')
                 ->leftJoin('marital_status', 'marital_status.id', 'employee.int_emp_marital')
                 ->leftJoin('pajak', 'pajak.id', 'employee.int_emp_tax_cat')
+                ->leftJoin('bank_list', 'bank_list.id', 'employee.int_name_bank')
+                ->leftJoin('bank_swift', 'bank_swift.id', 'employee.int_emp_bankswift')
+                ->leftJoin('coa', 'coa.id', 'employee.int_emp_coa')
                 ->where('employee.int_emp_id','=',$id)
                 ->get();
+                
         $peg2 = Karyawan::select('employee.*',
                 'indonesia_provinces.name as province',
                 'indonesia_cities.name as city',
@@ -182,14 +203,12 @@ class ControllerKaryawan extends Controller
                 ->where('employee.int_emp_id','=',$id)
                 ->get();
         //status pernikahan
-        
-        $marital = Karyawan::select('employee.*',
-                'marital_status.marital_status as marital',
-                )
-                ->leftJoin('marital_status', 'marital_status.id', 'employee.int_emp_marital')
-                ->where('employee.int_emp_id','=',$id)
-                ->get();
-
+        // $bank = Karyawan::select('employee.*',
+        //         'bank_list.nama_bank as bank',
+        //         )
+        //         ->leftJoin('bank_list', 'bank_list.id', 'employee.int_name_bank')
+        //         ->where('employee.int_emp_id','=',$id)
+        //         ->get();
         $directorate = Karyawan::select('employee.*',
                 'directorate.directorate_name as directorate_name',
                 )
@@ -215,7 +234,7 @@ class ControllerKaryawan extends Controller
                 ->where('employee.int_emp_id','=',$id)
                 ->get();
         $awal = date("Y-m-d");
-        return view('HalamanDepan.detail-data-karyawan',compact('peg', 'peg2', 'awal', 'marital', 'kode_generate' , 'div', 'dept', 'directorate', 'position'));
+        return view('HalamanDepan.detail-data-karyawan',compact('peg', 'peg2', 'awal', 'kode_generate' , 'div', 'dept', 'directorate', 'position'));
    }
 
    public function getCntr()
@@ -238,6 +257,10 @@ class ControllerKaryawan extends Controller
        $villages_list = DB::table('indonesia_villages')->get();
        $marital = DB::table('marital_status')->get();
        $pajak = DB::table('pajak')->get();
+       $bank = DB::table('bank_list')->get();
+       $bankis = DB::table('bank_list')->pluck("nama_bank","id");
+       $coa = DB::table('coa')->pluck("name_coa", "id");
+       $bank_swift = DB::table('bank_swift')->pluck("swift", "bank");
        $directorates = DB::table('directorate')->get();
        $divisions = DB::table('division')->get();
        $countries = DB::table('marital_status')->pluck("marital_status","id");
@@ -249,7 +272,10 @@ class ControllerKaryawan extends Controller
                 'indonesia_districts.name as district',
                 'indonesia_villages.name as village',
                 'marital_status.marital_status as marital',
-                'pajak.jenis_pajak as pajak'
+                'pajak.jenis_pajak as pajak',
+                'bank_list.nama_bank as bank_list',
+                'bank_swift.swift as bank_swift',
+                'coa.name_coa as coa'
                 )
                 ->leftjoin('indonesia_villages','indonesia_villages.id','employee.int_emp_villages1')
                 ->leftjoin('indonesia_districts','indonesia_districts.id','employee.int_emp_districts1')
@@ -257,6 +283,9 @@ class ControllerKaryawan extends Controller
                 ->leftjoin('indonesia_provinces','indonesia_provinces.id','employee.int_emp_provinces1')
                 ->leftJoin('marital_status', 'marital_status.id', 'employee.int_emp_marital')
                 ->leftJoin('pajak', 'pajak.id', 'employee.int_emp_tax_cat')
+                ->leftJoin('bank_list', 'bank_list.id', 'employee.int_name_bank')
+                ->leftJoin('bank_swift', 'bank_swift.id', 'employee.int_emp_bankswift')
+                ->leftJoin('coa', 'coa.id', 'employee.int_emp_coa')
                 ->where('employee.int_emp_id','=',$id)
                 ->get();
 
@@ -296,6 +325,12 @@ class ControllerKaryawan extends Controller
                 ->leftJoin('marital_status', 'marital_status.id', 'employee.int_emp_marital')
                 ->where('employee.int_emp_id','=',$id)
                 ->get();
+        $marital = Karyawan::select('employee.*',
+                'coa.name_coa as coa',
+                )
+                ->leftJoin('coa', 'coa.id', 'employee.int_emp_coa')
+                ->where('employee.int_emp_id','=',$id)
+                ->get();        
         $pajak = Karyawan::select('employee.*',
                 'pajak.jenis_pajak as pajak',
                 )
@@ -327,7 +362,7 @@ class ControllerKaryawan extends Controller
        return view('HalamanDepan.edit-data-karyawan',compact('karyawans', 'provinces_list', 'cities_list', 'pajak',
        'districts_list', 'villages_list', 'peg', 'provinces_list2', 'cities_list2', 'districts_list2', 
        'cities_list2', 'peg2', 'kode_generate' , 'kode_generates' ,'direct' , 'directorates' ,'div', 'divisions', 
-       'dept', 'departments', 'position', 'positions', 'countries', 'marital'));
+       'dept', 'departments', 'position', 'positions', 'countries', 'marital', 'bank', 'bankis', 'coa'));
    }
 
    public function proses_update(Request $request, $id)
@@ -756,25 +791,26 @@ class ControllerKaryawan extends Controller
                                 'int_emp_workday' => $value2[33],
                                 'int_emp_accountno' => $value2[34],
                                 'int_emp_accountname' => $value2[35],
-                                'int_emp_bankswift' => $value2[36],
-                                'int_emp_bankbranch' => $value2[37],
-                                'int_emp_taxid' =>  $value2[38],
-                                'int_emp_taxadd' =>  $value2[39],
-                                'int_emp_bpjstk' =>  $value2[40],
-                                'int_emp_bpjsk' =>  $value2[41],
-                                'int_emp_resigndate' => $value2[42],
-                                'int_emp_phone_home' => $value2[43],
-                                'int_emp_phone_mobile' => $value2[44],
+                                'int_name_bank' => $value2[36],
+                                'int_emp_bankswift' => $value2[37],
+                                'int_emp_bankbranch' => $value2[38],
+                                'int_emp_taxid' =>  $value2[39],
+                                'int_emp_taxadd' =>  $value2[40],
+                                'int_emp_bpjstk' =>  $value2[41],
+                                'int_emp_bpjsk' =>  $value2[42],
+                                'int_emp_resigndate' => $value2[43],
+                                'int_emp_phone_home' => $value2[44],
+                                'int_emp_phone_mobile' => $value2[45],
                                 'int_emp_emergency_contact_name' => $value2[45],
-                                'int_emp_relationship' => $value2[46],
-                                'int_emp_emergency_number' => $value2[47],
-                                'int_emp_worklength' =>  $value2[48],
-                                'int_emp_level' =>  $value2[49],
-                                'int_emp_vehicle' =>  $value2[50],
-                                'int_emp_transtype' =>  $value2[51],
-                                'int_emp_reportline' =>  $value2[52],
-                                'int_emp_regisnpwp' => $value2[53],
-                                'int_emp_statuss' => $value2[54]
+                                'int_emp_relationship' => $value2[47],
+                                'int_emp_emergency_number' => $value2[48],
+                                'int_emp_worklength' =>  $value2[49],
+                                'int_emp_level' =>  $value2[50],
+                                'int_emp_vehicle' =>  $value2[51],
+                                'int_emp_transtype' =>  $value2[52],
+                                'int_emp_reportline' =>  $value2[53],
+                                'int_emp_regisnpwp' => $value2[54],
+                                'int_emp_statuss' => $value2[55]
                                 
                         ]);
                     }
