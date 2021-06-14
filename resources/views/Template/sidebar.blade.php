@@ -28,7 +28,7 @@
               <li class="nav-item">
                 <a href="{{ route('beranda-hc') }}" class="nav-link">
                 <i class="nav-icon fas fa-home"></i>
-                  <strong><p style="color: white; font-size: 14px;"></p></strong>
+                  <strong><p style="color: white; font-size: 14px;">Jumlah Karyawan</p></strong>
                 </a>
               </li>
               <li class="nav-item">

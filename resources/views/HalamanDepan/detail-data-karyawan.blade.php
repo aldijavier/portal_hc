@@ -322,7 +322,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>Nama Bank</b>
-                            <input class="form-control"  value="{{ $peg->coa }}" disabled required >
+                            <input class="form-control"  value="{{ $peg->bank_list }}" disabled required >
                         </div>
                     </div>
             </div>
