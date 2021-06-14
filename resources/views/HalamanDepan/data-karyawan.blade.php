@@ -75,7 +75,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <center><h1 style="font-size: 30px;">Filter Data</h1></center>
               <br>
               
-              <form action="/filter-data-karyawan" method="GET" enctype="multipart/form-data">
+              <form action="{{ route('filter-data-karyawan') }}" method="GET" enctype="multipart/form-data">
               {{csrf_field()}}
               <div class="row">
               <div class="col-md-4">
