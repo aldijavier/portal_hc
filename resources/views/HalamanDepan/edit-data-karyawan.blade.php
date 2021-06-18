@@ -633,15 +633,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="form-row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <b>Tanggal Resign</b><span style="color: red">*</span>
-                            <input class="form-control" name="int_emp_resigndate" type="date" value="{{ $karyawans->int_emp_resigndate }}">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="col-md-6">
-                        <div class="form-group">
                             <b>No Telephone</b><span style="color: red">*</span>
                             <input class="form-control" name="int_emp_phone_home" onkeypress="return onlyNumber(event)" maxlength="14" type="text" value="{{ $karyawans->int_emp_phone_home }}" required>
                         </div>
@@ -753,6 +744,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <option value="1">Aktif</option>
                         <option value="2">Tidak Aktif</option>
                     </select>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <b>Tanggal Resign</b><span style="color: red;"> ( Isi setelah memilih status aktif / tidak aktif )</span>
+                            <input class="form-control" name="int_emp_resigndate" id="int_emp_resigndate" type="date" value="">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">

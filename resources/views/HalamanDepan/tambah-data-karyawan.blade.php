@@ -594,15 +594,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </div>
 
                 <div class="form-row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <b>Tanggal Resign</b><span style="color: red;"> ( Isi setelah memilih status aktif / tidak aktif )</span>
-                            <input class="form-control" name="int_emp_resigndate" id="int_emp_resigndate" type="date" value="">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <b>No Telephone</b><span style="color: red">*</span>
@@ -711,6 +702,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <option value="1" {{ old('int_emp_statuss') == "1" ? 'selected' : '' }}>Aktif</option>
                         <option value="2" {{ old('int_emp_statuss') == "2" ? 'selected' : '' }}>Tidak Aktif</option>
                     </select>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <b>Tanggal Resign</b><span style="color: red;"> ( Isi setelah memilih status aktif / tidak aktif )</span>
+                            <input class="form-control" name="int_emp_resigndate" id="int_emp_resigndate" type="date" value="">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">

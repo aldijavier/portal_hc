@@ -144,7 +144,7 @@ class Karyawan2Export implements FromQuery,WithHeadings
             ->leftjoin('indonesia_cities','indonesia_cities.id','employee.int_emp_regencies1')
             ->leftjoin('indonesia_provinces','indonesia_provinces.id','employee.int_emp_provinces1')
             ->leftjoin('indonesia_provinces as provinces2','provinces2.id','employee.int_emp_provinces2')
-            ->leftjoin('indonesia_cities as cities2','cities2.id','karyaemployeewan.int_emp_regencies2')
+            ->leftjoin('indonesia_cities as cities2','cities2.id','employee.int_emp_regencies2')
             ->leftjoin('indonesia_districts as districts2','districts2.id','employee.int_emp_districts2')
             ->leftjoin('indonesia_villages as villages2','villages2.id','employee.int_emp_villages2')
             ->leftJoin('marital_status', 'marital_status.id', 'employee.int_emp_marital')
