@@ -96,7 +96,7 @@ Route::get('/tambah-data-karyawan', 'ControllerKaryawan@tambahdatakaryawan')->na
 Route::get('/tambah-data-karyawan', 'ControllerKaryawan@index')->name('tambah-data-karyawan');
 
 // Route untuk menyimpan data Proses Tambah di Controller
-Route::post('/tambah/proses/datakaryawan', 'ControllerKaryawan@proses_tambah');
+Route::post('/tambah/proses/datakaryawan', 'ControllerKaryawan@proses_tambah')->name('proses-tambah-data-karyawan');
 
 // Route untuk menampilkan halaman edit data karyawan di Controller Karyawan
 Route::get('/editdatakaryawan/{id}', 'ControllerKaryawan@editdatakaryawan')->name('edit-data-karyawan');

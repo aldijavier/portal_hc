@@ -66,7 +66,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="card card-default">
                 
                 <!-- /.card-header -->
-        <form class="form-detail" action="/tambah/proses/datakaryawan" enctype="multipart/form-data" method="POST" id="myform">
+        <form class="form-detail" action="{{ route('proses-tambah-data-karyawan') }}" enctype="multipart/form-data" method="POST" id="myform">
         {{ csrf_field() }}
                 
 
